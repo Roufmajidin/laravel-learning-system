@@ -1,9 +1,9 @@
 @extends('home')
-@section('title', 'Pertemuan')
+@section('title', 'Absensi')
 @section('content')
 
     <div class="card-body">
-        <h6 class="float-left"> Matakuliah :</h6> <a href="">
+        <h6 class="float-left"> Matakuliah : </h6> <a href="">
             <h6></h6>
         </a>
         <h6 class="float-right"> Kelas : <a href=""></a></h6>
@@ -17,6 +17,7 @@
                     <tr>
                         <th>No</th>
                         <th>Mahasiswa</th>
+                        <th>Tanggal MK</th>
                         <th>Hadir Pada</th>
                         <th>Opsi</th>
 
@@ -36,6 +37,7 @@
 
                             <td>{{ $no++ }} </td>
                             <td>{{ $item->mahasiswa->nama_mahasiswa }}</td>
+                            <td>{{ $item->dosen_jadwal['tanggal'] }}</td>
                             @if (!empty($item))
                            <td> <a href="" class="btn btn-sm btn-info" <i class="bi bi-pencil-square"
                                     title="Detail Kelas">{{$item->tanggal_absen}} || {{$item->created_at}}</i></a></td>

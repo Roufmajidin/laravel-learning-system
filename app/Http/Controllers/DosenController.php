@@ -65,6 +65,7 @@ class DosenController extends Controller
         // $m = Mahasiswa::with('kelas')->where('kelas_id', $d)->get();
         // $d = $detailJ->kelas;
         // dd($ef);
+
         return view('dosen.pertemuanKelas', compact('absensi'));
     }
     public function absen($id)
@@ -76,10 +77,11 @@ class DosenController extends Controller
         // $mah = 1;
         // $dosen = Kelas::with('dosen')->find($mah);
         // $m = Matakuliah::with('kelas')->find($id);
-        $detailJ = Dosen_jadwal::with('absensi')->where('id', $id)->find($id);
+        $detail = Dosen_jadwal::with('absensi')->where('id', $id)->find($id);
 
-        dd($detailJ->absensi);
-        return view('dosen.pertemuanKelas', compact('absensi'));
+        // dd($absensi);
+
+        return view('dosen.pertemuanKelas', compact('absensi', 'detail'));
     }
     public function kelasAll()
     {
@@ -90,7 +92,16 @@ class DosenController extends Controller
         $kelas2020 = Kelas::with('mahasiswa')->find($ti2020);
         $kelas2021 = Kelas::with('mahasiswa')->find($ti2021);
         // dd($dosen);
-        return view('dosen.kelas-all', compact('kelas2020', 'kelas2021'));
+          $p = Mahasiswa::with('kelas')->get('id');
+          $a = Absensi::where('mahasiswa_id', $p);
+          if(empty($a)){
+            echo $p;
+          }
+         else{
+         echo "astaga";
+         }
+        // dd($p);
+        // return view('dosen.kelas-all', compact('kelas2020', 'kelas2021'));
     }
 
     // public function detailTemu($id)

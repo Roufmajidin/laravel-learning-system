@@ -8,14 +8,13 @@
             <table class="table table-bordered" id="dataTable" width="90%" cellspacing="0">
                 <thead class="">
 
-                    <a href="" class="btn btn-sm btn-primary mr-2"><i class="fa fa-plus"></i>Tambah Data</a>
-                    <a class="btn btn-success btn-sm" href=""><i class="fa fa-print"></i> Print Data</a>
                     <tr>
                         <th>No</th>
                         <th>Nama Matakuliah</th>
                         <th>Dosen Pengampu</th>
 
                         <th>Detail</th>
+                        <th>-</th>
 
                     </tr>
                 </thead>

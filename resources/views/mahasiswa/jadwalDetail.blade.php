@@ -8,9 +8,7 @@
             <table class="table table-bordered" id="dataTable" width="90%" cellspacing="0">
                 <thead class="">
 
-                    <a href="" class="btn btn-sm btn-primary mr-2"><i class="fa fa-plus"></i>Tambah Data</a>
-                    <a class="btn btn-success btn-sm" href=""><i class="fa fa-print"></i> Print Data</a>
-                    <tr>
+                     <tr>
                         <th>No</th>
                         <th>Pertemuan KE</th>
                         <th>Jam MK</th>
@@ -28,6 +26,7 @@
                     @endphp
 
                     @foreach ($pertemuan as $item)
+
                         <tr>
 
                             <td>{{ $no++ }} </td>

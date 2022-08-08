@@ -14,6 +14,15 @@
 </head>
 
 <body>
+    @php
+
+    $m = App\Models\Dosen_jadwal::all();
+    $a = App\Models\Absensi::where('mahasiswa_id', 2)->get();
+
+
+
+    @endphp
+
     <div id="app">
         <div class="main-wrapper main-wrapper-1">
             <div class="navbar-bg"></div>
@@ -93,7 +102,8 @@
                     </div>
                 </form>
                 <ul class="navbar-nav navbar-right">
-                    <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
+
+                    <li class="dropdown dropdown-list-toggle beep"><a href="#" data-toggle="dropdown"
                             class="nav-link nav-link-lg"><i class="far fa-envelope"></i></a>
                         {{-- message-toggle beep --}}
                         <div class="dropdown-menu dropdown-list dropdown-menu-right">
@@ -369,9 +379,7 @@
                                 </ul>
                             </li>
                             {{-- <li class="menu-header">KRS</li> --}}
-
-
-@endif
+                        @endif
 
                         <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
                             <a href="https://getstisla.com/docs"
