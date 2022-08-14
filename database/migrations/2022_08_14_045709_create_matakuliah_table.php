@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('nama_mk');
             $table->integer('kelas_id');
             $table->integer('dosen_id');
-            $table->integer('kelas_id');
+            // $table->integer('kelas_id');
             $table->timestamps();
         });
     }
