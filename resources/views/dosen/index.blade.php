@@ -43,19 +43,6 @@
                         </tr>
                     @endforeach
 
-                    @foreach ($detailJ as $item)
-                        <tr>
-
-                            <td>{{ $no++ }} </td>
-                            <td>{{ $item->tanggal }}</td>
-
-
-                        </tr>
-
-
-
-                        </tr>
-                    @endforeach
 
 
 

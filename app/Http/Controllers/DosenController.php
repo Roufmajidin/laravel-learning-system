@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Absensi;
+use App\Models\Coba;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Dosen;
@@ -12,6 +13,8 @@ use App\Models\Kelas;
 use App\Models\Pertemuan;
 use App\Models\Mahasiswa;
 use App\Models\Dosen_jadwal;
+
+use function GuzzleHttp\json_decode;
 
 class DosenController extends Controller
 {
@@ -92,14 +95,13 @@ class DosenController extends Controller
         $kelas2020 = Kelas::with('mahasiswa')->find($ti2020);
         $kelas2021 = Kelas::with('mahasiswa')->find($ti2021);
         // dd($dosen);
-          $p = Mahasiswa::with('kelas')->get('id');
-          $a = Absensi::where('mahasiswa_id', $p);
-          if(empty($a)){
+        $p = Mahasiswa::with('kelas')->get('id');
+        $a = Absensi::where('mahasiswa_id', $p);
+        if (empty($a)) {
             echo $p;
-          }
-         else{
-         echo "astaga";
-         }
+        } else {
+            echo "astaga";
+        }
         // dd($p);
         // return view('dosen.kelas-all', compact('kelas2020', 'kelas2021'));
     }
@@ -126,7 +128,9 @@ class DosenController extends Controller
         // $kelas = Kelas::with('pertemuan')->find($id);
         $dosen = Dosen::with('dosen_jadwal')->where('user_id', Auth::user()->id)->find($id);
         $mk = Dosen_jadwal::with('matakuliah')->where('dosen_id', $id)->get();
-        $kel = kelas::all();
+        $kel = kelas::get();
+        $kell = Kelas::with('mahasiswa')->get();
+        // dd($kell);
         // dd($mk);
         return view('dosen.createPertemuan', compact('dosen', 'mk', 'kel'));
     }
@@ -141,34 +145,104 @@ class DosenController extends Controller
     { {
 
             // tmabh pertemuan
-            $request->validate(
-                [
+            // $request->validate(
+            //     [
 
-                    'dosen_id' => 'required',
-                    'tanggal' => 'required',
-                    'jam_mk' => 'required',
-
-
-                ],
-                [
-                    // 'pertemuan_ke.required' => 'kode MK tidak boleh kosong',
-                    'dosen_id.required' => 'Harap pilih file',
-                    'tanggal.required' => 'Harap pilih file',
-                    'matakuliah_id.required' => 'Harap pilih file',
-                    'jam_mk.required' => 'Harap pilih file',
-                ]
-            );
-            $p = dosen::findOrfail($id);
-            $p->dosen_jadwal()->create([
-                'tanggal' => $request->tanggal,
-                'pertemuan_ke' => $request->pertemuan_ke,
-                'dosen_id' => $request->dosen_id,
-                'dosen_mk' => $request->dosen_mk,
-                'jam_mk' => $request->jam_mk,
-                'kelas_id' => $request->kelas_id,
+            //         'dosen_id' => 'required',
+            //         'tanggal' => 'required',
+            //         'jam_mk' => 'required',
 
 
-            ]);
+            //     ],
+            //     [
+            //         // 'pertemuan_ke.required' => 'kode MK tidak boleh kosong',
+            //         'dosen_id.required' => 'Harap pilih file',
+            //         'tanggal.required' => 'Harap pilih file',
+            //         'matakuliah_id.required' => 'Harap pilih file',
+            //         'jam_mk.required' => 'Harap pilih file',
+            //     ]
+            // );
+
+            $data = $request->all();
+
+            $doje = new Dosen_jadwal;
+            $doje->tanggal = $data['tanggal'];
+            $doje->pertemuan_ke = $data['pertemuan_ke'];
+            $doje->dosen_id = $data['dosen_id'];
+            $doje->dosen_mk = $data['dosen_mk'];
+            $doje->jam_mk = $data['jam_mk'];
+            $doje->kelas_id = $data['kelas_id'];
+
+            $doje->save();
+
+            // $dosen::findOrfail($id);
+
+            // $dj = Dosen_jadwal::findOrfail($id);
+
+            $kelass = $request->kelas_id;
+            // $mahasiswa = new Mahasiswa;
+            $mahasiswa = Mahasiswa::where('kelas_id', $kelass)->get('id');
+            //  $a = preg_replace('/[^A-Za-z0-9\  ]/', '', $kalimat);
+            // $m = $mahasiswa->id->get();
+            //  $a = [ preg_replace("/[^0-9]/", "", $mahasiswa)];
+            // $kelas =  Kelas::with('mahasiswa')->get();
+            // $mahasiswa= Mahasiswa::where('kelas_id', $kelas)->get();
+            $absensi = new Absensi;
+            $absensi->jadwal_id = $doje->id;
+            $absensi->tanggal_absen = '1';
+            $absensi->dosen_jadwal_id = $doje->id;
+            // $absensi->mahasiswa_id = '3'. '2';
+            // $mahasiswa = [1,2];
+            // $mahasiswa = preg_replace("/[^0-9]/", "", $mahasiswa1);
+            $will_insert = [];
+            // $sd = "s{}dsd12";
+            foreach ($mahasiswa as $key => $value) {
+                array_push($will_insert, ['mahasiswa_id' => $value]);
+            }
+
+
+
+
+            Coba::insert($will_insert);
+
+            // $absensi->save();
+            // $a->save();
+            //    $mahasiswa['alamat'];
+            // dd($a);
+
+
+
+
+
+
+            // $p = dosen::findOrfail($id);
+            // $p->dosen_jadwal()->create(
+            //     [
+            //         'tanggal' => $request->tanggal,
+            //         'pertemuan_ke' => $request->pertemuan_ke,
+            //         'dosen_id' => $request->dosen_id,
+            //         'dosen_mk' => $request->dosen_mk,
+            //         'jam_mk' => $request->jam_mk,
+            //         'kelas_id' => $request->kelas_id,
+
+
+            //     ]
+            // );
+            // $kelasId = $request->kelas_id;
+            // $kelas = Kelas::findOrfail($kelasId);
+            // $kelas->mahasiswa()->create([]);
+
+            // $kell = Kelas::with('mahasiswa')->get();
+            // $dj = Dosen_jadwal::findOrfail($id);
+            // $dj->Absensi()->create([
+            //     'jadwal_id' => $request->tanggal,
+            //     'mahasiswa_id' => '',
+            //     'tanggal_absen' => '',
+            //     'dosen_jadwal_id' => '',
+
+
+            // ]);
+
 
             // dd($request->all());
             return (redirect('pertemuan/' . $id));
@@ -181,8 +255,14 @@ class DosenController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function coba()
     {
+        $m = Coba::get('mahasiswa_id');
+        $a = preg_replace("/[^0-9]/", "", $m);
+
+        dd(preg_replace("/[^0-9]/", "", $m));
+
+
         //
     }
 

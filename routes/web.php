@@ -33,6 +33,7 @@ Route::group(['middleware' => 'dosen'], function () {
     Route::post('/tambahpertemuanproses/{id}', [DosenController::class, 'storepertemuan']);
     //mahasiswa ROute
     Route::get('/absen/{id}', [DosenController::class, 'absen']);
+    Route::get('/coba', [DosenController::class, 'coba']);
 
 });
 

@@ -18,7 +18,7 @@
                         <th>Jam Kelas</th>
                         <th>Nama Kelas</th>
 
-                        <th>Detail</th>
+                        <th>Jam Mk</th>
                         <th>Lebih</th>
 
                     </tr>
@@ -42,6 +42,8 @@
 
                                 <a href="/pertemuan/{{$item->id}}" class="btn btn-sm btn-info" <i
                                     class="bi bi-pencil-square" title="Detail Kelas"></i>Detail Kelas</a>
+                                    <a href="/pertemuan/{{$item->id}}" class="btn btn-sm btn-info" <i
+                                    class="bi bi-pencil-square" title="Detail Kelas"></i>Materi</a>
                             </td>
                         </tr>
 

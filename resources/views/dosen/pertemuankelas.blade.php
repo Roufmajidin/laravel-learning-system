@@ -40,7 +40,7 @@
                             <td>{{ $item->dosen_jadwal['tanggal'] }}</td>
                             @if (!empty($item))
                            <td> <a href="" class="btn btn-sm btn-info" <i class="bi bi-pencil-square"
-                                    title="Detail Kelas">{{$item->tanggal_absen}} || {{$item->created_at}}</i></a></td>
+                                    title="Detail Kelas">{{$item->created_at}}</i></a></td>
                             @else
 
                                 <td>Belum absen</td>
