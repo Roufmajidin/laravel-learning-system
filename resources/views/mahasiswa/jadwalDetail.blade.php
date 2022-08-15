@@ -32,14 +32,14 @@
 
                             <td>{{ $no++ }} </td>
                             <td>{{ $item->pertemuan_ke }}
-                            <td>{{ $item->jam_mk }} \\ {{ $item->dosen['nama_dosen'] }}</td>
+                            <td>{{ $item->jam_mk }} WIB</td>
                             <td>{{ $item->tanggal }}</td>
                             {{-- <td><a href="#">{{ $item->file_pertemuan }}</a></td> --}}
 
 
                              <td>
-                                <a href="/absen/{{ $item->id }}" class="btn btn-sm btn-info" <i
-                                    class="bi bi-pencil-square" title="Detail Kelas">{{ $item->file_pertemuan }}</i></a>
+                                <a href="/modul/{{ $item->file_pertemuan }}" class="btn btn-sm btn-info" <i
+                                    class="bi bi-pencil-square" title="Materi"></i>Materi</a>
                             </td>
 
 

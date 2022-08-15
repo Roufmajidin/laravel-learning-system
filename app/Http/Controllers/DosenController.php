@@ -164,56 +164,8 @@ class DosenController extends Controller
                 ]
             );
 
-            // $data = $request->all();
-
-            // $doje = new Dosen_jadwal;
-            // $doje->tanggal = $data['tanggal'];
-            // $doje->pertemuan_ke = $data['pertemuan_ke'];
-            // $doje->dosen_id = $data['dosen_id'];
-            // $doje->dosen_mk = $data['dosen_mk'];
-            // $doje->jam_mk = $data['jam_mk'];
-            // $doje->kelas_id = $data['kelas_id'];
-
-            // $doje->save();
-
-            // // $dosen::findOrfail($id);
-
-            // // $dj = Dosen_jadwal::findOrfail($id);
-
-            // $kelass = $request->kelas_id;
-            // $mahasiswa = new Mahasiswa;
-            // $mahasiswa = Mahasiswa::where('kelas_id', $kelass)->get('id');
-            //  $a = preg_replace('/[^A-Za-z0-9\  ]/', '', $kalimat);
-            // $m = $mahasiswa->id->get();
-            //  $a = [ preg_replace("/[^0-9]/", "", $mahasiswa)];
-            // $kelas =  Kelas::with('mahasiswa')->get();
-            // $mahasiswa= Mahasiswa::where('kelas_id', $kelas)->get();
-            // $absensi = new Absensi;
-            // $absensi->jadwal_id = $doje->id;
-            // $absensi->tanggal_absen = '1';
-            // $absensi->dosen_jadwal_id = $doje->id;
-            // // $absensi->mahasiswa_id = '3'. '2';
-            // $mahasiswa = [1,2];
-            // $mahasiswa = preg_replace("/[^0-9]/", "", $mahasiswa1);
-            // $will_insert = [];
-            // // $sd = "s{}dsd12";
-            // foreach ($mahasiswa as $key => $value) {
-            //     array_push($will_insert, ['mahasiswa_id' => $value]);
-            // }
-
-
-
-
-            // Coba::insert($will_insert);
-
-            // $absensi->save();
-            // $a->save();
-            //    $mahasiswa['alamat'];
-            // dd($a);
-
-
-
-
+            $file_nm = $request->file->getClientOriginalName();
+            $image = $request->file->storeAs('foto_produk', $file_nm);
 
 
             $p = dosen::findOrfail($id);
@@ -225,80 +177,16 @@ class DosenController extends Controller
                     'dosen_mk' => $request->dosen_mk,
                     'jam_mk' => $request->jam_mk,
                     'kelas_id' => $request->kelas_id,
+                    'file_pertemuan' => $file_nm,
 
 
                 ]
             );
-            // $kelasId = $request->kelas_id;
-            // $kelas = Kelas::findOrfail($kelasId);
-            // $kelas->mahasiswa()->create([]);
 
-            // $kell = Kelas::with('mahasiswa')->get();
-            // $dj = Dosen_jadwal::findOrfail($id);
-            // $dj->Absensi()->create([
-            //     'jadwal_id' => $request->tanggal,
-            //     'mahasiswa_id' => '',
-            //     'tanggal_absen' => '',
-            //     'dosen_jadwal_id' => '',
-
-
-            // ]);
 
 
             // dd($request->all());
             return (redirect('pertemuan/' . $id));
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    // public function coba()
-    // {
-    //     $m = Coba::get('mahasiswa_id');
-    //     $a = preg_replace("/[^0-9]/", "", $m);
-
-    //     dd(preg_replace("/[^0-9]/", "", $m));
-
-
-
-    //     //
-    // }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

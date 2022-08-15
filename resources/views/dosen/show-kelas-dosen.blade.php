@@ -13,13 +13,13 @@
                     @endforeach
                     <a class="btn btn-success btn-sm" href=""><i class="fa fa-print"></i> Print Data</a>
                     <tr>
-                        <th>No</th>
+                        {{-- <th>No</th> --}}
                         <th>Pertemuan</th>
                         <th>Jam Kelas</th>
                         <th>Nama Kelas</th>
 
                         <th>Jam Mk</th>
-                        <th>Lebih</th>
+                        <th>Info</th>
 
                     </tr>
                 </thead>
@@ -32,7 +32,7 @@
                     @foreach ($detailJ as $item)
                         <tr>
 
-                            <td>{{ $no++ }} </td>
+                            {{-- <td>{{ $no++ }} </td> --}}
                             <td>{{ $item->pertemuan_ke }}
                             <td>{{ $item->tanggal }}
                             <td>{{ $item->kelas['nama_kelas'] }}
@@ -41,7 +41,7 @@
                             <td>
 
                                 <a href="/pertemuan/{{$item->id}}" class="btn btn-sm btn-info" <i
-                                    class="bi bi-pencil-square" title="Detail Kelas"></i>Detail Kelas</a>
+                                    class="bi bi-pencil-square" title="Detail Kelas"></i>Absen Kelas</a>
                                     <a href="/pertemuan/{{$item->id}}" class="btn btn-sm btn-info" <i
                                     class="bi bi-pencil-square" title="Detail Kelas"></i>Materi</a>
                             </td>
