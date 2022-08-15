@@ -16,6 +16,7 @@ class Dosen_jadwal extends Model
         'pertemuan_ke',
         'jam_mk',
         'kelas_id',
+        'file_pertemuan',
 
 
     ];

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('jam_mk');
             $table->integer('kelas_id');
             $table->timestamps();
-        });
+});
     }
 
     /**

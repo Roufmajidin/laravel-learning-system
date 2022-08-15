@@ -42,7 +42,19 @@
                     <input type="text"  class="form-control" name="dosen_jadwal_id" value="{{ $absensi->id }}"
                         placeholder="">
                 </div>
+                   <?php
+          $absensi = \App\Models\Absensi::where('mahasiswa_id', Auth::user()->id)->where('jadwal_id', $absensi->id)->first();
 
+          if(!empty($absensi)){
+            $notif = \App\Models\Dosen_jadwal::where('id', $absensi->id)->get();
+
+          }
+          ?>
+           @if(!empty($absensi))
+           halo, {{}}
+         @elseif(!empty($notif))
+         belum
+         @endif
         </div>
 
         <div class="card-footer text-right">

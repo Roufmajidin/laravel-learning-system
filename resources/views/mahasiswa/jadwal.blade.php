@@ -14,6 +14,7 @@
                         <th>Dosen Pengampu</th>
 
                         <th>Detail</th>
+                        <th>Tugas</th>
                         <th>-</th>
 
                     </tr>

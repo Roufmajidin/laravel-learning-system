@@ -65,6 +65,13 @@
 
                 </div>
 
+                 <div class="form-group ml-4 ml-4 col-sm-5 pt-0">
+                    <label style="color:#17a2b8">file Modul</label>
+                    <input type="file" class="form-control" name="file"
+                        value="" placeholder="Input Pdf/PPT">
+
+                </div>
+
 
 
                 <div class="form-group ml-4 ml-4 col-sm-5 pt-0">
@@ -75,6 +82,8 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
+                {{-- Xx --}}
+
                  <div class="form-group ml-4 ml-4 col-sm-5 pt-0">
                     <label style="color:#17a2b8">Jam MK</label>
                     <input type="text" class="form-control @error('jam_mk') is-invalid @enderror" name="jam_mk"
@@ -83,6 +92,7 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
+
                   <fieldset class="form-group ml-4 col-lg-9 pt-0">
                         <div class="row">
                             <div class="col-form-label col-sm-2 pt-0">Perteuman noted</div>
