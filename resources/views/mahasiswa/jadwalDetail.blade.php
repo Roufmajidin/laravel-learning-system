@@ -10,7 +10,7 @@
 
                      <tr>
                         <th>No</th>
-                        <th>Pertemuan KE</th>
+                        <th>Pertemuan Ke</th>
                         <th>Jam MK</th>
 
                         <th>Tanggal</th>
@@ -37,15 +37,24 @@
 
 
                                 {{-- @if ( $item->absensi['''] == $item->id) --}}
+                            {{-- validasi --}}
+                            @php
+                            $a = App\Models\Absensi::with('dosen_jadwal')->where('jadwal_id', $item->id);
+                            $m = App\Models\Absensi::with('mahasiswa')->where('mahasiswa_id', Auth::user()->id)->get();
+                            @endphp
+
+                            @if (!empty($m->id))
                             <td>
                                 <a href="/absen/{{ $item->id }}" class="btn btn-sm btn-info" <i
-                                    class="bi bi-pencil-square" title="Detail Kelas"></i> Kosong</a>
+                                    class="bi bi-pencil-square" title="Detail Kelas"></i> sudah</a>
                             </td>
-                            {{-- @else --}}
-                             {{-- <td>
-                                <a href="detailkelasmahasiswa/{{ $item->id }}" class="btn btn-sm btn-info" <i
-                                    class="bi bi-pencil-square" title="Detail Kelas"></i> belum</a>
-                            </td> --}}
+                            @else
+                            <td>
+                                <a href="/absen/{{ $item->id }}" class="btn btn-sm btn-info" <i
+                                    class="bi bi-pencil-square" title="Detail Kelas"></i> bl</a>
+                            </td>
+
+@endif
 
                     @endforeach
 

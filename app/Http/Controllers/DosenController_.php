@@ -64,18 +64,20 @@ class DosenController extends Controller
         // $kelas = Pertemuan::with('matakuliah')->where('kelas_id', $id)->find($id);
         // $kel = Matakuliah::find($m);
         $kelas = Pertemuan::where('matakuliah_id', $id)->get();
+
         $allM = Mahasiswa::with('kelas')->where('kelas_id', $id)->get();
         dd($allM);
+
         // $matakuliah = Matakuliah::with('pertemuan')->find($id);
         // $m = Kelas::with('dosen')->find($id);
 
         // dd($kelas);
-        return view('dosen.pertemuankelas', compact('kelas', 'matakuliah', 'm'));
+        return view('dosen.absensiPertemuankelas', compact('kelas', 'matakuliah', 'm'));
     }
 
 
 
-     public function detailTemu($id)
+    public function detailTemu($id)
     {
         $m = Kelas::with('mahasiswa')->find($id);
         $matakuliah = Matakuliah::with('pertemuan')->find($id);
@@ -134,8 +136,7 @@ class DosenController extends Controller
 
             ]);
             // dd($request->all());
-            return(redirect('detailpertemuan/'.$id));
-
+            return (redirect('detailpertemuan/' . $id));
         }
     }
 

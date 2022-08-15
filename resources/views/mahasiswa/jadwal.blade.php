@@ -33,7 +33,7 @@
                             <td>{{ $item->dosen['id'] }}
 
                             <td>
-                                <a href="detailkelasmahasiswa/{{$item->id}}" class="btn btn-sm btn-info" <i
+                                <a href="detailkelasmahasiswa/{{$item->kelas['id']}}" class="btn btn-sm btn-info" <i
                                     class="bi bi-pencil-square" title="Detail Kelas"></i>Join Kelas</a>
                             </td>
                         </tr>

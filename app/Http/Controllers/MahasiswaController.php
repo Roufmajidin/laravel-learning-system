@@ -82,35 +82,12 @@ class MahasiswaController extends Controller
     public function detailKelas($id)
 
     {
-        // $d = Dosen::find(1);
-        // $m = Mahasiswa::with('kelas')->where('user_id', Auth::user()->id)->first();
-
-        // $kel = $m->kelas['id'];
 
         // $idd = 16;
         // $d = Dosen_jadwal::where('dosen_id', $id)->get();
         //  $kelas = Dosen_jadwal::with('kelas')->where('kelas_id', $kel)->get();
-        $pertemuan =  Dosen_jadwal::with('absensi', 'matakuliah')->where('dosen_mk', $id)->get();
-        $a =  Mahasiswa::all();
-
-        // $aa =  $a->nama_mahasiswa;
-        // foreach ($a as $u) {
-        //     $a = Absensi::create([
-        //         'mahasiswa_id' => $u->id,
-
-
-
-        //     ]);
-        //     // echo $u->nama_mahasiswa;
-        // }
-
-        // $aa = $a['nama_mahasiswa'];
-
-
-        // $aa = $a->get();
-        // $absensi = Absensi::with('mahasiswa', 'dosen_jadwal')->where('mahasiswa_id', NULL)->find($idd);
-        // $absen = Absensi::all();
-        // dd($a);
+        // $pertemuan =  Dosen_jadwal::with('absensi', 'matakuliah')->where('dosen_mk', $id)->get();
+        $pertemuan = Dosen_jadwal::with('kelas')->where('kelas_id', $id)->get();
 
         return view('mahasiswa.jadwalDetail', compact('pertemuan'));
     }
