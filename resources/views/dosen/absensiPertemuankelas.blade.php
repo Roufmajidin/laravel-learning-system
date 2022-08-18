@@ -33,6 +33,8 @@
                     @endphp
 
                     @foreach ($absensi as $item)
+
+
                         <tr>
 
                             <td>{{ $no++ }} </td>
@@ -49,6 +51,7 @@
                                     title="Detail Kelas"></i>Ingatkan</a>
                             </td>
                             @endif
+
 
 
                         </tr>

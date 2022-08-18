@@ -12,7 +12,7 @@
                     <a class="btn btn-success btn-sm" href=""><i class="fa fa-print"></i> Print Data</a>
                     <tr>
                         <th>No</th>
-                        <th>Nama Kelas</th>
+                        <th>Nama Dosen</th>
                         <th>Bidang Kompetensi</th>
 
                         <th>Detail</th>

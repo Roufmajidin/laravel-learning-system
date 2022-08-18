@@ -13,6 +13,7 @@ use App\Models\Kelas;
 use App\Models\Pertemuan;
 use App\Models\Mahasiswa;
 use App\Models\Dosen_jadwal;
+use App\Models\Materi;
 
 use function GuzzleHttp\json_decode;
 
@@ -74,18 +75,18 @@ class DosenController extends Controller
     }
     public function absen($id)
     {
-        // $kelas = Kelas::with('mahasiswa')->find($id);
+        $kelas = Kelas::with('mahasiswa')->find($id);
         // $id = Dosen::find(2);
         $absensi = Absensi::with('mahasiswa', 'dosen_jadwal')->where('tanggal_absen', NULL)->find($id);
         // $m = Mahasiswa::where('user_id', $);
         // $mah = 1;
         // $dosen = Kelas::with('dosen')->find($mah);
         // $m = Matakuliah::with('kelas')->find($id);
+
         $detail = Dosen_jadwal::with('absensi')->where('id', $id)->find($id);
 
-        // dd($absensi);
 
-        return view('dosen.absensiPertemuanKelas', compact('absensi', 'detail'));
+        return view('dosen.absensiPertemuanKelas', compact('absensi', 'detail', 'kelas'));
     }
     public function kelasAll()
     {
@@ -188,5 +189,13 @@ class DosenController extends Controller
             // dd($request->all());
             return (redirect('pertemuan/' . $id));
         }
+    }
+
+    public function detailMateri($id)
+    {
+    $materi = Materi::with('dosen_jadwal')->where('dosen_jadwal_id', $id)->get();
+    // dd($materi);
+        return view('dosen.detailMateri', compact('materi'));
+
     }
 }

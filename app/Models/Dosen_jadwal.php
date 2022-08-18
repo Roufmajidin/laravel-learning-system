@@ -17,6 +17,7 @@ class Dosen_jadwal extends Model
         'jam_mk',
         'kelas_id',
         'file_pertemuan',
+        'detail_materi',
 
 
     ];
@@ -39,6 +40,11 @@ class Dosen_jadwal extends Model
     {
 
         return $this->hasMany(Absensi::class, 'jadwal_id', 'id');
+    }
+    public function materi()
+    {
+
+        return $this->hasMany(Materi::class);
     }
 
 

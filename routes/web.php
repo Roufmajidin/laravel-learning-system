@@ -34,6 +34,7 @@ Route::group(['middleware' => 'dosen'], function () {
     //mahasiswa ROute
     Route::get('/absen/{id}', [DosenController::class, 'absen']);
     Route::get('/coba', [DosenController::class, 'coba']);
+    Route::get('/materi_detail/{id}', [DosenController::class, 'detailMateri']);
 
 });
 

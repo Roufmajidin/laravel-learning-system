@@ -14,8 +14,9 @@
                     <a class="btn btn-success btn-sm" href=""><i class="fa fa-print"></i> Print Data</a>
                     <tr>
                         {{-- <th>No</th> --}}
-                        <th>Pertemuan</th>
+
                         <th>Jam Kelas</th>
+                         <th>Pertemuan</th>
                         <th>Nama Kelas</th>
 
                         <th>Jam Mk</th>
@@ -33,8 +34,9 @@
                         <tr>
 
                             {{-- <td>{{ $no++ }} </td> --}}
-                            <td>{{ $item->pertemuan_ke }}
+
                             <td>{{ $item->tanggal }}
+                              <td>Pertemuan <strong>{{ $item->pertemuan_ke }}</strong></td>
                             <td>{{ $item->kelas['nama_kelas'] }}
                             <td>{{ $item->jam_mk }}
 
@@ -42,7 +44,7 @@
 
                                 <a href="/pertemuan/{{$item->id}}" class="btn btn-sm btn-info" <i
                                     class="bi bi-pencil-square" title="Detail Kelas"></i>Absen Kelas</a>
-                                    <a href="/pertemuan/{{$item->id}}" class="btn btn-sm btn-info" <i
+                                    <a href="/materi_detail/{{$item->id}}" class="btn btn-sm btn-info" <i
                                     class="bi bi-pencil-square" title="Detail Kelas"></i>Materi</a>
                             </td>
                         </tr>
