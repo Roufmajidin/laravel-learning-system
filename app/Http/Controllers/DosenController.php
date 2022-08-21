@@ -193,8 +193,10 @@ class DosenController extends Controller
 
     public function detailMateri($id)
     {
-    $materi = Materi::with('dosen_jadwal')->where('dosen_jadwal_id', $id)->get();
-    // dd($materi);
+        $materi = Materi::with('dosen_jadwal')->where('dosen_jadwal_id', $id)->get();
+        // dd($materi);
+        // $ma = Materi::where('u')
+        // $m = Materi::with()
         return view('dosen.detailMateri', compact('materi'));
 
     }

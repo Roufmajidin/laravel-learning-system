@@ -38,6 +38,21 @@ class MahasiswaController extends Controller
         // dd($k    );
         return view('mahasiswa.jadwal', compact('k'));
     }
+    public function detailKelas($id)
+
+    {
+
+        // $idd = 16;
+        // $d = Dosen_jadwal::where('dosen_id', $id)->get();
+        //  $kelas = Dosen_jadwal::with('kelas')->where('kelas_id', $kel)->get();
+        // $m = Mahasiswa::with('kelas')->where('user_id', Auth::user()->id)->get('kelas_id');
+
+        $kel = Mahasiswa::with('kelas')->where('user_id', Auth::user()->id)->get('kelas_id');
+        // $pertemuan =  Dosen_jadwal::with('absensi', 'matakuliah')->where('dosen_mk', $id)->get();
+        $pertemuan = Dosen_jadwal::with('kelas')->where('dosen_id', $id)->get();
+        // dd($kel);
+        return view('mahasiswa.jadwalDetail', compact('pertemuan'));
+    }
     public function absenMhs($id)
 
     {
@@ -79,16 +94,5 @@ class MahasiswaController extends Controller
         // $detailJ = Dosen_jadwal::with('absensi')->where('id', $id)->find($id);
         // return view('mahasiswa.absensi', compact('absensi', 'm', 'date'));
     }
-    public function detailKelas($id)
 
-    {
-
-        // $idd = 16;
-        // $d = Dosen_jadwal::where('dosen_id', $id)->get();
-        //  $kelas = Dosen_jadwal::with('kelas')->where('kelas_id', $kel)->get();
-        // $pertemuan =  Dosen_jadwal::with('absensi', 'matakuliah')->where('dosen_mk', $id)->get();
-        $pertemuan = Dosen_jadwal::with('kelas')->where('kelas_id', $id)->get();
-
-        return view('mahasiswa.jadwalDetail', compact('pertemuan'));
-    }
 }

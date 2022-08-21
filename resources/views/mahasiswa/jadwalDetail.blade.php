@@ -34,6 +34,7 @@
                             <td>{{ $item->pertemuan_ke }}
                             <td>{{ $item->jam_mk }} WIB</td>
                             <td>{{ $item->tanggal }}</td>
+                            <td>{{ $item->id }}</td>
                             {{-- <td><a href="#">{{ $item->file_pertemuan }}</a></td> --}}
 
 
@@ -41,28 +42,29 @@
                                 <a href="/modul/{{ $item->file_pertemuan }}" class="btn btn-sm btn-info" <i
                                     class="bi bi-pencil-square" title="Materi"></i>Materi</a>
                             </td>
+                              @php
+                            $a = App\Models\Absensi::get('jadwal_id');
+                            // $m = App\Models\Absensi::with('mahasiswa')->where('mahasiswa_id', Auth::user()->id)->get('mahasiswa_id');
+                            $m = App\Models\Absensi::get('mahasiswa_id');
+                            @endphp
+                            @if($item->id = $a)
+                            <td>
+                               sudah
+                            </td>
+        {{-- $absensi = Absensi::with('mahasiswa')->where('dosen_jadwal_id', $id)->where('mahasiswa_id', 5)->get(); --}}
 
+                            @else
+                            <p>belum</p>
+                            @endif
 
 
                                 {{-- @if ( $item->absensi['''] == $item->id) --}}
                             {{-- validasi --}}
-                            @php
-                            $a = App\Models\Absensi::with('dosen_jadwal')->where('jadwal_id', $item->id);
-                            $m = App\Models\Absensi::with('mahasiswa')->where('mahasiswa_id', Auth::user()->id)->get();
-                            @endphp
 
-                            @if (!empty($m->id))
-                            <td>
-                                <a href="/absen/{{ $item->id }}" class="btn btn-sm btn-info" <i
-                                    class="bi bi-pencil-square" title="Detail Kelas"></i> sudah</a>
-                            </td>
-                            @else
-                            <td>
-                                <a href="/absen/{{ $item->id }}" class="btn btn-sm btn-info" <i
-                                    class="bi bi-pencil-square" title="Detail Kelas"></i> bl</a>
-                            </td>
 
-@endif
+
+
+
 
                     @endforeach
 
