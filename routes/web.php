@@ -45,7 +45,10 @@ Route::group(['middleware' => 'mahasiswa'], function () {
     Route::get('/detailkelasmahasiswa/{id}', [MahasiswaController::class, 'detailKelas']);
     Route::get('/absen/{id}', [MahasiswaController::class, 'absenMhs']);
     Route::post('/absenproses/{id}', [MahasiswaController::class, 'absenproses']);
+    Route::post('/absenproses/{id}', [MahasiswaController::class, 'absenproses']);
 
+    Route::get('/absensi/{id}', [MahasiswaController::class, 'absensiMahasiswaByJadwalDosen']);
+    Route::get('/modul/{id}', [MahasiswaController::class, 'modul']);
 
 
 

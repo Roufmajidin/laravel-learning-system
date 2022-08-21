@@ -8,9 +8,11 @@ use App\Models\Kelas;
 use App\Models\Dosen;
 use App\Models\Absensi;
 use App\Models\Dosen_jadwal;
+use App\Models\Materi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class MahasiswaController extends Controller
 {
@@ -35,6 +37,7 @@ class MahasiswaController extends Controller
 
         $k = Matakuliah::with('kelas', 'dosen')->where('kelas_id', $mk)->get();
 
+        // $absensi = Absensi::with('mahasiswa', 'dosen_jadwal')->where('tanggal_absen', NULL)
         // dd($k    );
         return view('mahasiswa.jadwal', compact('k'));
     }
@@ -42,10 +45,6 @@ class MahasiswaController extends Controller
 
     {
 
-        // $idd = 16;
-        // $d = Dosen_jadwal::where('dosen_id', $id)->get();
-        //  $kelas = Dosen_jadwal::with('kelas')->where('kelas_id', $kel)->get();
-        // $m = Mahasiswa::with('kelas')->where('user_id', Auth::user()->id)->get('kelas_id');
 
         $kel = Mahasiswa::with('kelas')->where('user_id', Auth::user()->id)->get('kelas_id');
         // $pertemuan =  Dosen_jadwal::with('absensi', 'matakuliah')->where('dosen_mk', $id)->get();
@@ -53,6 +52,44 @@ class MahasiswaController extends Controller
         // dd($kel);
         return view('mahasiswa.jadwalDetail', compact('pertemuan'));
     }
+
+
+    public function absensiMahasiswaByJadwalDosen($id)
+
+    {
+        $ka = Auth::user()->id;
+        //  $m = Mahasiswa::where('user_id', $ka)->get();
+        $m = Mahasiswa::with('user')->where('user_id',  Auth::user()->id)->first();
+
+        $absensi = Absensi::with('dosen_jadwal')->where('jadwal_id', $id)->where('mahasiswa_id', $m->id)->get();
+        // dd($m);
+
+        $absens = Dosen_jadwal::find($id);
+
+
+
+        //  if(DB::table('absensi')->where('jadwal_id', $id)->where('mahasiswa_id', $m->id)->doesntExist()){
+        //     echo "tidak ada";
+
+        // }
+        // dd($absens);
+        return view('mahasiswa.detailAbsensi', compact('absensi', 'absens'));
+    }
+    public function modul($id)
+    {
+
+
+        $modul = Dosen_jadwal::with('kelas')->where('dosen_id', $id)->get();
+        $materi = Materi::with('dosen_jadwal')->where('dosen_jadwal_id', $id)->get();
+
+        return view('mahasiswa.readModul', compact('modul', 'materi'));
+    }
+
+
+
+
+
+
     public function absenMhs($id)
 
     {
@@ -85,7 +122,7 @@ class MahasiswaController extends Controller
 
         ]);
         // dd($request->all());
-            return (redirect('jadwal'));
+        return (redirect('jadwal'));
 
 
         // dd($date);
@@ -94,5 +131,4 @@ class MahasiswaController extends Controller
         // $detailJ = Dosen_jadwal::with('absensi')->where('id', $id)->find($id);
         // return view('mahasiswa.absensi', compact('absensi', 'm', 'date'));
     }
-
 }

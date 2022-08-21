@@ -166,9 +166,9 @@ class DosenController extends Controller
             );
 
             $file_nm = $request->file->getClientOriginalName();
-            $image = $request->file->storeAs('foto_produk', $file_nm);
-
-
+            $image = $request->file->storeAs('thumbnail', $file_nm);
+            // $mahasiswa = Ma
+            // foreach($mahasiswa as $item)
             $p = dosen::findOrfail($id);
             $p->dosen_jadwal()->create(
                 [
@@ -178,7 +178,7 @@ class DosenController extends Controller
                     'dosen_mk' => $request->dosen_mk,
                     'jam_mk' => $request->jam_mk,
                     'kelas_id' => $request->kelas_id,
-                    'file_pertemuan' => $file_nm,
+                    'file_pertemuan' => $image,
 
 
                 ]
