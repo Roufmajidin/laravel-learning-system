@@ -30,6 +30,15 @@
                         </div>
                     </div>
 
+                     <div class="form-group row mb-4">
+                        <label class="col-form-label text-md-right col-4 col-md-3 col-lg-3"></label>
+                        <div class="col-sm-3 col-md-3">
+                            Penugasan
+
+                            <input type="text" style="color: red; font-weight:bold" class="form-control inputtags text-bg-danger" disabled value="{{ $item->penugasan }}">
+                        </div>
+                    </div>
+
 
                     <div class="form-group row mb-4">
                         <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
@@ -57,14 +66,7 @@
 
                     </div>
 
-                    <div class="form-group row mb-4">
-                        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
-                        <div class="col-sm-12 col-md-7">
-                            Penugasan
 
-                            <input type="text" class="form-control inputtags" disabled value="{{ $item->penugasan }}">
-                        </div>
-                    </div>
 
 
                     <iframe src="{{ asset('storage/' . $item->dosen_jadwal['file_pertemuan']) }}"></iframe>

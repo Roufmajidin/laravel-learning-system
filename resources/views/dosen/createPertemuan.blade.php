@@ -40,9 +40,7 @@
                         <label>Pilih kelas</label>
 
                         <select name = "kelas_id" class="form-control">
-                            @foreach ($kel as $item)
-                                <option value="{{$item->id}}">{{ $item->nama_kelas }} | Id : {{$item->id}}</option>
-                            @endforeach
+                                <option value="{{$kelas->id}}" aria-placeholder="{{$kelas->id}}">{{ $kelas->nama_kelas }}</option>
 
                         </select>
 
@@ -51,9 +49,7 @@
                         <label>Select</label>
 
                         <select name = "dosen_mk"class="form-control">
-                            @foreach ($mk as $item)
-                                <option value=" {{ $item->matakuliah['id'] }}">{{ $item->matakuliah['nama_mk'] }} {{ $item->matakuliah['id'] }}</option>
-                            @endforeach
+                                <option value="{{ $mk->id }}">{{ $mk->nama_mk }}</option>
 
                         </select>
 
@@ -74,7 +70,7 @@
 
 
 
-                <div class="form-group ml-4 ml-4 col-sm-5 pt-0">
+                <div class="form-group ml-4 ml-4 col-sm-5 pt-0" style="width: 200px">
                     <label style="color:#17a2b8">tanggal</label>
                     <input type="date" class="form-control @error('tanggal') is-invalid @enderror" name="tanggal"
                         value="" placeholder="">
@@ -98,14 +94,14 @@
                             <div class="col-form-label col-sm-2 pt-0">Perteuman noted</div>
                             <div class="col-sm-">
                                 <div class="form-check">
-                                    @foreach ($mk as $item)
+                                    @foreach ($mkForUrut as $item)
                                         <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1"
                                             value="option1" checked disabled>
                                         <label class="form-check-label" for="gridRadios1">
 
                                             Pertemuan ke -
                                             @if (!empty($item->pertemuan_ke) and $item->pertemuan_ke == $item->pertemuan_ke)
-                                                {{ $item->pertemuan_ke }} {{ $item->kelas['nama_kelas'] }}
+                                                {{ $item->pertemuan_ke }}
                                             @endif
                                         </label>
                                         <br>

@@ -23,7 +23,8 @@ class User extends Authenticatable
         'email',
         'password',
         'level',
-        'dosen_id'
+        'dosen_id',
+        'foto'
     ];
     public function dosen()
     {

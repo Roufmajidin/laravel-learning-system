@@ -3,22 +3,20 @@
 @section('content')
 
     <div class="card-body">
+        <h6>KELAS {{ $kelas->nama_kelas }} <span>{{ $mk->nama_mk }}</span></h6>
 
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="90%" cellspacing="0">
                 <thead class="">
-                    @foreach ($dosen as $item)
 
-                    <a href="/tambahpertemuan/{{$item->id}}" class="btn btn-sm btn-primary mr-2"><i class="fa fa-plus"></i>Tambah Data</a>
-                    @endforeach
+                    <a href="/tambahpertemuan/{{ $kelas->id }}" class="btn btn-sm btn-primary mr-2"><i
+                            class="fa fa-plus"></i>Tambah Data</a>
                     <a class="btn btn-success btn-sm" href=""><i class="fa fa-print"></i> Print Data</a>
                     <tr>
                         {{-- <th>No</th> --}}
 
                         <th>Jam Kelas</th>
-                         <th>Pertemuan</th>
-                        <th>Nama Kelas</th>
-
+                        <th>Pertemuan</th>
                         <th>Jam Mk</th>
                         <th>Info</th>
 
@@ -36,20 +34,16 @@
                             {{-- <td>{{ $no++ }} </td> --}}
 
                             <td>{{ $item->tanggal }}
-                              <td>Pertemuan <strong>{{ $item->pertemuan_ke }}</strong></td>
-                            <td>{{ $item->kelas['nama_kelas'] }}
+                            <td>Pertemuan <strong>{{ $item->pertemuan_ke }}</strong></td>
                             <td>{{ $item->jam_mk }}
 
                             <td>
-
-                                <a href="/pertemuan/{{$item->id}}" class="btn btn-sm btn-info" <i
+                                <a href="/pertemuan/{{ $item->id }}" class="btn btn-sm btn-info" <i
                                     class="bi bi-pencil-square" title="Detail Kelas"></i>Absen Kelas</a>
-                                    <a href="/materi_detail/{{$item->id}}" class="btn btn-sm btn-info" <i
+                                <a href="/materi_detail/{{ $item->id }}" class="btn btn-sm btn-info" <i
                                     class="bi bi-pencil-square" title="Detail Kelas"></i>Materi</a>
                             </td>
                         </tr>
-
-
 
                         </tr>
                     @endforeach
@@ -64,13 +58,7 @@
     </div>
 
     </div>
-    </div>
     <!-- /.card-body -->
-    <div class="card-footer">
-        Footer
-    </div>
-    <!-- /.card-footer-->
-    </div>
 
 
 @endsection

@@ -1,5 +1,5 @@
 @extends('home')
-@section('title', 'Dosen')
+@section('title', 'Mk Dosen')
 @section('content')
 
     <div class="card-body">
@@ -8,14 +8,12 @@
             <table class="table table-bordered" id="dataTable" width="90%" cellspacing="0">
                 <thead class="">
 
-                    <a href="" class="btn btn-sm btn-primary mr-2"><i class="fa fa-plus"></i>Tambah Data</a>
                     <a class="btn btn-success btn-sm" href=""><i class="fa fa-print"></i> Print Data</a>
                     <tr>
-                        <th>No</th>
-                        <th>Nama Dosen</th>
-                        <th>Bidang Kompetensi</th>
+                        {{-- <th>No</th> --}}
 
-                        <th>Detail</th>
+                        <th>Mata Kuliah</th>
+                        <th>Kelas</th>
 
                     </tr>
                 </thead>
@@ -25,16 +23,17 @@
                         $no = 1;
                     @endphp
 
-                    @foreach ($dosen as $item)
+                    @foreach ($matkulDosen as $item)
                         <tr>
 
-                            <td>{{ $no++ }} </td>
-                            <td>{{ $item->nama_dosen }}
-                            <td>{{ $item->mk_dosen }}
+                            {{-- <td>{{ $no++ }} </td> --}}
+
+
+                            <td>{{ $item->nama_mk }}
 
                             <td>
-                                <a href="detailkelasDosen/{{$item->id}}" class="btn btn-sm btn-info" <i
-                                    class="bi bi-pencil-square" title="Detail Kelas"></i>Join Kelas</a>
+                                <a href="/kelas-detail/{{ $item->kelas['id'] }}" class="btn btn-sm btn-info" <i
+                                    class="bi bi-pencil-square" title="Detail Kelas"></i>detail {{ $item->kelas['nama_kelas'] }}</a>
                             </td>
                         </tr>
 
@@ -42,9 +41,6 @@
 
                         </tr>
                     @endforeach
-
-
-
 
                 </tbody>
 
