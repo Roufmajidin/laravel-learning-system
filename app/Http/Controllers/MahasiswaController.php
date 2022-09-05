@@ -46,11 +46,11 @@ class MahasiswaController extends Controller
     {
 
 
-        $kel = Mahasiswa::with('kelas')->where('user_id', Auth::user()->id)->get('kelas_id');
+        $kel = Mahasiswa::with('kelas')->where('user_id', Auth::user()->id)->first();
         // $pertemuan =  Dosen_jadwal::with('absensi', 'matakuliah')->where('dosen_mk', $id)->get();
         $pertemuan = Dosen_jadwal::with('kelas')->where('dosen_id', $id)->get();
         // dd($kel);
-        return view('mahasiswa.jadwalDetail', compact('pertemuan'));
+        return view('mahasiswa.jadwalDetail', compact('pertemuan', 'kel'));
     }
 
 
@@ -68,22 +68,29 @@ class MahasiswaController extends Controller
 
 
 
-        //  if(DB::table('absensi')->where('jadwal_id', $id)->where('mahasiswa_id', $m->id)->doesntExist()){
-        //     echo "tidak ada";
-
-        // }
-        // dd($absens);
         return view('mahasiswa.detailAbsensi', compact('absensi', 'absens'));
     }
     public function modul($id)
     {
 
 
-        $modul = Dosen_jadwal::with('kelas')->where('dosen_id', $id)->get();
+        $modul = Dosen_jadwal::with('kelas')->find($id);
         $materi = Materi::with('dosen_jadwal')->where('dosen_jadwal_id', $id)->get();
-
+        // dd($materi);
         return view('mahasiswa.readModul', compact('modul', 'materi'));
     }
+
+    public function cekabsenMhs($id)
+    {
+        // $k = Matakuliah::with('kelas', 'dosen')->where('kelas_id', $id)->get();
+
+        $mahas = Mahasiswa::where('user_id', Auth::user()->id)->first();
+        $k = Absensi::where('mahasiswa_id', $mahas->id)->where('dosen_jadwal_id', $id)->orderBy('jadwal_id', 'DESC')->get();
+        // dd($k);
+
+        return view('mahasiswa.cek-absen', compact('mahas', 'k'));
+    }
+
 
 
 
@@ -108,21 +115,21 @@ class MahasiswaController extends Controller
 
     {
 
-        $p = Dosen_jadwal::with('matakuliah', 'kelas')->findOrfail($id);
-        // $m = Kelas::with('mahasiswa', 'dosen_jadwal')findOrfail($id);
+        $p = Absensi::where('jadwal_id', $id)->where('mahasiswa_id', $request->mahasiswa_id)->first();
+        $mahas = Mahasiswa::where('user_id', Auth::user()->id)->first();
 
+        $p->update([
 
-        $p->absensi()->create([
-
-            'jadwal_id' => $request->jadwal_id,
-            'mahasiswa_id' => $request->mahasiswa_id,
+            // 'jadwal_id' => $request->jadwal_id,
+            // 'mahasiswa_id' => $request->mahasiswa_id,
             'tanggal_absen' => $request->tanggal_absen,
-            'dosen_jadwal_id' => $request->dosen_jadwal_id
+            // 'dosen_jadwal_id' => $request->dosen_jadwal_id,
+            'status_absensi' => 1
 
 
         ]);
         // dd($request->all());
-        return (redirect('jadwal'));
+        return redirect('absensi/'. $request->jadwal_id)->with('success', 'Success! Melakukan Absen');
 
 
         // dd($date);

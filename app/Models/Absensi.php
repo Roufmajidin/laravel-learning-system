@@ -14,6 +14,7 @@ class Absensi extends Model
         'mahasiswa_id',
         'tanggal_absen',
         'dosen_jadwal_id',
+        'status_absensi',
 
 
     ];

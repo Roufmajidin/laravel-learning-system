@@ -196,13 +196,45 @@ class DosenController extends Controller
 
                 ]
             );
-
-
-
             // dd($request->all());
             return (redirect('pertemuan/' . $id));
         }
     }
+    public function buatabsen($id)
+    {
+        $dosen = Dosen_jadwal::find($id);
+        $kelas = Kelas::where('id', $dosen->kelas_id)->first();
+
+        // dd($kelas);
+
+
+        return view('dosen.buat-absen', compact('dosen', 'kelas'));
+    }
+
+    public function buatabsenProses(Request $request, $id)
+    {
+
+        // dd($request->all());
+        $p = new Absensi;
+        foreach ($request->mahasiswa as $key => $name) {
+            $p->create([
+
+                'jadwal_id' => $request->id_jadwal,
+                'mahasiswa_id' => $request->mahasiswa[$key],
+                'dosen_jadwal_id' => $request->dosen_mk,
+                'status_absensi' => 0
+
+
+
+            ]);
+        }
+
+        return redirect()->back();
+
+
+        // return view('dosen.buat-absen', compact('dosen', 'kelas'));
+    }
+
 
     public function detailMateri($id)
     {

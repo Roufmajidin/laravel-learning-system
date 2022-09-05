@@ -1,9 +1,9 @@
 @extends('home')
-@section('title', ' Detail Absensi mu')
+@section('title', ' Semua Absensi')
 @section('content')
 
     <div class="card-body">
-        <h6 class="float-left"> Matakuliah :  </h6> <a href="">
+        <h6 class="float-left"> Matakuliah : </h6> <a href="">
             <h6></h6>
         </a>
         <h6 class="float-right"> Kelas : <a href=""></a></h6>
@@ -11,8 +11,8 @@
             <table class="table table-bordered" id="dataTable" width="90%" cellspacing="0">
                 <thead class="">
 
-                        <a class="btn btn-success btn-sm" href="/absen/{{ $absens->id }}"><i class="fa fa-print"></i>
-                            Absen</a>
+                    <a class="btn btn-success btn-sm" href=""><i class="fa fa-print"></i>
+                        Absen</a>
 
 
                     <tr>
@@ -28,19 +28,15 @@
                 <br><br>
                 <tbody>
 
-                    @foreach ($absensi as $item)
+                    @foreach ($k as $item)
                         <tr>
 
-                            <td> {{ $item->dosen_jadwal['pertemuan_ke'] }}</td>
+                            <td>Pertemuan <strong> {{ $item->dosen_jadwal['pertemuan_ke'] }} </strong></td>
                             @if ($item->status_absensi === 0)
-                            <td> Belum Absen</td>
-
-
+                                <td> Belum Absen</td>
                             @else
-                            <td> {{ $item->tanggal_absen }}</td>
-                            <td> {{ Carbon\Carbon::parse($item->tanggal_absen)->diffForHumans()}}</td>
-
-
+                                <td> {{ $item->tanggal_absen }}</td>
+                                <td> {{ Carbon\Carbon::parse($item->tanggal_absen)->diffForHumans() }}</td>
                             @endif
 
 

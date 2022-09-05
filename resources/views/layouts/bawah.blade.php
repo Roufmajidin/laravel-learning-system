@@ -29,109 +29,19 @@
 {{-- <script src="{{ asset('style/js/jquery-editable-poshytip.min.js') }}"></script> --}}
 {{-- <script src="{{ asset('style/js/jquery-editable-poshytip.js') }}"></script> --}}
 
-
-
-{{-- end --}}
-
-{{-- <script>
-    var viewer = $('#viewpdf');
-    PDFObject.embed('');
-</script --}}
-{{--  <script>
-    $(document).ready(function(){
-        $('.mk').editable({
-            mode:'inline',
-         });
-
-    });
-</script>  --}}
-
-{{-- <script>
-    let data = []
-
-    function ambilDataMasterItem(){
-        const url = "{{url('list_master_item') }}";
-        $.ajax({
-            url,
-            success:function(list_master_item){
-                console.log(list_master_item)
-                //variabel utk nampugn nilai
-                let tampilan = ``;
-                $("#table-list tbody").children().remove()
-
-                //looping
-                for(let i=0;i<list_master_item.length;i++){
-
-                    tampilan+= `
-                    <tr>
-                        <td>${list_master_item[i]. i++||'-'} </td>
-                        <td>${list_master_item[i]. nama||'-'} </td>
-                        <td>${list_master_item[i]. kelas||'-'} </td>
-                        <td>${list_master_item[i]. updated_at||'-'} </td>
-                    </tr>
-                    `
-                }
-                //panggil
-                $("#table-list tbody").append(tampilan)
-
-
-            },
-            error:function(e){
-                console.log(e)
-                alert("Terjadi Kesalahan")
-            }
-        })
-    }
-    ambilDataMasterItem()
-
-    //form submit
-    $("#form").on('submit', function(event){
-        event.preventDefault()
-        submitForm()
-    })
-
-    function submitForm(){
-        let form = $("form");
-         //post route WEB.PHP
-        const url = "{{url('master_item') }}";
-        $.ajax({
-            url,
-            method:"POST",
-            data:form.serialize(),
-            success:function(response){
-               ambilDataMasterItem()
-
-            },
-            error:function(err){
-                console.log(err)
-                alert("gagal menambahkan")
-            }
-        })
-    }
-    $(document).ready(function () {
-
-        $('body').on('click', '#editCompany', function (event) {
-
-            event.preventDefault();
-            var id = $(this).data('id');
-            $.get(id + '/edit', function (data) {
-                 //$('#userCrudModal').html("Edit category");
-                 //$('#submit').val("Detail Dosen");
-                    $('#practice_modal').modal('show');
-                    $('#color_id').val(data.data.id);
-                    $('#name').val(data.data.nama_dosen);
-                    $('#alamat').val(data.data.alamat);
-                    $('#tmpL').val(data.data.tempat_lahir);
-                    $('#NIDN').val(data.data.NIDN);
-
-
-
-                })
-        })
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/js/toastr.js"></script>
+{{-- toast notif --}}
+ <script>
+        $(document).ready(function() {
+            toastr.options.timeOut = 10000;
+            @if (Session::has('error'))
+                toastr.error('{{ Session::get('error') }}');
+            @elseif(Session::has('success'))
+                toastr.success('{{ Session::get('success') }}');
+            @endif
         });
 
-</script> --}}
+    </script>
 
 <script>
     let data = []

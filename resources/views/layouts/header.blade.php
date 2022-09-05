@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="{{ asset('style/css/components.css') }}">
 
   <!--Toaster-->
-  
+
 
   <!-- CSS Libraries -->
   <link rel="stylesheet" href="{{ asset('style/modules/izitoast/css/iziToast.min.css') }}">
@@ -27,10 +27,10 @@
   <link rel="stylesheet" href="{{ asset('style/css/bootstrap-editable.css') }}">
   <style>
     iframe{
-        width:1000px; 
+        width:1000px;
         height:500px;
-        margin-left:30px; 
-        margin-top:10px; 
+        margin-left:30px;
+        margin-top:10px;
         border:none;
         animation: fadeIn 2s;
     }
@@ -43,12 +43,16 @@
       }
     }
     .s{
-    
-      margin-left:-30px; 
-      margin-top:-30px; 
+
+      margin-left:-30px;
+      margin-top:-30px;
 
     }
 </style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/css/toastr.css" rel="stylesheet" />
+
+<!-- JS -->
+
 
 
 

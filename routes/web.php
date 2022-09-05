@@ -28,6 +28,8 @@ Route::group(['middleware' => 'dosen'], function () {
     Route::get('/absen/{id}', [DosenController::class, 'absen']);
     Route::get('/coba', [DosenController::class, 'coba']);
     Route::get('/materi_detail/{id}', [DosenController::class, 'detailMateri']);
+    Route::get('/buat-absen/{id}', [DosenController::class, 'buatabsen']);
+    Route::post('buatAbsenProses/{id}', [DosenController::class, 'buatabsenProses']);
 
 });
 
@@ -38,10 +40,9 @@ Route::group(['middleware' => 'mahasiswa'], function () {
     Route::get('/detailkelasmahasiswa/{id}', [MahasiswaController::class, 'detailKelas']);
     Route::get('/absen/{id}', [MahasiswaController::class, 'absenMhs']);
     Route::post('/absenproses/{id}', [MahasiswaController::class, 'absenproses']);
-    Route::post('/absenproses/{id}', [MahasiswaController::class, 'absenproses']);
-
     Route::get('/absensi/{id}', [MahasiswaController::class, 'absensiMahasiswaByJadwalDosen']);
     Route::get('/modul/{id}', [MahasiswaController::class, 'modul']);
+    Route::get('/cekAbsenMhs/{id}', [MahasiswaController::class, 'cekabsenMhs']);
 
 
 
