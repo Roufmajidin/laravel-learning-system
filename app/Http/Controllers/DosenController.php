@@ -221,7 +221,11 @@ class DosenController extends Controller
 
                 'jadwal_id' => $request->id_jadwal,
                 'mahasiswa_id' => $request->mahasiswa[$key],
+<<<<<<< HEAD
                 'dosen_jadwal_id' => $request->dosen_mk,
+=======
+                'dosen_jadwal_id' => $request->id_jadwal,
+>>>>>>> f05a7fe2a277def957606f2b19a9cc1a238e5e9e
                 'status_absensi' => 0
 
 

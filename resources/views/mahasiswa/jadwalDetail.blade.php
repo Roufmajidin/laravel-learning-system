@@ -11,7 +11,11 @@
                 <thead class="">
 
                     <tr>
+<<<<<<< HEAD
                         {{-- <th>No</th> --}}
+=======
+                        <th>No</th>
+>>>>>>> f05a7fe2a277def957606f2b19a9cc1a238e5e9e
                         <th>Pertemuan Ke</th>
                         <th>Jam MK</th>
 

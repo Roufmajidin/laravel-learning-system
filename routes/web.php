@@ -29,7 +29,11 @@ Route::group(['middleware' => 'dosen'], function () {
     Route::get('/coba', [DosenController::class, 'coba']);
     Route::get('/materi_detail/{id}', [DosenController::class, 'detailMateri']);
     Route::get('/buat-absen/{id}', [DosenController::class, 'buatabsen']);
+<<<<<<< HEAD
     Route::post('buatAbsenProses/{id}', [DosenController::class, 'buatabsenProses']);
+=======
+    Route::post('/buatAbsenProses/{id}', [DosenController::class, 'buatabsenProses']);
+>>>>>>> f05a7fe2a277def957606f2b19a9cc1a238e5e9e
 
 });
 

@@ -38,9 +38,15 @@
                             <td>{{ $no++ }} </td>
                             <td>{{ $item->mahasiswa->nama_mahasiswa }}</td>
                             <td>{{ $item->dosen_jadwal['tanggal'] }}</td>
+<<<<<<< HEAD
                             @if ($item->status_absensi == 1)
                                 <td> <a href="" class="btn btn-sm btn-info" <i class="bi bi-pencil-square"
                                         title="Detail Kelas">{{ $item->tanggal_absen }}</i></a></td>
+=======
+                            @if ($item->status_absensi == '1')
+                                <td> <a href="" class="btn btn-sm btn-info" <i class="bi bi-pencil-square"
+                                        title="Detail Kelas">{{ $item->tanggal }}</i></a></td>
+>>>>>>> f05a7fe2a277def957606f2b19a9cc1a238e5e9e
                             @elseif ($item->status_absensi == '0')
                                 <td>Belum absen</td>
                                 <td>
