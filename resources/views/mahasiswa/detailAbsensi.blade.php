@@ -10,20 +10,19 @@
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="90%" cellspacing="0">
                 <thead class="">
-                @if ($absens->id === $absens->id)
-                    <a class="btn btn-success btn-sm" href="/absen/{{$absens->id}}"><i class="fa fa-print"></i> Absen</a>
-
-                   @else
-                    <a class="btn btn-success btn-sm" href="/absen/{{$absens->id}}"><i class="fa fa-print"></i> Abssssn</a>
-
-
-                @endif
+                    @if ($absens->id === $absens->id)
+                        <a class="btn btn-success btn-sm" href="/absen/{{ $absens->id }}"><i class="fa fa-print"></i>
+                            Absen</a>
+                    @else
+                        <a class="btn btn-success btn-sm" href="/absen/{{ $absens->id }}"><i class="fa fa-print"></i>
+                            Abssssn</a>
+                    @endif
 
                     <tr>
                         <th>Pertemuan Ke</th>
 
                         <th>Hadir Pada</th>
-                        <th>mhs id</th>
+                        <th>Detail</th>
 
 
 
@@ -33,22 +32,25 @@
                 <tbody>
 
                     @foreach ($absensi as $item)
+                        <tr>
+
+                            <td> {{ $item->dosen_jadwal['pertemuan_ke'] }}</td>
+                            @if ($item->status_absensi === 0)
+                            <td> Belum Absen</td>
+
+
+                            @else
+                            <td> {{ $item->tanggal_absen }}</td>
+                            <td> {{ Carbon\Carbon::parse($item->created_at)->diffForHumans()}}</td>
+
+
+                            @endif
 
 
 
 
-
-                                <tr>
-
-                                    <td> {{ $item->dosen_jadwal['pertemuan_ke'] }}</td>
-                                    <td> {{ $item->tanggal_absen }}</td>
-                                    <td> {{ $item->mahasiswa_id }}</td>
-
-
-
-
-                                </tr>
-                        @endforeach
+                        </tr>
+                    @endforeach
 
 
 
@@ -63,13 +65,6 @@
 
     </div>
 
-    </div>
-    </div>
-    <!-- /.card-body -->
-    <div class="card-footer">
-        Footer
-    </div>
-    <!-- /.card-footer-->
     </div>
 
 

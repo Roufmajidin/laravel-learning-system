@@ -33,23 +33,20 @@
                     @endphp
 
                     @foreach ($absensi as $item)
-
-
                         <tr>
 
                             <td>{{ $no++ }} </td>
                             <td>{{ $item->mahasiswa->nama_mahasiswa }}</td>
                             <td>{{ $item->dosen_jadwal['tanggal'] }}</td>
-                            @if (!empty($item))
-                           <td> <a href="" class="btn btn-sm btn-info" <i class="bi bi-pencil-square"
-                                    title="Detail Kelas">{{$item->created_at}}</i></a></td>
-                            @else
-
+                            @if ($item->status_absensi == '1')
+                                <td> <a href="" class="btn btn-sm btn-info" <i class="bi bi-pencil-square"
+                                        title="Detail Kelas">{{ $item->tanggal }}</i></a></td>
+                            @elseif ($item->status_absensi == '0')
                                 <td>Belum absen</td>
-                                 <td>
-                                <a href="/absen/{{$item->id}}" class="btn btn-sm btn-info" <i class="bi bi-pencil-square"
-                                    title="Detail Kelas"></i>Ingatkan</a>
-                            </td>
+                                <td>
+                                    <a href="/absen/{{ $item->id }}" class="btn btn-sm btn-info" <i
+                                        class="bi bi-pencil-square" title="Detail Kelas"></i>Ingatkan</a>
+                                </td>
                             @endif
 
 

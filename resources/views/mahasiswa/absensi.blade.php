@@ -16,7 +16,7 @@
                         <label style="color:#17a2b8"> ID MK: {{ $absensi->id }}
                         </label>
                         <input type="text" class="form-control" value="{{ $absensi->id }}" name="jadwal_id"
-                            placeholder="}" >
+                            placeholder="}">
 
 
 
@@ -34,27 +34,28 @@
                 <div class="form-group ml-3 col-md-3">
                     <label style="color:#17a2b8">waktu sekarang</label>
                     <input type="text" class="form-control" name="tanggal_absen" value="{{ $date }}"
-                        placeholder="" >
+                        placeholder="">
 
                 </div>
                 <div class="form-group ml-3 col-md-4">
                     <label style="color:#17a2b8">id Hid</label>
-                    <input type="text"  class="form-control" name="dosen_jadwal_id" value="{{ $absensi->id }}"
+                    <input type="text" class="form-control" name="dosen_jadwal_id" value="{{ $absensi->id }}"
                         placeholder="">
                 </div>
-                   <?php
-          $absensi = \App\Models\Absensi::where('mahasiswa_id', Auth::user()->id)->where('jadwal_id', $absensi->id)->first();
+                <?php
+                $absensi = \App\Models\Absensi::where('mahasiswa_id', Auth::user()->id)
+                    ->where('jadwal_id', $absensi->id)
+                    ->first();
 
-          if(!empty($absensi)){
-            $notif = \App\Models\Dosen_jadwal::where('id', $absensi->id)->get();
-
-          }
-          ?>
-           @if(!empty($absensi))
-           halo, {{}}
-         @elseif(!empty($notif))
-         belum
-         @endif
+                if (!empty($absensi)) {
+                    $notif = \App\Models\Dosen_jadwal::where('id', $absensi->id)->get();
+                }
+                ?>
+                @if (!empty($absensi))
+                    halo, {{}}
+                @elseif(!empty($notif))
+                    belum
+                @endif
         </div>
 
         <div class="card-footer text-right">

@@ -112,17 +112,18 @@ class MahasiswaController extends Controller
         // $m = Kelas::with('mahasiswa', 'dosen_jadwal')findOrfail($id);
 
 
-        $p->absensi()->create([
+        $p->absensi()->update([
 
             'jadwal_id' => $request->jadwal_id,
             'mahasiswa_id' => $request->mahasiswa_id,
             'tanggal_absen' => $request->tanggal_absen,
-            'dosen_jadwal_id' => $request->dosen_jadwal_id
+            'dosen_jadwal_id' => $request->dosen_jadwal_id,
+            'status_absensi' => 1
 
 
         ]);
         // dd($request->all());
-        return (redirect('jadwal'));
+        return redirect('absensi/'. $request->jadwal_id);
 
 
         // dd($date);
