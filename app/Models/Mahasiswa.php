@@ -14,10 +14,15 @@ class Mahasiswa extends Model
 
         return $this->belongsTo(Kelas::class, 'kelas_id', 'id');
     }
-      public function user()
+    public function user()
     {
 
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+    // ngambang dulu yang ini
+    public function hasilStudi()
+    {
 
+        return $this->hasMany(HasilStudi::class);
+    }
 }

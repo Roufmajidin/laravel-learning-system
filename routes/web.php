@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\DosenController;
+use App\Http\Controllers\HasilStudiController;
 use App\Http\Controllers\MahasiswaController;
 
 
@@ -46,7 +47,7 @@ Route::group(['middleware' => 'mahasiswa'], function () {
     Route::get('/absensi/{id}', [MahasiswaController::class, 'absensiMahasiswaByJadwalDosen']);
     Route::get('/modul/{id}', [MahasiswaController::class, 'modul']);
     Route::get('/cekAbsenMhs/{id}', [MahasiswaController::class, 'cekabsenMhs']);
-    Route::get('/e-ujian', [MahasiswaController::class, 'cekabsenMhs']);
+    Route::get('/e-ujian', [HasilStudiController::class, 'index']);
 
 
 

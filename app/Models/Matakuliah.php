@@ -32,4 +32,9 @@ class Matakuliah extends Model
 
         return $this->hasMany(Pertemuan::class, 'matakuliah_id', 'id');
     }
+    public function hasilStudi()
+    {
+
+        return $this->hasMany(HasilStudi::class);
+    }
 }
