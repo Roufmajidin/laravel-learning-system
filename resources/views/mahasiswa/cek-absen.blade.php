@@ -33,7 +33,7 @@
 
                             <td>Pertemuan <strong> {{ $item->dosen_jadwal['pertemuan_ke'] }} </strong></td>
                             @if ($item->status_absensi === 0)
-                                <td> Belum Absen</td>
+                                <td class=""><a style="font-weight: 900;color:brown" href="#"> Belum Absen</a></td>
                             @else
                                 <td> {{ $item->tanggal_absen }}</td>
                                 <td> {{ Carbon\Carbon::parse($item->tanggal_absen)->diffForHumans() }}</td>

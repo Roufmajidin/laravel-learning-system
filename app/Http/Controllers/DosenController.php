@@ -94,7 +94,7 @@ class DosenController extends Controller
 
         $detail = Dosen_jadwal::with('absensi')->where('id', $id)->find($id);
 
-
+        // dd($absensi)
         return view('dosen.absensiPertemuanKelas', compact('absensi', 'detail', 'kelas'));
     }
     public function kelasAll()
@@ -117,15 +117,26 @@ class DosenController extends Controller
         // return view('dosen.kelas-all', compact('kelas2020', 'kelas2021'));
     }
 
-    // public function detailTemu($id)
-    // {
-    //     $kelas = Kelas::with('pertemuan')->find($id);
+    public function absenMhs($id)
+    {
+        $kelas = Kelas::with('pertemuan')->find($id);
+        $absensi = Absensi::with('dosen_jadwal', 'mahasiswa')->where('jadwal_id', $id)->get();
 
-    //     dd($kelas);
+        // dd($absensi);
 
+        return view('dosen.absensiPertemuanKelas', compact('absensi'));
+    }
+    public function ingatkanAbsen($id)
+    {
+        /// spesifik di table absen
 
+        // $absensi = Absensi::with('dosen_jadwal', 'mahasiswa')->where('id', $id)->first();
 
-    // }
+        //dump data ke mahasiswa table
+        $mahasiswa = Mahasiswa::find($id);
+        dd($mahasiswa);
+
+    }
 
 
     /**
@@ -221,11 +232,7 @@ class DosenController extends Controller
 
                 'jadwal_id' => $request->id_jadwal,
                 'mahasiswa_id' => $request->mahasiswa[$key],
-<<<<<<< HEAD
                 'dosen_jadwal_id' => $request->dosen_mk,
-=======
-                'dosen_jadwal_id' => $request->id_jadwal,
->>>>>>> f05a7fe2a277def957606f2b19a9cc1a238e5e9e
                 'status_absensi' => 0
 
 
