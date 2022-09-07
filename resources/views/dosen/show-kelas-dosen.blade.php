@@ -6,7 +6,7 @@
         <h6>KELAS {{ $kelas->nama_kelas }} <span>{{ $mk->nama_mk }}</span></h6>
 
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="90%" cellspacing="0">
+            <table class="table table-bordered" id="dataTable" cellspacing="0">
                 <thead class="">
 
                     <a href="/tambahpertemuan/{{ $kelas->id }}" class="btn btn-sm btn-primary mr-2"><i

@@ -103,15 +103,18 @@
                     @php
                         $p = App\Models\Mahasiswa::where('user_id', Auth::user()->id)->first();
                     @endphp
-                    @if ($p->keterangan != 0)
+                    {{-- @if ($p->keterangan != 0) --}}
                         {{-- {{$p}} --}}
-                        <li class="dropdown dropdown-list-toggle beep"><a href="#" data-toggle="dropdown"
-                                class="nav-link nav-link-lg"><i class="far fa-envelope"></i></a>
+                        {{-- <li class="dropdown dropdown-list-toggle beep"><a href="#" data-toggle="dropdown" --}}
+                                {{-- class="nav-link nav-link-lg"><i class="far fa-envelope"></i></a> --}}
                             {{-- message-toggle beep --}}
-                        @elseif ($p->keterangan == 0)
+                        {{-- @elseif ($p->keterangan == 0) --}}
+                        {{-- <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
+                                class="nav-link nav-link-lg"><i class="far fa-envelope"></i></a> --}}
+                        {{-- @else --}}
                         <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
                                 class="nav-link nav-link-lg"><i class="far fa-envelope"></i></a>
-                    @endif
+                    {{-- @endif --}}
 
                     <div class="dropdown-menu dropdown-list dropdown-menu-right">
                         <div class="dropdown-header">Messages
@@ -129,8 +132,8 @@
                                 <div class="dropdown-item-desc">
 
                                     <b></b>
-                                    <p>{{ $p->keterangan }}</p>
-                                    <div class="time">{{ Carbon\Carbon::parse($p->updated_at)->diffForHumans()}}</div>
+                                    {{-- <p>{{ $p->keterangan }}</p> --}}
+                                    {{-- <div class="time">{{ Carbon\Carbon::parse($p->updated_at)->diffForHumans()}}</div> --}}
                                 </div>
                             </a>
                             <div class="dropdown-footer text-center">
@@ -232,6 +235,7 @@
                                 <ul class="">
                                     <li><a class="nav-link" href="/jadwaldosen">KBM</a></li>
                                     <li><a class="nav-link" href="/kelas-all">Kelas</a>
+                                    <li><a class="nav-link" href="/ujian">Ujian</a>
                                         <ul class="dropdown-menu">
                                             {{-- @php
                                                 $k = App\Models\Pertemuan::with('jadwal', 'dosen')
@@ -252,14 +256,7 @@
                                 </ul>
                             </li>
                             {{-- <li class="menu-header">KRS</li> --}}
-                            <li class="dropdown">
-                                <a href="#" class="nav-link has-dropdown"><i
-                                        class="fas fa-fire"></i><span>Dashboard</span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="nav-link" href="#">Mahasiswa KRS</a></li>
-                                    <li><a class="nav-link" href="#">-</a></li>
-                                </ul>
-                            </li>
+
                             <li class="menu-header">Penugasan</li>
                             <li class="dropdown">
                                 <a href="#" class="nav-link has-dropdown"><i

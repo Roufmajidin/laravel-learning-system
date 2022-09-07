@@ -14,6 +14,7 @@ use App\Models\Pertemuan;
 use App\Models\Mahasiswa;
 use App\Models\Dosen_jadwal;
 use App\Models\Materi;
+use App\Models\UjianMhs;
 
 use function GuzzleHttp\json_decode;
 
@@ -135,7 +136,6 @@ class DosenController extends Controller
         //dump data ke mahasiswa table
         $mahasiswa = Mahasiswa::find($id);
         dd($mahasiswa);
-
     }
 
 
@@ -255,4 +255,43 @@ class DosenController extends Controller
         // $m = Materi::with()
         return view('dosen.detailMateri', compact('materi'));
     }
+    public function ujian()
+    {
+        $ujian = Matakuliah::with('dosen')->where('dosen_id', Auth::user()->id)->get();
+        // dd($u);
+        return view('dosen.ujian', compact('ujian'));
+    }
+    //
+    public function ujianActive($id, $mk_id)
+    {
+        // dd($u);
+        $kelas_id = $id;
+        $kelas = Kelas::with('Mahasiswa')->where('id', $kelas_id)->first();
+        // dd($kelas);
+        $mk = Matakuliah::with('dosen')->where('id', $mk_id)->first();
+        // dd($mk);
+        return view('dosen.ujian-create', compact('kelas', 'mk'));
+    }
+    public function prosesActive(Request $request)
+    {
+        $file_nm = $request->file->getClientOriginalName();
+        $f = $request->file->storeAs('thumbnail', $file_nm);
+
+        $p = new UjianMhs();
+        foreach ($request->mahasiswa as $key => $name) {
+
+        $p->create([
+
+            'mahasiswa_id' => $request->mahasiswa[$key],
+            'matakuliah_id' => $request->matakuliah_id,
+            'soal_ujian' => $f
+
+        ]);
+        }
+
+        return redirect('/ujian');
+    }
+
+
+    //
 }

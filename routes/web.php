@@ -34,6 +34,9 @@ Route::group(['middleware' => 'dosen'], function () {
     Route::get('/pertemuan/{id}', [DosenController::class, 'absenMhs']);
     Route::get('/absensi-mhs/{id}', [DosenController::class, 'ingatkanAbsen']);
     Route::post('buatAbsenProses/{id}', [DosenController::class, 'buatabsenProses']);
+    Route::get('/ujian', [DosenController::class, 'ujian']);
+    Route::get('/active-mahasiswa/{id}/{mk_id}', [DosenController::class, 'ujianActive']);
+    Route::post('proses-activate', [DosenController::class, 'prosesActive']);
 
 });
 
