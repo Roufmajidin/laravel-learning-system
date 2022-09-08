@@ -26,5 +26,11 @@ class Dosen extends Model
 
         return $this->hasMany(Dosen_jadwal::class, 'dosen_id', 'id');
     }
+    public function kelas()
+    {
+
+        return $this->belongsToMany(Kelas::class);
+    }
+
 
 }

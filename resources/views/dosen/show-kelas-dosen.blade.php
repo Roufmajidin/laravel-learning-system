@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="card-body">
-        <h6>KELAS {{ $kelas->nama_kelas }} <span>{{ $mk->nama_mk }}</span></h6>
+        <h6>KELAS {{ $kelas->nama_kelas }} <span></span></h6>
 
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" cellspacing="0">
@@ -28,7 +28,7 @@
                         $no = 1;
                     @endphp
 
-                    @foreach ($detailJ as $item)
+                    @forelse ($detailJ as $item)
                         <tr>
 
                             {{-- <td>{{ $no++ }} </td> --}}
@@ -48,8 +48,12 @@
                             </td>
                         </tr>
 
-                        </tr>
-                    @endforeach
+                          @empty
+
+                           <a style="margin-left:40%; margin-top:20%; position: absolute; color:red; font-wight:bold">belum ada Data</a>
+
+
+                    @endforelse
 
                 </tbody>
 

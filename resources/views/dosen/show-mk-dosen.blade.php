@@ -12,8 +12,8 @@
                     <tr>
                         {{-- <th>No</th> --}}
 
-                        <th>Mata Kuliah</th>
-                        <th>Kelas</th>
+                    <th>Kelas</th>
+                        <th>Aksi</th>
 
                     </tr>
                 </thead>
@@ -23,17 +23,17 @@
                         $no = 1;
                     @endphp
 
-                    @foreach ($matkulDosen as $item)
+                    @foreach ($matkulDosen->kelas as $item)
                         <tr>
 
-                            {{-- <td>{{ $no++ }} </td> --}}
+                            <td>{{ $item->nama_kelas }} </td>
 
 
-                            <td>{{ $item->nama_mk }}
+
 
                             <td>
-                                <a href="/kelas-detail/{{ $item->kelas['id'] }}" class="btn btn-sm btn-info" <i
-                                    class="bi bi-pencil-square" title="Detail Kelas"></i>detail {{ $item->kelas['nama_kelas'] }}</a>
+                                <a href="/kelas-detail/{{ $item->id }}" class="btn btn-sm btn-info" <i
+                                    class="bi bi-pencil-square" title="Detail Kelas"></i>detail</a>
                             </td>
                         </tr>
 

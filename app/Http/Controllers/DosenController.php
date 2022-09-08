@@ -35,7 +35,7 @@ class DosenController extends Controller
         // $dosen = Dosen::with('user')->where('user_id', Auth::user()->id)->get();
         $dosen = Dosen::with('dosen_jadwal')->where('user_id', Auth::user()->id)->get();
         $detailJ = Dosen_jadwal::where('dosen_id', Auth::user()->id)->get();
-        // dd($dosenx);
+        // dd($dosen);
         return view('dosen.index', compact('dosen', 'detailJ'));
     }
     public function detail($id)
@@ -47,19 +47,23 @@ class DosenController extends Controller
         $detailJ = Dosen_jadwal::with('kelas')->where('dosen_id', Auth::user()->id)->where('kelas_id', $id)->get();
 
         $kelas = Kelas::find($id);
-        $mk = Matakuliah::with('kelas')->where('dosen_id', Auth::user()->id)->where('kelas_id', $id)->first();
+        // $mk = Matakuliah::with('kelas')->where('dosen_id', Auth::user()->id)->where('kelas_id', $id)->first();
 
         // $kk = Pertemuan::
         // $dosen = Dosen::with('dosen_jadwal')->where('user_id', Auth::user()->id)->get();
 
         // dd($detailJ);
 
-        return view('dosen.show-kelas-dosen', compact('detailJ', 'kelas', 'mk'));
+        return view('dosen.show-kelas-dosen', compact('detailJ', 'kelas'));
     }
     public function detailKelasDosen($id)
     {
 
-        $matkulDosen = Matakuliah::with('kelas')->where('dosen_id', $id)->get();
+        // $matkulDosen = Matakuliah::with('kelas')->where('dosen_id', $id)->get();
+        $matkulDosen = Dosen::with('kelas')->find($id);
+        // $matak = Matakuliah
+        // $matkulDosen = Dosen::with('kelas')->where('id', $id)->get();
+
         // dd($matkulDosen);
         return view('dosen.show-Mk-dosen', compact('matkulDosen'));
     }
@@ -152,7 +156,7 @@ class DosenController extends Controller
         $mkForUrut = Dosen_jadwal::with('matakuliah')->where('dosen_id', Auth::user()->id)->where('kelas_id', $id)->get();
         $kell = Kelas::with('mahasiswa')->get();
         $kelas = Kelas::find($id);
-        $mk = Matakuliah::with('kelas')->where('dosen_id', Auth::user()->id)->where('kelas_id', $id)->first();
+        $mk = Matakuliah::with('dosen')->first();
 
         // dd($mkForUrut);
 
@@ -193,7 +197,10 @@ class DosenController extends Controller
             $image = $request->file->storeAs('thumbnail', $file_nm);
             // $mahasiswa = Ma
             // foreach($mahasiswa as $item)
-            $p = dosen::findOrfail($id);
+            // $p = dosen::findOrfail($id);
+            $id_kelas = $request->kelas_id;
+            $kelasid = Kelas::find($id_kelas);
+            $p = Dosen::find($id);
             $p->dosen_jadwal()->create(
                 [
                     'tanggal' => $request->tanggal,
@@ -208,7 +215,7 @@ class DosenController extends Controller
                 ]
             );
             // dd($request->all());
-            return (redirect('pertemuan/' . $id));
+            return (redirect('kelas-detail/' . $id_kelas));
         }
     }
     public function buatabsen($id)

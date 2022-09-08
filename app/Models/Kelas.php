@@ -27,4 +27,9 @@ class Kelas extends Model
 
         return $this->hasMany(Dosen_jadwal::class);
     }
+    public function dosen()
+    {
+
+        return $this->belongsToMany(Dosen::class);
+    }
 }
