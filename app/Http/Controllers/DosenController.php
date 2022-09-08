@@ -294,10 +294,7 @@ class DosenController extends Controller
     }
      public function listMhsUjian($id, $mk_id)
     {
-        // dd($u);
-        // $mId = UjianMhs::where('matakuliah_id', 1)->get();
-        // $mk_id = UjianMhs::where('matakuliah_id', $mk_id)->get();
-        // $kelas = Mahasiswa::where('id', $)
+
         $u =  Matakuliah::find($mk_id);
         $m = UjianMhs::with('mahasiswa')->where('matakuliah_id', $u->id)->get();
         // dd($m);

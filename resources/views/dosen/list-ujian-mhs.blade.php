@@ -21,7 +21,7 @@
                         $no = 1;
                     @endphp
 
-                    @foreach ($m as $item)
+                    @forelse ($m as $item)
                         <tr>
 
                             <td>{{ $no++ }} </td>
@@ -44,10 +44,15 @@
 
                         </tr>
 
+                        @empty
+
+                           <a style="margin-left:40%; margin-top:20%; position: absolute; color:red; font-wight:bold">belum ada Data</a>
 
 
-                        </tr>
-                    @endforeach
+
+                    @endforelse
+
+
 
                 </tbody>
 
