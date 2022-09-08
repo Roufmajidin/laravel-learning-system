@@ -25,4 +25,10 @@ class Mahasiswa extends Model
 
         return $this->hasMany(HasilStudi::class);
     }
+     public function ujianMhs()
+    {
+
+        return $this->belongsTo(UjianMhs::class);
+    }
+
 }

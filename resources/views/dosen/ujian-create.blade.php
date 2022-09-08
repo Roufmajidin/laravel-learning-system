@@ -39,6 +39,12 @@
 
                     </div>
 
+                     <div class="form-group ml-4 col-md-5">
+                        <label style="color:#17a2b8">{{$kelas->nama_kelas}}</label>
+                        <input type="text" class="form-control" name="kelas_id" value="{{$kelas->id}}" placeholder="">
+
+                    </div>
+
                 </div>
 
         </div>

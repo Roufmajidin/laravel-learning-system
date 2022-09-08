@@ -29,6 +29,7 @@
                             <td>{{ $item->kelas['nama_kelas'] }} </td>
                             <td>
                                 <a href="/active-mahasiswa/{{ $item->kelas['id']}}/{{$item->id}}"><button class="btn btn-primary"> Aktifkan Mahasiswa </button>
+                                <a href="/list-mhs-ujian/{{ $item->kelas['id']}}/{{$item->id}}"><button class="btn btn-success"> E-ujian </button>
                             </a>
                             </td>
 

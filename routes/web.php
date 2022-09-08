@@ -37,6 +37,7 @@ Route::group(['middleware' => 'dosen'], function () {
     Route::get('/ujian', [DosenController::class, 'ujian']);
     Route::get('/active-mahasiswa/{id}/{mk_id}', [DosenController::class, 'ujianActive']);
     Route::post('proses-activate', [DosenController::class, 'prosesActive']);
+    Route::get('/list-mhs-ujian/{id}/{mk_id}', [DosenController::class, 'listMhsUjian']);
 
 });
 

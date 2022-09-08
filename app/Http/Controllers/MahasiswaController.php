@@ -50,7 +50,12 @@ class MahasiswaController extends Controller
         // $pertemuan =  Dosen_jadwal::with('absensi', 'matakuliah')->where('dosen_mk', $id)->get();
         $pertemuan = Dosen_jadwal::with('kelas')->where('dosen_id', $id)->get();
         // dd($kel);
-        return view('mahasiswa.jadwalDetail', compact('pertemuan', 'kel'));
+        // absensi
+        $mahas = Mahasiswa::where('user_id', Auth::user()->id)->first();
+
+        $absen = Absensi::with('dosen_jadwal')->where('mahasiswa_id', $mahas->id)->get();
+        // dd($absen);
+        return view('mahasiswa.jadwalDetail', compact('pertemuan', 'kel', 'absen'));
     }
 
 

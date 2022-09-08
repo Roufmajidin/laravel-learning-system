@@ -3,10 +3,24 @@
 @section('content')
 
     <div class="card-body">
-     <h6 class="float-left"> Matakuliah : </h6>
-     <a href="/cekAbsenMhs/1"><h6 class="float-right btn btn-primary">Cek Absenmu</h6></a>
-
+        <h6 class="float-left"> Matakuliah : </h6>
+        <a href="/cekAbsenMhs/1">
+            <h6 class="float-right btn btn-primary">Detail Absenmu</h6>
+        </a>
+        <br>
         <div class="table-responsive">
+            @foreach ($absen as $ab)
+                {{-- $ab = "a" --}}
+                @if ($ab->status_absensi == 0)
+                    <button class="btn btn-danger">P{{ $ab->dosen_jadwal['pertemuan_ke'] }}<br>
+
+                    </button>
+                @elseif($ab->status_absensi == 1)
+                    <button class="btn btn-primary">P{{ $ab->dosen_jadwal['pertemuan_ke'] }}</button>
+                @endif
+            @endforeach
+
+
             <table class="table table-bordered" id="dataTable" width="90%" cellspacing="0">
                 <thead class="">
 
@@ -39,14 +53,14 @@
 
 
                             <td>
-                                <a href="/modul/{{ $item->id }}" class="btn btn-sm btn-info" <i class="bi bi-pencil-square"
-                                    title="Materi"></i>Materi</a>
+                                <a href="/modul/{{ $item->id }}" class="btn btn-sm btn-info" <i
+                                    class="bi bi-pencil-square" title="Materi"></i>Materi</a>
                             </td>
                             <td>
 
-                                    <a href="/absensi/{{ $item->id }}" class="btn btn-sm btn-info" <i
-                                        class="bi bi-pencil-square" title="Materi"></i>absen pertemuan
-                                        {{ $item->pertemuan_ke }}</a>
+                                <a href="/absensi/{{ $item->id }}" class="btn btn-sm btn-info" <i
+                                    class="bi bi-pencil-square" title="Materi"></i>absen pertemuan
+                                    {{ $item->pertemuan_ke }}</a>
 
 
 

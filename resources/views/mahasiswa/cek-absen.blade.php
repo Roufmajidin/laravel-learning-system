@@ -35,7 +35,7 @@
                             @if ($item->status_absensi === 0)
                                 <td class=""><a style="font-weight: 900;color:brown" href="#"> Belum Absen</a></td>
                             @else
-                                <td> {{ $item->tanggal_absen }}</td>
+                                <td><button class="btn btn-primary">sudah</button></td>
                                 <td> {{ Carbon\Carbon::parse($item->tanggal_absen)->diffForHumans() }}</td>
                             @endif
 
