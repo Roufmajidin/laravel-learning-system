@@ -12,7 +12,7 @@
             @foreach ($absen as $ab)
                 {{-- $ab = "a" --}}
                 @if ($ab->status_absensi == 0)
-                    <button class="btn btn-danger">P{{ $ab->dosen_jadwal['pertemuan_ke'] }}<br>
+                    {{-- <button class="btn btn-danger">P{{ $ab->dosen_jadwal['pertemuan_ke'] }}<br> --}}
 
                     </button>
                 @elseif($ab->status_absensi == 1)
@@ -42,25 +42,25 @@
                         // $ab = App\Models\Absensi::;
                     @endphp
 
-                    @foreach ($pertemuan as $item)
+                    @foreach ($absen as $item)
                         <tr>
 
                             {{-- <td>{{ $no++ }} </td> --}}
-                            <td>{{ $item->pertemuan_ke }}
-                            <td>{{ $item->jam_mk }} WIB</td>
-                            <td>{{ $item->tanggal }}</td>
-                            {{-- <td><a href="#">{{ $item->file_pertemuan }}</a></td> --}}
+                            <td>{{ $item->dosen_jadwal['pertemuan_ke'] }}
+                            <td>{{ $item->dosen_jadwal['jam_mk'] }} WIB</td>
+                            <td>{{ $item->dosen_jadwal['tanggal'] }}</td>
+                            <td><a href="#">{{ $item->dosen_jadwal['file_pertemuan'] }}</a></td>
 
 
-                            <td>
-                                <a href="/modul/{{ $item->id }}" class="btn btn-sm btn-info" <i
-                                    class="bi bi-pencil-square" title="Materi"></i>Materi</a>
-                            </td>
-                            <td>
 
-                                <a href="/absensi/{{ $item->id }}" class="btn btn-sm btn-info" <i
-                                    class="bi bi-pencil-square" title="Materi"></i>absen pertemuan
-                                    {{ $item->pertemuan_ke }}</a>
+
+                            @if ($item->status_absensi === 0)
+                                <td class=""><a href="/absen/{{ $item->dosen_jadwal['id'] }}" style="font-weight: 900;color:brown" href="#"> Belum Absen</a></td>
+                            @else
+                                <td><button class="btn btn-primary">sudah</button></td>
+                                <td> {{ Carbon\Carbon::parse($item->tanggal_absen)->diffForHumans() }}</td>
+                            @endif
+
 
 
 

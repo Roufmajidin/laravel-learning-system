@@ -222,17 +222,20 @@ class DosenController extends Controller
     {
         $dosen = Dosen_jadwal::find($id);
         $kelas = Kelas::where('id', $dosen->kelas_id)->first();
+        $dosen_id = Dosen::where('user_id', Auth::user()->id)->first();
 
         // dd($kelas);
 
 
-        return view('dosen.buat-absen', compact('dosen', 'kelas'));
+        return view('dosen.buat-absen', compact('dosen', 'kelas', 'dosen_id'));
     }
 
     public function buatabsenProses(Request $request, $id)
     {
 
         // dd($request->all());
+        // $urll = $request->id_jadwal;
+        // $urll = Dosen_jadwal::where
         $p = new Absensi;
         foreach ($request->mahasiswa as $key => $name) {
             $p->create([
@@ -247,7 +250,7 @@ class DosenController extends Controller
             ]);
         }
 
-        return redirect()->back();
+        return redirect('pertemuan/'. $id);
 
 
         // return view('dosen.buat-absen', compact('dosen', 'kelas'));

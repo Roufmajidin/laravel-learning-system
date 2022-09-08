@@ -35,11 +35,14 @@ class MahasiswaController extends Controller
         $m = Mahasiswa::with('kelas')->where('user_id', Auth::user()->id)->first();
         $mk = $m->kelas['id'];
 
-        $k = Matakuliah::with('kelas', 'dosen')->where('kelas_id', $mk)->get();
+        $kelas = Kelas::with('dosen')->find($mk);
 
-        // $absensi = Absensi::with('mahasiswa', 'dosen_jadwal')->where('tanggal_absen', NULL)
-        // dd($k    );
-        return view('mahasiswa.jadwal', compact('k'));
+
+
+        $km = Kelas::with('matakuliah', 'dosen')->find($mk);
+
+        // dd($dosen);
+        return view('mahasiswa.jadwal', compact('km'));
     }
     public function detailKelas($id)
 
@@ -48,12 +51,13 @@ class MahasiswaController extends Controller
 
         $kel = Mahasiswa::with('kelas')->where('user_id', Auth::user()->id)->first();
         // $pertemuan =  Dosen_jadwal::with('absensi', 'matakuliah')->where('dosen_mk', $id)->get();
-        $pertemuan = Dosen_jadwal::with('kelas')->where('dosen_id', $id)->get();
+        $pertemuan = Dosen_jadwal::with('kelas', 'absensi')->where('dosen_id', $id)->get();
         // dd($kel);
         // absensi
         $mahas = Mahasiswa::where('user_id', Auth::user()->id)->first();
+        $dos = Dosen_jadwal::where('dosen_id', $id)->first();
 
-        $absen = Absensi::with('dosen_jadwal')->where('mahasiswa_id', $mahas->id)->get();
+        $absen = Absensi::with('dosen_jadwal')->where('mahasiswa_id', $mahas->id)->where('dosen_jadwal_id', $id)->get();
         // dd($absen);
         return view('mahasiswa.jadwalDetail', compact('pertemuan', 'kel', 'absen'));
     }
@@ -109,12 +113,14 @@ class MahasiswaController extends Controller
         $absensi = Dosen_jadwal::with('absensi', 'matakuliah')->where('id', $id)->find($id);
         $m = Mahasiswa::with('kelas')->where('user_id', Auth::user()->id)->first();
         $date = Carbon::now();
+        $absensiii = Dosen_jadwal::find($id);
+
 
         // dd($date);
         // $dosen = Kelas::with('dosen')->find($mah);
         // $m = Matakuliah::with('kelas')->find($id);
         // $detailJ = Dosen_jadwal::with('absensi')->where('id', $id)->find($id);
-        return view('mahasiswa.absensi', compact('absensi', 'm', 'date'));
+        return view('mahasiswa.absensi', compact('absensi', 'm', 'date', 'absensiii'));
     }
     public function absenproses(Request $request, $id)
 
@@ -134,7 +140,7 @@ class MahasiswaController extends Controller
 
         ]);
         // dd($request->all());
-        return redirect('absensi/'. $request->jadwal_id)->with('success', 'Success! Melakukan Absen');
+        return redirect('detailkelasmahasiswa/'. $request->dosen_id)->with('success', 'Success! Melakukan Absen');
 
 
         // dd($date);

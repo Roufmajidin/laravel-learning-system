@@ -39,7 +39,7 @@ class Dosen_jadwal extends Model
     public function absensi()
     {
 
-        return $this->hasMany(Absensi::class, 'jadwal_id', 'id');
+        return $this->belongsTo(Absensi::class, 'jadwal_id', 'id');
     }
     public function materi()
     {

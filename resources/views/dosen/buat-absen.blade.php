@@ -29,7 +29,7 @@
                     <div class="form-group ml-4 col-md-5">
                         <label style="color:#17a2b8">dosen_id</label>
                         <input type="text" class="form-control @error('dosen_id') is-invalid @enderror" name="dosen_mk"
-                            value="{{ $dosen->dosen_mk }}" placeholder="{{ $dosen->dosen_mk }}">
+                            value="{{ $dosen_id->id }}" placeholder="{{ $dosen_id->id }}">
                         @error('dosen_id')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror

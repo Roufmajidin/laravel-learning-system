@@ -28,7 +28,12 @@
 
                     </div>
 
+                    <div class="form-group ml-4 col-md-2">
+                        <label style="color:#17a2b8">dos id</label>
+                        <input type="text" class="form-control" name="dosen_id" value="{{ $absensiii->dosen_id }}"
+                            placeholder="">
 
+                    </div>
 
                 </div>
                 <div class="form-group ml-3 col-md-3">
@@ -37,6 +42,7 @@
                         placeholder="">
 
                 </div>
+
                 <div class="form-group ml-3 col-md-4">
                     <label style="color:#17a2b8">id Hid</label>
                     <input type="text" class="form-control" name="dosen_jadwal_id" value="{{ $absensi->id }}"
@@ -52,11 +58,14 @@
                 }
                 ?>
                 @if (!empty($absensi))
-                    halo, {{}}
+                    halo,
                 @elseif(!empty($notif))
                     belum
                 @endif
+
+
         </div>
+
 
         <div class="card-footer text-right">
             <button class="btn btn-primary mr-1" type="submit">Submit</button>

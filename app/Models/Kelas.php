@@ -32,4 +32,9 @@ class Kelas extends Model
 
         return $this->belongsToMany(Dosen::class);
     }
+     public function matakuliah()
+    {
+
+        return $this->belongsToMany(Matakuliah::class);
+    }
 }

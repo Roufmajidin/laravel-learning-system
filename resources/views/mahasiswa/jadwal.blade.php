@@ -25,18 +25,17 @@
                         $no = 1;
                     @endphp
 
-                    @foreach ($k as $item)
+                    @foreach ($km->matakuliah as $item)
                         <tr>
 
                             <td>{{ $no++ }} </td>
                             <td>{{ $item->nama_mk }}
                             <td>{{ $item->dosen['nama_dosen'] }}
-                            <td>{{ $item->dosen['id'] }}
+
 
                             <td>
                                 <a href="detailkelasmahasiswa/{{$item->dosen['id']}}" class="btn btn-sm btn-info" <i
                                     class="bi bi-pencil-square" title="Detail Kelas"></i>Join Kelas</a>
-
                             </td>
                         </tr>
 
@@ -57,14 +56,6 @@
 
     </div>
 
-    </div>
-    </div>
-    <!-- /.card-body -->
-    <div class="card-footer">
-        Footer
-    </div>
-    <!-- /.card-footer-->
-    </div>
 
 
 @endsection
