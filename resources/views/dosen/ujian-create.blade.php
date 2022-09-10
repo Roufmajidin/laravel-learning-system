@@ -53,6 +53,24 @@
                         <input type="text" class="form-control" name="kelas_id" value="{{$kelas->id}}" placeholder="">
 
                     </div>
+                    <div class="form-group ml-4 ">
+                        <label>mahasiswa semester() </label>
+
+
+                        <select style="width: 300px; height:200px" name="semester_id[]" class="form-control" multiple>
+                            @php
+                                $ma = App\Models\Mahasiswa::where('kelas_id', $kelas->id)->get();
+                                // $semester = App
+                            @endphp
+                             @foreach ($ma as $i)
+                                <option value="{{ $i->semester_id }}">{{ $i->semester_id }}</option>
+                            @endforeach
+                        </select>
+
+                    </div>
+
+
+
 
                 </div>
 

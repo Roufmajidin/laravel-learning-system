@@ -310,7 +310,8 @@ class DosenController extends Controller
                 'matakuliah_id' => $request->matakuliah_id,
                 'soal_ujian' => $f,
                 'kelas_id' => $request->kelas_id,
-                'dosen_id' => $request->dosen_id
+                'dosen_id' => $request->dosen_id,
+                'semester_id' => $request->semester_id[$key]
 
             ]);
         }
@@ -333,7 +334,7 @@ class DosenController extends Controller
         $mahasiswa = Mahasiswa::find($id);
 
         $matakuliah = Matakuliah::with('dosen')->where('id', $mk_id)->first();
-        $semester = SemesterModel::find($id);
+        $semester = SemesterModel::find($semester_id);
         // dd($semester);
 
 
