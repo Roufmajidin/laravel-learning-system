@@ -76,4 +76,6 @@ class HasilStudiController extends Controller
 
         return redirect('/ujian');
     }
+
+
 }

@@ -13,7 +13,9 @@ use App\Models\Kelas;
 use App\Models\Pertemuan;
 use App\Models\Mahasiswa;
 use App\Models\Dosen_jadwal;
+use App\Models\HasilStudi;
 use App\Models\Materi;
+use App\Models\SemesterModel;
 use App\Models\UjianMhs;
 use Termwind\Components\Dd;
 
@@ -251,7 +253,7 @@ class DosenController extends Controller
             ]);
         }
 
-        return redirect('pertemuan/'. $id);
+        return redirect('pertemuan/' . $id);
 
 
         // return view('dosen.buat-absen', compact('dosen', 'kelas'));
@@ -302,26 +304,72 @@ class DosenController extends Controller
         $p = new UjianMhs();
         foreach ($request->mahasiswa as $key => $name) {
 
-        $p->create([
+            $p->create([
 
-            'mahasiswa_id' => $request->mahasiswa[$key],
-            'matakuliah_id' => $request->matakuliah_id,
-            'soal_ujian' => $f,
-            'kelas_id' => $request->kelas_id,
-            'dosen_id' => $request->dosen_id
+                'mahasiswa_id' => $request->mahasiswa[$key],
+                'matakuliah_id' => $request->matakuliah_id,
+                'soal_ujian' => $f,
+                'kelas_id' => $request->kelas_id,
+                'dosen_id' => $request->dosen_id
 
-        ]);
+            ]);
         }
 
-        return redirect('/ujian');
+        return redirect('/ujian-mhs');
     }
-     public function listMhsUjian($id, $nama_kelas)
+    public function listMhsUjian($id, $nama_kelas)
     {
         $auth = Auth::user()->id;
-        $m = UjianMhs::with('mahasiswa')->where('kelas_id', $nama_kelas)->where('dosen_id', $auth)->get();
+        $m = UjianMhs::with('mahasiswa', 'semester')->where('kelas_id', $nama_kelas)->where('dosen_id', $auth)->get();
         // dd($m);
         return view('dosen.list-ujian-mhs', compact('m'));
     }
 
     //
+    public function submitNilai($id, $mk_id, $semester_id)
+    {
+        // $id = 'tembak dulu';
+        // $mk_id = 'tembak dulu';
+        $mahasiswa = Mahasiswa::find($id);
+
+        $matakuliah = Matakuliah::with('dosen')->where('id', $mk_id)->first();
+        $semester = SemesterModel::find($id);
+        // dd($semester);
+
+
+        return view('dosen.submit-nilai', compact('mahasiswa', 'matakuliah', 'semester'));
+    }
+    public function prosesNilai(Request $request)
+    {
+
+        $p = new HasilStudi;
+        if ($request->type_ujian == "UTS") {
+            #jika select inputnya uts
+            $p->create([
+
+                'mahasiswa_id' => $request->mahasiswa_id,
+                'matakuliah_id' => $request->matakuliah_id,
+                'semester_id' => $request->semester_id,
+                'dosen_id' => $request->dosen_id,
+                'nilai_uts' => $request->nilai
+            ]);
+        } else {
+            #jika select inputnya uts
+            $p->create([
+
+                'mahasiswa_id' => $request->mahasiswa_id,
+                'matakuliah_id' => $request->matakuliah_id,
+                'semester_id' => $request->semester_id,
+                'dosen_id' => $request->dosen_id,
+                'nilai_uas' => $request->nilai
+            ]);
+        }
+        return redirect('/ujian-mhs');
+
+
+
+
+
+        // return view('dosen.submit-nilai', compact('mahasiswa', 'matakuliah', 'semester'));
+    }
 }

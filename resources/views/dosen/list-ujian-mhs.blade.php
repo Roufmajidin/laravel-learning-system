@@ -13,7 +13,9 @@
                         <th>Mahasiswa</th>
                         <th>File Jawaban</th>
                         <th>Waktu Pengumpulan</th>
+                        <th>Semester </th>
                         <th>MK Id</th>
+                        <th>Input Nilai</th>
                     </tr>
                 </thead>
                 <br><br>
@@ -42,20 +44,25 @@
                             @else
                                 <td>{{ $item->updated_at }}</td>
                             @endif
+                            <td>{{$item->semester['semester']}}</td>
+
                             @php
-                                $ma = App\Models\Matakuliah::find($item->matakuliah_id)
+                                $ma = App\Models\Matakuliah::find($item->matakuliah_id);
                             @endphp
                             <td>{{ $ma->nama_mk }}</td>
+                            @if ($item->file_jawaban === null)
+                                <td><a href="/submit-nilai-mhs/{{ $item->mahasiswa['id'] }}"><button disabled class="btn btn-secondary">Disbaled</button><a/></td>
+                            @else
+                                <td><a href="/submit-nilai-mhs/{{ $item->mahasiswa['id'] }}/{{ $ma->id }}/{{ $item->semester['id'] }}">Tap</a></td>
+                            @endif
 
 
                         </tr>
 
-                        @empty
+                    @empty
 
-                           <a style="margin-left:40%; margin-top:20%; position: absolute; color:red; font-wight:bold">belum ada Data</a>
-
-
-
+                        <a style="margin-left:40%; margin-top:20%; position: absolute; color:red; font-wight:bold">belum ada
+                            Data</a>
                     @endforelse
 
 

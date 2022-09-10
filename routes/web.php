@@ -38,6 +38,10 @@ Route::group(['middleware' => 'dosen'], function () {
     Route::get('/active-mahasiswa/{id}/{nama_kelas}', [DosenController::class, 'ujianActive']);
     Route::post('proses-activate', [DosenController::class, 'prosesActive']);
     Route::get('/list-mhs-ujian/{id}/{nama_kelas}', [DosenController::class, 'listMhsUjian']);
+
+    Route::get('/submit-nilai-mhs/{id}/{mk_id}/{semester_id}', [DosenController::class, 'submitNilai']);
+    Route::post('proses-submit-nilai', [DosenController::class, 'prosesNilai']);
+
 });
 
 Route::group(['middleware' => 'mahasiswa'], function () {
