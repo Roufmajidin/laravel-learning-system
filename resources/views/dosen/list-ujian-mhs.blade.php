@@ -13,6 +13,7 @@
                         <th>Mahasiswa</th>
                         <th>File Jawaban</th>
                         <th>Waktu Pengumpulan</th>
+                        <th>MK Id</th>
                     </tr>
                 </thead>
                 <br><br>
@@ -41,6 +42,11 @@
                             @else
                                 <td>{{ $item->updated_at }}</td>
                             @endif
+                            @php
+                                $ma = App\Models\Matakuliah::find($item->matakuliah_id)
+                            @endphp
+                            <td>{{ $ma->nama_mk }}</td>
+
 
                         </tr>
 

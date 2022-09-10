@@ -9,11 +9,16 @@ class UjianMhs extends Model
 {
     use HasFactory;
     protected $table = 'ujianMhs';
-    protected $fillable = ['mahasiswa_id', 'matakuliah_id', 'file_jawaban', 'soal_ujian', 'kelas_id'];
-       public function mahasiswa()
+    protected $fillable = ['mahasiswa_id', 'matakuliah_id', 'file_jawaban', 'soal_ujian', 'kelas_id', 'dosen_id'];
+    public function mahasiswa()
     {
 
         return $this->belongsTo(Mahasiswa::class);
+    }
+    public function matakuliah()
+    {
+
+        return $this->belongsTo(Matakuliah::class);
     }
 
 }

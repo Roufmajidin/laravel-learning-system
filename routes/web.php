@@ -34,11 +34,10 @@ Route::group(['middleware' => 'dosen'], function () {
     Route::get('/pertemuan/{id}', [DosenController::class, 'absenMhs']);
     Route::get('/absensi-mhs/{id}', [DosenController::class, 'ingatkanAbsen']);
     Route::post('buatAbsenProses/{id}', [DosenController::class, 'buatabsenProses']);
-    Route::get('/ujian', [DosenController::class, 'ujian']);
-    Route::get('/active-mahasiswa/{id}/{mk_id}', [DosenController::class, 'ujianActive']);
+    Route::get('/ujian-mhs', [DosenController::class, 'ujian']);
+    Route::get('/active-mahasiswa/{id}/{nama_kelas}', [DosenController::class, 'ujianActive']);
     Route::post('proses-activate', [DosenController::class, 'prosesActive']);
-    Route::get('/list-mhs-ujian/{id}/{mk_id}', [DosenController::class, 'listMhsUjian']);
-
+    Route::get('/list-mhs-ujian/{id}/{nama_kelas}', [DosenController::class, 'listMhsUjian']);
 });
 
 Route::group(['middleware' => 'mahasiswa'], function () {
@@ -52,9 +51,8 @@ Route::group(['middleware' => 'mahasiswa'], function () {
     Route::get('/modul/{id}', [MahasiswaController::class, 'modul']);
     Route::get('/cekAbsenMhs/{id}', [MahasiswaController::class, 'cekabsenMhs']);
     Route::get('/e-ujian', [HasilStudiController::class, 'index']);
-
-
-
-
+    Route::get('/ujian', [HasilStudiController::class, 'ujianOn']);
+    Route::get('/mhsJawaban/{id}', [HasilStudiController::class, 'kumpulkanJawaban']);
+    Route::post('/submit-proses/{id}', [HasilStudiController::class, 'storeUjian']);
 
 });

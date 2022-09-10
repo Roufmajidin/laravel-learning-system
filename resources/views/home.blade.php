@@ -235,7 +235,7 @@
                                 <ul class="">
                                     <li><a class="nav-link" href="/jadwaldosen">KBM</a></li>
                                     <li><a class="nav-link" href="/kelas-all">Kelas</a>
-                                    <li><a class="nav-link" href="/ujian">Ujian</a>
+                                    <li><a class="nav-link" href="/ujian-mhs">Ujian</a>
                                         <ul class="dropdown-menu">
                                             {{-- @php
                                                 $k = App\Models\Pertemuan::with('jadwal', 'dosen')
@@ -278,7 +278,8 @@
                                     <li><a class="nav-link" href="/profil-mahasiswa">Profil Mahasiswa</a></li>
                                     <li><a class="nav-link" href="/jadwal">Jadwal </a></li>
 
-                                    <li><a class="nav-link-sidebar" href="e-ujian">E-Ujian</a></li>
+                                    <li><a class="nav-link-sidebar" href="ujian">Ujian On</a></li>
+                                    <li><a class="nav-link-sidebar" href="e-ujian">Hasil Ujian</a></li>
                                     {{-- <li><a class="nav-link beep beep-sidebar" href="#tiga">-</a></li> --}}
                                 </ul>
                             </li>

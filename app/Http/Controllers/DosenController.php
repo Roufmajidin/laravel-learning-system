@@ -15,6 +15,7 @@ use App\Models\Mahasiswa;
 use App\Models\Dosen_jadwal;
 use App\Models\Materi;
 use App\Models\UjianMhs;
+use Termwind\Components\Dd;
 
 use function GuzzleHttp\json_decode;
 
@@ -156,9 +157,9 @@ class DosenController extends Controller
         $mkForUrut = Dosen_jadwal::with('matakuliah')->where('dosen_id', Auth::user()->id)->where('kelas_id', $id)->get();
         $kell = Kelas::with('mahasiswa')->get();
         $kelas = Kelas::find($id);
-        $mk = Matakuliah::with('dosen')->first();
+        $mk = Matakuliah::with('dosen')->where('dosen_id', $id)->first();
 
-        // dd($mkForUrut);
+        // dd($mk);
 
 
         // dd($matkulDosen);
@@ -267,20 +268,31 @@ class DosenController extends Controller
     }
     public function ujian()
     {
-        $ujian = Matakuliah::with('dosen')->where('dosen_id', Auth::user()->id)->get();
-        // dd($u);
+        // $ujian = Matakuliah::with('dosen')->where('dosen_id', Auth::user()->id)->get();
+        // dd($ujian);
+        $ujian = Dosen::with('kelas')->where('id', Auth::user()->id)->first();
+        // dd($ujian);
+        // $kelas = Kelas::with('matakuliah')->where('dosen_id', $ujian->id)->first();
+        // dd($ujian);
+
+        // dd($mk);
         return view('dosen.ujian', compact('ujian'));
     }
     //
-    public function ujianActive($id, $mk_id)
+    public function ujianActive($id, $nama_kelas)
     {
         // dd($u);
-        $kelas_id = $id;
-        $kelas = Kelas::with('Mahasiswa')->where('id', $kelas_id)->first();
+        // $kelas_id = $nama_kelas;
+        $kelas = Kelas::with('Mahasiswa')->where('id', $id)->first();
         // dd($kelas);
-        $mk = Matakuliah::with('dosen')->where('id', $mk_id)->first();
+        $mk = kelas::with('matakuliah', 'dosen')->where('id', $id)->where('nama_kelas', $nama_kelas)->first();
         // dd($mk);
-        return view('dosen.ujian-create', compact('kelas', 'mk'));
+        $auth = Auth::user()->id;
+        $matkul = Matakuliah::where('dosen_id', $auth)->first();
+        $dosen = Dosen::where('user_id', $auth)->first();
+        // $ujian = Dosen::with('kelas')->where('id', Auth::user()->id)->first();
+        // dd($matkul);
+        return view('dosen.ujian-create', compact('kelas', 'mk', 'dosen', 'matkul'));
     }
     public function prosesActive(Request $request)
     {
@@ -295,18 +307,18 @@ class DosenController extends Controller
             'mahasiswa_id' => $request->mahasiswa[$key],
             'matakuliah_id' => $request->matakuliah_id,
             'soal_ujian' => $f,
-            'kelas_id' => $request->kelas_id
+            'kelas_id' => $request->kelas_id,
+            'dosen_id' => $request->dosen_id
 
         ]);
         }
 
         return redirect('/ujian');
     }
-     public function listMhsUjian($id, $mk_id)
+     public function listMhsUjian($id, $nama_kelas)
     {
-
-        $u =  Matakuliah::find($mk_id);
-        $m = UjianMhs::with('mahasiswa')->where('matakuliah_id', $u->id)->get();
+        $auth = Auth::user()->id;
+        $m = UjianMhs::with('mahasiswa')->where('kelas_id', $nama_kelas)->where('dosen_id', $auth)->get();
         // dd($m);
         return view('dosen.list-ujian-mhs', compact('m'));
     }

@@ -39,9 +39,9 @@ class MahasiswaController extends Controller
 
 
 
-        $km = Kelas::with('matakuliah', 'dosen')->find($mk);
+        $km = Kelas::with('matakuliah', 'dosen')->where('id', $m->kelas_id)->first();
 
-        // dd($dosen);
+        // dd($km);
         return view('mahasiswa.jadwal', compact('km'));
     }
     public function detailKelas($id)
@@ -58,7 +58,7 @@ class MahasiswaController extends Controller
         $dos = Dosen_jadwal::where('dosen_id', $id)->first();
 
         $absen = Absensi::with('dosen_jadwal')->where('mahasiswa_id', $mahas->id)->where('dosen_jadwal_id', $id)->get();
-        // dd($absen);
+        // dd($pertemuan);
         return view('mahasiswa.jadwalDetail', compact('pertemuan', 'kel', 'absen'));
     }
 

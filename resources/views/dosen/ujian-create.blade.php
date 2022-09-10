@@ -15,11 +15,20 @@
                     <div class="form-group ml-4 col-md-5 row">
                         <label style="color:#17a2b8">Matakuliah_id :
                         </label>
-                        <input type="text" class="form-control" value="{{$mk->id}}" placeholder="" name="matakuliah_id">
+                        @php
+                         $i = App\Models\Kelas::with('matakuliah')->find($kelas->id);
+
+                        @endphp
+                        <input type="text" class="form-control" value="{{$matkul->id}}" placeholder="" name="matakuliah_id">
                     </div>
                     <div class="form-group ml-4 col-md-5">
                         <label style="color:#17a2b8">file Soal</label>
                         <input type="file" class="form-control" name="file" value="" placeholder="">
+
+                    </div>
+                     <div class="form-group ml-4 col-md-5">
+                        <label style="color:#17a2b8">dosen : {{$dosen->nama_dosen}}</label>
+                        <input type="text" class="form-control" name="dosen_id" value="{{$dosen->id}}" placeholder="">
 
                     </div>
 
@@ -32,7 +41,7 @@
                             @php
                                 $m = App\Models\Mahasiswa::where('kelas_id', $kelas->id)->get();
                             @endphp
-                            @foreach ($m as $i)
+                             @foreach ($m as $i)
                                 <option value="{{ $i->id }}">{{ $i->nama_mahasiswa }}</option>
                             @endforeach
                         </select>

@@ -1,9 +1,13 @@
 @extends('home')
-@section('title', 'Mahasiswa Ujian')
+{{-- @section('title', 'Mahasiswa Ujian') --}}
 @section('content')
 
     <div class="card-body">
-        <h6></h6>
+    @php
+        $p = App\Models\Matakuliah::with('dosen')->where('dosen_id', Auth::user()->id)->first();
+    @endphp
+        <h6>Dosen : {{$p->dosen['nama_dosen']}}</h6>
+        <h6>Nama Mk : {{$p->nama_mk}}</h6>
         </a>
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="90%" cellspacing="0">
@@ -21,15 +25,19 @@
                         $no = 1;
                     @endphp
 
-                    @foreach ($ujian as $item)
+                    @foreach ($ujian->kelas as $item)
                         <tr>
 
                             <td>{{ $no++ }} </td>
-                            <td>{{ $item->nama_mk }} </td>
-                            <td>{{ $item->kelas['nama_kelas'] }} </td>
+                            <td>{{ $item->nama_kelas }} </td>
+
+
                             <td>
-                                <a href="/active-mahasiswa/{{ $item->kelas['id']}}/{{$item->id}}"><button class="btn btn-primary"> Aktifkan Mahasiswa </button>
-                                <a href="/list-mhs-ujian/{{ $item->kelas['id']}}/{{$item->id}}"><button class="btn btn-success"> E-ujian </button>
+                                <a href="/active-mahasiswa/{{ $item->id}}/{{$item->nama_kelas}}"><button class="btn btn-primary"> Aktifkan Mahasiswa </button>
+
+
+
+                                <a href="/list-mhs-ujian/{{ $item->nama_kelas}}/{{$item->id}}"><button class="btn btn-success"> E-ujian </button>
                             </a>
                             </td>
 
