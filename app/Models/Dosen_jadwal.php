@@ -18,6 +18,8 @@ class Dosen_jadwal extends Model
         'kelas_id',
         'file_pertemuan',
         'detail_materi',
+        'qr_code',
+        'created_at',
 
 
     ];

@@ -16,17 +16,17 @@
                     <div class="form-group ml-4 col-md-5 row">
                         <label style="color:#17a2b8">Dosen ID : {{ $dosen->id }}
                         </label>
-                        <input type="text" class="form-control  name="" value="{{ $dosen->nama_dosen }}" placeholder=""
+                        <input type="text" class="form-control" name="" value="{{ $dosen->nama_dosen }}" placeholder=""
                             disabled>
 
                     </div>
                     <div class="form-group ml-4 col-md-5">
                         <label style="color:#17a2b8">dosen_id</label>
-                        <input type="text" class="form-control @error('dosen_id') is-invalid @enderror" name="dosen_id"
-                            value="{{ $dosen->id }}" placeholder="{{ $dosen->id }}">
-                        @error('dosen_id')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                        <select name="dosen_id" class="form-control">
+                            <option value="{{ $dosen->id }}" aria-placeholder="{{ $dosen->id }}">
+                                {{ $dosen->id }}</option>
+
+                        </select>
                     </div>
                     <div class="form-group ml-4 ml-4 col-sm-5 pt-0">
                         <label style="color:#17a2b8">file Modul</label>
@@ -75,7 +75,7 @@
                 <div class="form-row">
                     <div class="form-group ml-4 ml-4 col-sm-5 pt-0">
                         <label style="color:#17a2b8">Jam MK</label>
-                        <input type="text" class="form-control @error('jam_mk') is-invalid @enderror" name="jam_mk"
+                        <input type="time" class="form-control @error('jam_mk') is-invalid @enderror" name="jam_mk"
                             value="" placeholder="">
                         @error('jam_mk')
                             <div class="invalid-feedback">{{ $message }}</div>

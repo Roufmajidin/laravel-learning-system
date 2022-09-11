@@ -19,6 +19,7 @@
                         <th>Pertemuan</th>
                         <th>Jam Mk</th>
                         <th>Info</th>
+                        <th>Qr</th>
 
                     </tr>
                 </thead>
@@ -46,6 +47,8 @@
                                     class="bi bi-pencil-square" title="Detail Kelas"></i>Buat Absen</a>
 
                             </td>
+                            <td>{!! $item->qr_code !!}
+
                         </tr>
 
                           @empty

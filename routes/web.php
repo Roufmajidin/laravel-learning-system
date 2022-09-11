@@ -7,8 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\HasilStudiController;
 use App\Http\Controllers\MahasiswaController;
-
-
+use App\Http\Controllers\QRCodeController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -43,6 +42,7 @@ Route::group(['middleware' => 'dosen'], function () {
 
     Route::get('/submit-nilai-mhs/{id}/{mk_id}/{semester_id}', [DosenController::class, 'submitNilai']);
     Route::post('proses-submit-nilai', [DosenController::class, 'prosesNilai']);
+    Route::get('/generate-qr', [DosenController::class, 'qrCode']);
 
 });
 // admin

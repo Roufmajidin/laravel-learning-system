@@ -18,7 +18,7 @@ use App\Models\Materi;
 use App\Models\SemesterModel;
 use App\Models\UjianMhs;
 use Termwind\Components\Dd;
-
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use function GuzzleHttp\json_decode;
 
 class DosenController extends Controller
@@ -41,6 +41,23 @@ class DosenController extends Controller
         $detailJ = Dosen_jadwal::where('dosen_id', Auth::user()->id)->get();
         // dd($dosen);
         return view('dosen.index', compact('m', 'detailJ'));
+    }
+    public function qrCode()
+    {
+        $dosena = Dosen::where('user_id', Auth::user()->id)->first();
+
+        $dj = Dosen_jadwal::where('dosen_id', Auth::user()->id)->first();
+        $dosen = User::where('id', $dj->dosen_id)->first();
+
+        // $u = User
+        // dd($dosen);
+        $qr = QrCode::email($dosen->email, $dj->pertemuan_ke, $dj->kelas_id);
+        $coba = Coba::create([
+
+            'mahasiswa_id' => $qr
+        ]);
+        $qra = Coba::find(65);
+        return view('test', compact('qra'));
     }
     public function detail($id)
     {
@@ -204,6 +221,13 @@ class DosenController extends Controller
             // $p = dosen::findOrfail($id);
             $id_kelas = $request->kelas_id;
             $kelasid = Kelas::find($id_kelas);
+            $dosena = Dosen::where('user_id', Auth::user()->id)->first();
+
+            $dj = Dosen_jadwal::where('dosen_id', Auth::user()->id)->first();
+            $dosen = User::where('id', $dj->dosen_id)->first();
+            $matakuliah = Matakuliah::find($request->dosen_mk);
+            $qr = QrCode::Size(50)->email($dosen->email, $matakuliah->nama_mk, $dj->kelas_id);
+
             $p = Dosen::find($id);
             $p->dosen_jadwal()->create(
                 [
@@ -214,6 +238,7 @@ class DosenController extends Controller
                     'jam_mk' => $request->jam_mk,
                     'kelas_id' => $request->kelas_id,
                     'file_pertemuan' => $image,
+                    'qr_code' => $qr
 
 
                 ]

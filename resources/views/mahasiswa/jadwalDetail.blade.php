@@ -32,6 +32,7 @@
                         <th>Tanggal</th>
                         <th>Modul</th>
                         <th>Info</th>
+                        <th></th>
 
                     </tr>
                 </thead>
