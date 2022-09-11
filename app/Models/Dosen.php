@@ -9,8 +9,8 @@ class Dosen extends Model
 {
     // use HasFactory;
      protected $fillable = [
-        'nama_mk',
-        'mk_dosen',
+        'user_id',
+        'nama_dosen',
 
 
     ];
@@ -30,6 +30,11 @@ class Dosen extends Model
     {
 
         return $this->belongsToMany(Kelas::class);
+    }
+    public function matakuliah()
+    {
+
+        return $this->belongsTo(Matakuliah::class);
     }
 
 

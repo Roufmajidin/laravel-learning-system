@@ -191,42 +191,17 @@
                     </div>
                     <ul class="sidebar-menu">
                         @if (Auth::user()->level == 'admin')
-                            <li class="menu-header">Dashboard</li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link has-dropdown"><i
-                                        class="fas fa-fire"></i><span>Dashboard</span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="nav-link" href="#">General Dashboard</a></li>
-                                    <li><a class="nav-link" href="#">Ecommerce Dashboard</a></li>
-                                </ul>
-                            </li>
-                            <li class="menu-header">D L L</li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
-                                        class="fas fa-columns"></i> <span>Lain-Lain</span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="nav-link" href="tambahdata">ajax Crud</a></li>
-                                    <li><a class="nav-link" href="#">:::r</a></li>
-                                    <li><a class="nav-link" href="#"> ... </a></li>
-                                </ul>
-                            </li>
-
-                            <li class="menu-header">D A T A</li>
-                            <li class="dropdown">
+                         <li class="dropdown">
                                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-th-large"></i>
-                                    <span>Admin</span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="nav-link" href="/semuadata">Satu (Ganjil)</a></li>
-                                    <li><a class="nav-link beep beep-sidebar" href="/data_kelas ">Data Kelas</a>
-                                    </li>
-                                    <li><a class="nav-link beep beep-sidebar" href="/data_dosen ">Data Dosen</a>
-                                    </li>
-                                    {{-- <li><a class="nav-link beep beep-sidebar" href="/mahasiswa-all">Data Mahasiswa</a></li> --}}
+                                    <span>Admin Premis</span></a>
+                                <ul class="">
+                                    <li><a class="nav-link" href="/jadwal-dosen">Dosen</a></li>
 
-                                    <li><a class="nav-link beep beep-sidebar" href="/mahasiswa-all">Data Mahasiswa</a>
-                                    </li>
+                                    {{-- <li><a class="nav-link beep beep-sidebar" href="#tiga">-</a></li> --}}
                                 </ul>
                             </li>
+
+
                         @elseif (Auth::user()->level == 'dosen')
                             {{-- <li class="menu-header">Jadwal Dosen</li> --}}
                             <li class="dropdown">

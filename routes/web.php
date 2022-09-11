@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdminControl;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\DosenController;
@@ -43,6 +45,17 @@ Route::group(['middleware' => 'dosen'], function () {
     Route::post('proses-submit-nilai', [DosenController::class, 'prosesNilai']);
 
 });
+// admin
+Route::group(['middleware' => 'admin'], function () {
+
+    Route::get('/jadwal-dosen', [AdminController::class, 'index']);
+    Route::get('/detail-dosen/{id}', [AdminController::class, 'detailDosen']);
+    Route::post('/dosen-kelas-tambah/{id}', [AdminController::class, 'CreateKelasDosen']);
+    Route::get('/aktifkan-kelas-dosen/{id}/{dosen_id}', [AdminController::class, 'AktifKelasDosen']);
+    Route::post('/active-proses', [AdminController::class, 'prosesActiveMk']);
+
+});
+
 
 Route::group(['middleware' => 'mahasiswa'], function () {
 

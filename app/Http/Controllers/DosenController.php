@@ -36,10 +36,11 @@ class DosenController extends Controller
     {
         // $idd = 2;
         // $dosen = Dosen::with('user')->where('user_id', Auth::user()->id)->get();
-        $dosen = Dosen::with('dosen_jadwal')->where('user_id', Auth::user()->id)->get();
+        // $dosen = Dosen::with('matakuliah')->where('user_id', Auth::user()->id)->get();
+        $m = Matakuliah::with('dosen')->where('dosen_id', Auth::user()->id)->get();
         $detailJ = Dosen_jadwal::where('dosen_id', Auth::user()->id)->get();
         // dd($dosen);
-        return view('dosen.index', compact('dosen', 'detailJ'));
+        return view('dosen.index', compact('m', 'detailJ'));
     }
     public function detail($id)
     {
@@ -159,9 +160,9 @@ class DosenController extends Controller
         $mkForUrut = Dosen_jadwal::with('matakuliah')->where('dosen_id', Auth::user()->id)->where('kelas_id', $id)->get();
         $kell = Kelas::with('mahasiswa')->get();
         $kelas = Kelas::find($id);
-        $mk = Matakuliah::with('dosen')->where('dosen_id', $id)->first();
+        $mk = Matakuliah::with('dosen')->where('dosen_id', Auth::user()->id)->first();
 
-        // dd($mk);
+        // dd($id);
 
 
         // dd($matkulDosen);

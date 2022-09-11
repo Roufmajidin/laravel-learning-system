@@ -35,7 +35,10 @@ class MahasiswaController extends Controller
         $m = Mahasiswa::with('kelas')->where('user_id', Auth::user()->id)->first();
         $mk = $m->kelas['id'];
 
-        $kelas = Kelas::with('dosen')->find($mk);
+        $kelas = Kelas::with('matakuliah')->find($mk);
+        // $mkk = Matakuliah::find($kelas->id);
+
+        // dd($kelas);
 
 
 

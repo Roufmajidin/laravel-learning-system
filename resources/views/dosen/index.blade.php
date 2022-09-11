@@ -25,15 +25,15 @@
                         $no = 1;
                     @endphp
 
-                    @foreach ($dosen as $item)
+                    @foreach ($m as $item)
                         <tr>
 
                             <td>{{ $no++ }} </td>
-                            <td>{{ $item->nama_dosen }}
-                            <td>{{ $item->mk_dosen }}
+                            <td>{{ $item->nama_mk }}
+                            <td>{{ $item->dosen['nama_dosen'] }}
 
                             <td>
-                                <a href="detailkelasDosen/{{$item->id}}" class="btn btn-sm btn-info" <i
+                                <a href="detailkelasDosen/{{$item->dosen['id']}}" class="btn btn-sm btn-info" <i
                                     class="bi bi-pencil-square" title="Detail Kelas"></i>Join Kelas</a>
                             </td>
                         </tr>
