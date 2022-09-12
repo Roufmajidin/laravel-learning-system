@@ -9,8 +9,9 @@
         </a>
         <br>
         <div class="table-responsive">
-        @php
-        @endphp
+
+            @php
+            @endphp
             @foreach ($absen as $ab)
                 {{-- $ab = "a" --}}
                 @if ($ab->status_absensi == 0)
@@ -52,13 +53,16 @@
                             <td>{{ $item->dosen_jadwal['pertemuan_ke'] }}
                             <td>{{ $item->dosen_jadwal['jam_mk'] }} WIB</td>
                             <td>{{ $item->dosen_jadwal['tanggal'] }}</td>
-                            <td><a href="/lihat-materi/{{$item->dosen_jadwal['id']}}">{{ $item->dosen_jadwal['file_pertemuan'] }}</a></td>
+                            <td><a
+                                    href="/lihat-materi/{{ $item->dosen_jadwal['id'] }}">{{ $item->dosen_jadwal['file_pertemuan'] }}</a>
+                            </td>
 
 
 
 
                             @if ($item->status_absensi === 0)
-                                <td class=""><a href="/absen/{{ $item->dosen_jadwal['id'] }}" style="font-weight: 900;color:brown" href="#"> Belum Absen</a></td>
+                                <td class=""><a href="/absen/{{ $item->dosen_jadwal['id'] }}"
+                                        style="font-weight: 900;color:brown" href="#"> Belum Absen</a></td>
                             @else
                                 <td><button class="btn btn-primary">sudah</button></td>
                                 <td> {{ Carbon\Carbon::parse($item->tanggal_absen)->diffForHumans() }}</td>

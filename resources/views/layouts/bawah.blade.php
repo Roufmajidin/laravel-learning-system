@@ -32,9 +32,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/js/toastr.js"></script>
 {{-- toast notif --}}
 {{-- scan qr --}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
     integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
 <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 <script>
     // ajax
@@ -71,10 +71,18 @@
     //     });
 
     // }
+    // function play() {
+    //     var audio = new Audio(
+    //         'https://media.geeksforgeeks.org/wp-content/uploads/20190531135120/beep.mp3');
+    //     // audio.play();
+    // }
+
 
     function onScanSuccess(decodedText, decodedResult) {
         // handle the scanned code as you like, for example:
-
+        // var audio = $("#chatAudio").val();
+        var audio = new Audio(
+            'https://media.geeksforgeeks.org/wp-content/uploads/20190531135120/beep.mp3');
         $('#result').val(decodedText);
         toastr.options.timeOut = 100;
         let id = decodedText;
@@ -94,9 +102,14 @@
                     // console.log(response);
                     if (response.status == 200) {
                         alert('berhasil');
+                        audio.play();
+
                     } else {
                         //  alert('Berhasil');
                         toastr.success('sukses');
+
+                        audio.play();
+
 
                         window.location = '/detailkelasmahasiswa/' + ur_id;
                     }
