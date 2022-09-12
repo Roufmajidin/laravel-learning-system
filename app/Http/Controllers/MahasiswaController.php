@@ -7,6 +7,7 @@ use App\Models\Matakuliah;
 use App\Models\Kelas;
 use App\Models\Dosen;
 use App\Models\Absensi;
+use App\Models\Coba;
 use App\Models\Dosen_jadwal;
 use App\Models\Materi;
 use Illuminate\Http\Request;
@@ -153,4 +154,44 @@ class MahasiswaController extends Controller
         $pertemuan = Dosen_jadwal::find($id);
         return view('mahasiswa.detail-materi', compact('materi', 'pertemuan'));
     }
+    public function coba(Request $request)
+    {
+        $qr = $request->qr_code;
+        $data = '359';
+        $p = Absensi::where('jadwal_id', $qr)->first();
+        if ($qr == $data) {
+            // return response()->jsosn([
+            //     'status' => '200'
+            // ]);
+
+            $p->update([
+
+            'status_absensi' => 1
+
+            ]);
+
+        }
+        return redirect()->back();
+    }
+    // public function cobaC(Request $request)
+    // {
+
+    //     $qr = $request->qr_code;
+    //     $data = '123';
+    //     $absensi = Absensi::find($request->qr_code);
+    //     if($qr == $absensi->id);
+    //     $p = new Coba;
+
+    //         $p->create([
+
+    //         'mahasiswa_id' => $data
+
+    //         ]);
+
+    //     }
+
+
+
+
+
 }

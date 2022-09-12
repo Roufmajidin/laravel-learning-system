@@ -74,6 +74,13 @@ class DosenController extends Controller
         // $dosen = Dosen::with('dosen_jadwal')->where('user_id', Auth::user()->id)->get();
 
         // dd($detailJ);
+        $mahasiswa= Mahasiswa::where('kelas_id', $kelas->id)->get();
+
+
+
+
+
+
 
         return view('dosen.show-kelas-dosen', compact('detailJ', 'kelas'));
     }
@@ -83,9 +90,7 @@ class DosenController extends Controller
         // $matkulDosen = Matakuliah::with('kelas')->where('dosen_id', $id)->get();
         $matkulDosen = Dosen::with('kelas')->find($id);
         // $matak = Matakuliah
-        // $matkulDosen = Dosen::with('kelas')->where('id', $id)->get();
 
-        // dd($matkulDosen);
         return view('dosen.show-Mk-dosen', compact('matkulDosen'));
     }
     //kelas matakuliah
@@ -265,6 +270,7 @@ class DosenController extends Controller
         // dd($request->all());
         // $urll = $request->id_jadwal;
         // $urll = Dosen_jadwal::where
+        $ulangi = 14;
         $p = new Absensi;
         foreach ($request->mahasiswa as $key => $name) {
             $p->create([
@@ -381,8 +387,10 @@ class DosenController extends Controller
                 'dosen_id' => $request->dosen_id,
                 'nilai_uts' => $request->nilai
             ]);
-        } else {
-            #jika select inputnya uts
+
+        }
+         elseif($request->type_ujian == "UAS"){
+            #jika select inputnya uas
             $p->create([
 
                 'mahasiswa_id' => $request->mahasiswa_id,
@@ -403,20 +411,14 @@ class DosenController extends Controller
     public function prosesMateri(Request $request, $id)
     {
 
-    $p = new Materi();
-    $p->insert([
-    'dosen_jadwal_id' => $request->dosen_jadwal_id,
-    'judul_materi' => $request->judul_materi,
-    'teser_materi' => $request->teaser_materi,
-    'penugasan' => $request->penugasan,
+        $p = new Materi();
+        $p->insert([
+            'dosen_jadwal_id' => $request->dosen_jadwal_id,
+            'judul_materi' => $request->judul_materi,
+            'teser_materi' => $request->teaser_materi,
+            'penugasan' => $request->penugasan,
 
-    ]);
-    return redirect('materi_detail/'. $request->dosen_jadwal_id);
-
-
-
-
-
-
+        ]);
+        return redirect('materi_detail/' . $request->dosen_jadwal_id);
     }
 }

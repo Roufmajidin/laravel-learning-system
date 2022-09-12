@@ -14,52 +14,147 @@
 <!-- Page Specific JS File -->
 
 <!-- Template JS File -->
-<script src="{{ asset('style/js/scripts.js') }}"></script>
+{{-- <script src="{{ asset('style/js/scripts.js') }}"></script> --}}
 <script src="{{ asset('style/js/custom.js') }}"></script>
 
 
 
-{{--  <script src="{{ asset('style/js/jquery.min.js') }}"></script>  --}}
+{{-- <script src="{{ asset('style/js/jquery.min.js') }}"></script> --}}
 <script src="{{ asset('style/js/pdfobject.min.js') }}"></script>
 
 {{-- script edit X- EDITABLE --}}
 {{-- <script src="{{ asset('style/js/jqueryui-editable.min.js') }}"></script>
 <script src="{{ asset('style/js/jqueryui-editable.js') }}"></script> --}}
-{{--  <script src="{{ asset('style/js/bootstrap-editable.js') }}"></script>  --}}
+{{-- <script src="{{ asset('style/js/bootstrap-editable.js') }}"></script> --}}
 {{-- <script src="{{ asset('style/js/jquery-editable-poshytip.min.js') }}"></script> --}}
 {{-- <script src="{{ asset('style/js/jquery-editable-poshytip.js') }}"></script> --}}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/js/toastr.js"></script>
 {{-- toast notif --}}
- <script>
-        $(document).ready(function() {
-            toastr.options.timeOut = 10000;
-            @if (Session::has('error'))
-                toastr.error('{{ Session::get('error') }}');
-            @elseif(Session::has('success'))
-                toastr.success('{{ Session::get('success') }}');
-            @endif
-        });
+{{-- scan qr --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+<script>
+    // ajax
 
-    </script>
+
+    $('#result').val('test');
+    // function onScanSuccess(decodedText, decodedResult) {
+    //     // alert(decodedText);
+    //     $('#result').val(decodedText);
+    //     let id = decodedText;
+    //     html5QrcodeScanner.clear().then(_ => {
+    //         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+    //         $.ajax({
+
+    //             url: "{{ route('insert') }}",
+    //             type: 'POST',
+    //             data: {
+    //                 _methode: "POST",
+    //                 _token: CSRF_TOKEN,
+    //                 qr_code: id
+    //             },
+    //             success: function(response) {
+    //                 // console.log(response);
+    //                 if (response.status == 200) {
+    //                     alert('berhasil');
+    //                 } else {
+    //                     alert('gagal');
+    //                 }
+
+    //             }
+    //         });
+    //     }).catch(error => {
+    //         alert('something wrong');
+    //     });
+
+    // }
+
+    function onScanSuccess(decodedText, decodedResult) {
+        // handle the scanned code as you like, for example:
+
+        $('#result').val(decodedText);
+        toastr.options.timeOut = 100;
+        let id = decodedText;
+        var ur_id = $("#ur").val();
+        html5QrcodeScanner.clear().then(_ => {
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+
+                url: "{{ route('insert') }}",
+                type: 'POST',
+                data: {
+                    _methode: "POST",
+                    _token: CSRF_TOKEN,
+                    qr_code: id
+                },
+                success: function(response) {
+                    // console.log(response);
+                    if (response.status == 200) {
+                        alert('berhasil');
+                    } else {
+                        //  alert('Berhasil');
+                        toastr.success('sukses');
+
+                        window.location = '/detailkelasmahasiswa/' + ur_id;
+                    }
+
+                }
+            });
+        }).catch(error => {
+            alert('something wrong');
+        });
+    }
+
+    // function onScanFailure(error) {
+    //     // handle scan failure, usually better to ignore and keep scanning.
+    //     // for example:
+    //     console.warn(`Code scan error = ${error}`);
+    // }
+
+    let html5QrcodeScanner = new Html5QrcodeScanner(
+        "reader", {
+            fps: 10,
+            qrbox: {
+                width: 250,
+                height: 250
+            }
+        },
+        /* verbose= */
+        false);
+    html5QrcodeScanner.render(onScanSuccess);
+</script>
+// and
+<script>
+    $(document).ready(function() {
+        toastr.options.timeOut = 10000;
+        @if (Session::has('error'))
+            toastr.error('{{ Session::get('error') }}');
+        @elseif (Session::has('success'))
+            toastr.success('{{ Session::get('success') }}');
+        @endif
+    });
+</script>
 
 <script>
     let data = []
 
-    function ambilDataMasterItem(){
-        const url = "{{url('list_master_item') }}";
+    function ambilDataMasterItem() {
+        const url = "{{ url('list_master_item') }}";
         $.ajax({
             url,
-            success:function(list_master_item){
+            success: function(list_master_item) {
                 console.log(list_master_item)
                 //variabel utk nampugn nilai
                 let tampilan = ``;
                 $("#table-list tbody").children().remove()
 
                 //looping
-                for(let i=0;i<list_master_item.length;i++){
+                for (let i = 0; i < list_master_item.length; i++) {
 
-                    tampilan+= `
+                    tampilan += `
                     <tr>
                         <td>${list_master_item[i]. i++||'-'} </td>
                         <td>${list_master_item[i]. nama||'-'} </td>
@@ -82,52 +177,51 @@
     ambilDataMasterItem()
 
     //form submit
-    $("#form").on('submit', function(event){
+    $("#form").on('submit', function(event) {
         event.preventDefault()
         submitForm()
     })
 
-    function submitForm(){
+    function submitForm() {
         let form = $("form");
-         //post route WEB.PHP
-        const url = "{{url('master_item') }}";
+        //post route WEB.PHP
+        const url = "{{ url('master_item') }}";
         $.ajax({
             url,
-            method:"POST",
-            data:form.serialize(),
-            success:function(response){
-               ambilDataMasterItem()
+            method: "POST",
+            data: form.serialize(),
+            success: function(response) {
+                ambilDataMasterItem()
 
             },
-            error:function(err){
+            error: function(err) {
                 console.log(err)
                 alert("gagal menambahkan")
             }
         })
     }
-    $(document).ready(function () {
+    $(document).ready(function() {
 
-        $('body').on('click', '#editCompany', function (event) {
+        $('body').on('click', '#editCompany', function(event) {
 
             event.preventDefault();
             var id = $(this).data('id');
-            $.get(id + '/edit', function (data) {
-                 //$('#userCrudModal').html("Edit category");
-                 //$('#submit').val("Detail Dosen");
-                    $('#practice_modal').modal('show');
-                    $('#color_id').val(data.data.id);
-                    $('#name').val(data.data.nama_dosen);
-                    $('#alamat').val(data.data.alamat);
-                    $('#tmpL').val(data.data.tempat_lahir);
-                    $('#NIDN').val(data.data.NIDN);
+            $.get(id + '/edit', function(data) {
+                //$('#userCrudModal').html("Edit category");
+                //$('#submit').val("Detail Dosen");
+                $('#practice_modal').modal('show');
+                $('#color_id').val(data.data.id);
+                $('#name').val(data.data.nama_dosen);
+                $('#alamat').val(data.data.alamat);
+                $('#tmpL').val(data.data.tempat_lahir);
+                $('#NIDN').val(data.data.NIDN);
 
 
 
-                })
+            })
         })
 
-        });
-
+    });
 </script>
 
 
@@ -135,4 +229,5 @@
 
 
 </body>
+
 </html>

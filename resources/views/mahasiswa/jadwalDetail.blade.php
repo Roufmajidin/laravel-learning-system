@@ -9,7 +9,8 @@
         </a>
         <br>
         <div class="table-responsive">
-
+        @php
+        @endphp
             @foreach ($absen as $ab)
                 {{-- $ab = "a" --}}
                 @if ($ab->status_absensi == 0)

@@ -61,8 +61,8 @@ Route::group(['middleware' => 'admin'], function () {
 Route::group(['middleware' => 'mahasiswa'], function () {
 
     Route::get('/profil-mahasiswa', [MahasiswaController::class, 'index']);
-    Route::get('/jadwal', [MahasiswaController::class, 'jadwal']);
-    Route::get('/detailkelasmahasiswa/{id}', [MahasiswaController::class, 'detailKelas']);
+    Route::get('/jadwal', [MahasiswaController::class, 'jadwal'])->name('jadwal');
+    Route::get('/detailkelasmahasiswa/{id}', [MahasiswaController::class, 'detailKelas'])->name("detailkelasmahasiswa");
     Route::get('/absen/{id}', [MahasiswaController::class, 'absenMhs']);
     Route::post('/absenproses/{id}', [MahasiswaController::class, 'absenproses']);
     Route::get('/absensi/{id}', [MahasiswaController::class, 'absensiMahasiswaByJadwalDosen']);
@@ -73,5 +73,7 @@ Route::group(['middleware' => 'mahasiswa'], function () {
     Route::get('/mhsJawaban/{id}', [HasilStudiController::class, 'kumpulkanJawaban']);
     Route::post('/submit-proses/{id}', [HasilStudiController::class, 'storeUjian']);
     Route::get('/lihat-materi/{id}', [MahasiswaController::class, 'lihatMateri']);
+    Route::post('/insert', [MahasiswaController::class, 'coba'])->name('insert');
+    // Route::post('/proses', [MahasiswaController::class, 'cobaC'])->name('proses');
 
 });
