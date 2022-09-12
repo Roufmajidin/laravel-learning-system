@@ -223,10 +223,10 @@ class DosenController extends Controller
             $kelasid = Kelas::find($id_kelas);
             $dosena = Dosen::where('user_id', Auth::user()->id)->first();
 
-            $dj = Dosen_jadwal::where('dosen_id', Auth::user()->id)->first();
-            $dosen = User::where('id', $dj->dosen_id)->first();
+            // $dj = Dosen::where('dosen_id', Auth::user()->id)->first();
+            $dosen = User::find($dosena->id);
             $matakuliah = Matakuliah::find($request->dosen_mk);
-            $qr = QrCode::Size(50)->email($dosen->email, $matakuliah->nama_mk, $dj->kelas_id);
+            $qr = QrCode::Size(50)->email($dosen->email, $matakuliah->nama_mk, "as");
 
             $p = Dosen::find($id);
             $p->dosen_jadwal()->create(
@@ -289,10 +289,11 @@ class DosenController extends Controller
     public function detailMateri($id)
     {
         $materi = Materi::with('dosen_jadwal')->where('dosen_jadwal_id', $id)->get();
+        $pertemuan = Dosen_jadwal::find($id);
         // dd($materi);
         // $ma = Materi::where('u')
         // $m = Materi::with()
-        return view('dosen.detailMateri', compact('materi'));
+        return view('dosen.detailMateri', compact('materi', 'pertemuan'));
     }
     public function ujian()
     {
@@ -398,5 +399,24 @@ class DosenController extends Controller
 
 
         // return view('dosen.submit-nilai', compact('mahasiswa', 'matakuliah', 'semester'));
+    }
+    public function prosesMateri(Request $request, $id)
+    {
+
+    $p = new Materi();
+    $p->insert([
+    'dosen_jadwal_id' => $request->dosen_jadwal_id,
+    'judul_materi' => $request->judul_materi,
+    'teser_materi' => $request->teaser_materi,
+    'penugasan' => $request->penugasan,
+
+    ]);
+    return redirect('materi_detail/'. $request->dosen_jadwal_id);
+
+
+
+
+
+
     }
 }

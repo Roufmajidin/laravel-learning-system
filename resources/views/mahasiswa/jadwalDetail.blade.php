@@ -9,10 +9,11 @@
         </a>
         <br>
         <div class="table-responsive">
+
             @foreach ($absen as $ab)
                 {{-- $ab = "a" --}}
                 @if ($ab->status_absensi == 0)
-                    {{-- <button class="btn btn-danger">P{{ $ab->dosen_jadwal['pertemuan_ke'] }}<br> --}}
+                    <button class="btn btn-danger">P{{ $ab->dosen_jadwal['pertemuan_ke'] }}<br>
 
                     </button>
                 @elseif($ab->status_absensi == 1)
@@ -50,7 +51,7 @@
                             <td>{{ $item->dosen_jadwal['pertemuan_ke'] }}
                             <td>{{ $item->dosen_jadwal['jam_mk'] }} WIB</td>
                             <td>{{ $item->dosen_jadwal['tanggal'] }}</td>
-                            <td><a href="#">{{ $item->dosen_jadwal['file_pertemuan'] }}</a></td>
+                            <td><a href="/lihat-materi/{{$item->dosen_jadwal['id']}}">{{ $item->dosen_jadwal['file_pertemuan'] }}</a></td>
 
 
 

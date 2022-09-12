@@ -43,6 +43,7 @@ Route::group(['middleware' => 'dosen'], function () {
     Route::get('/submit-nilai-mhs/{id}/{mk_id}/{semester_id}', [DosenController::class, 'submitNilai']);
     Route::post('proses-submit-nilai', [DosenController::class, 'prosesNilai']);
     Route::get('/generate-qr', [DosenController::class, 'qrCode']);
+    Route::post('/tambah_materi_proses/{id}', [DosenController::class, 'prosesMateri']);
 
 });
 // admin
@@ -71,5 +72,6 @@ Route::group(['middleware' => 'mahasiswa'], function () {
     Route::get('/ujian', [HasilStudiController::class, 'ujianOn']);
     Route::get('/mhsJawaban/{id}', [HasilStudiController::class, 'kumpulkanJawaban']);
     Route::post('/submit-proses/{id}', [HasilStudiController::class, 'storeUjian']);
+    Route::get('/lihat-materi/{id}', [MahasiswaController::class, 'lihatMateri']);
 
 });

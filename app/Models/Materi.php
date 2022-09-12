@@ -12,6 +12,7 @@ class Materi extends Model
 
     protected $fillable = [
         'id',
+        'dosen_jadwal_id',
         'judul_materi',
         'teser_materi',
         'penugasan',
