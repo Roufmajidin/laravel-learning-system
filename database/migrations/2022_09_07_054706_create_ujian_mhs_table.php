@@ -14,7 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('ujian_mhs', function (Blueprint $table) {
-            $table->id();
+            $table->uuid();
+            $table->bigInteger('matakuliah_id');
+            $table->bigInteger('kelas_id');
+            $table->bigInteger('dosen_id');
+            $table->string('semester_id');
+            $table->string('soal_ujian');
             $table->timestamps();
         });
     }

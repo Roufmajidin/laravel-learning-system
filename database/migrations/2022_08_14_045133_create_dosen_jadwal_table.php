@@ -14,13 +14,15 @@ return new class extends Migration
     public function up()
     {
         Schema::create('dosen_jadwal', function (Blueprint $table) {
-            $table->id();
+            $table->uuid();
             $table->string('tanggal');
             $table->integer('pertemuan_ke');
-            $table->integer('dosen_id');
-            $table->integer('dosen_mk');
+            $table->string('dosen_id');
+            $table->string('dosen_mk');
             $table->string('jam_mk');
-            $table->integer('kelas_id');
+            $table->string('kelas_id');
+            $table->string('file_pertemuan');
+            $table->string('qr_code');
             $table->timestamps();
 });
     }

@@ -13,8 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('semester_models', function (Blueprint $table) {
-            $table->id();
+        Schema::create('semester', function (Blueprint $table) {
+            $table->uuid();
+            $table->string('semester');
             $table->timestamps();
         });
     }

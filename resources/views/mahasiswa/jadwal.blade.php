@@ -34,7 +34,7 @@
 
 
                             <td>
-                                <a href="detailkelasmahasiswa/{{$item->dosen['id']}}" class="btn btn-sm btn-info" <i
+                                <a href="detailkelasmahasiswa/{{ Crypt::encrypt($item->dosen['id'])}}" class="btn btn-sm btn-info" <i
                                     class="bi bi-pencil-square" title="Detail Kelas"></i>Join Kelas</a>
                             </td>
                         </tr>

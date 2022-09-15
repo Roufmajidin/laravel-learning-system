@@ -8,6 +8,7 @@ use App\Http\Controllers\DosenController;
 use App\Http\Controllers\HasilStudiController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\QRCodeController;
+use App\Http\Middleware\Admin;
 
 Route::get('/', function () {
     return view('welcome');
@@ -44,7 +45,7 @@ Route::group(['middleware' => 'dosen'], function () {
     Route::post('proses-submit-nilai', [DosenController::class, 'prosesNilai']);
     Route::get('/generate-qr', [DosenController::class, 'qrCode']);
     Route::post('/tambah_materi_proses/{id}', [DosenController::class, 'prosesMateri']);
-
+    Route::get('/detail-penugasan/{id}', [DosenController::class, 'detailPenugasan']);
 });
 // admin
 Route::group(['middleware' => 'admin'], function () {
@@ -55,6 +56,11 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/aktifkan-kelas-dosen/{id}/{dosen_id}', [AdminController::class, 'AktifKelasDosen']);
     Route::post('/active-proses', [AdminController::class, 'prosesActiveMk']);
 
+    Route::get('/mahasiswa-data', [AdminController::class, 'mahasiswa']);
+    Route::get('/kelas/{id}', [AdminController::class, 'kelasMahasiswa']);
+    Route::post('/tambah-mhs-proses', [AdminController::class, 'tambahMhs'])->name('tambah-mhs-proses');
+    Route::get('/data-mhs-ajax/{kelas_id}', [AdminController::class, 'kelasMahasiswaAjax']);
+    Route::delete('/hapus-mhs/{id}', [AdminController::class, 'hapusMhs']);
 });
 
 
@@ -74,6 +80,8 @@ Route::group(['middleware' => 'mahasiswa'], function () {
     Route::post('/submit-proses/{id}', [HasilStudiController::class, 'storeUjian']);
     Route::get('/lihat-materi/{id}', [MahasiswaController::class, 'lihatMateri']);
     Route::post('/insert', [MahasiswaController::class, 'coba'])->name('insert');
-    // Route::post('/proses', [MahasiswaController::class, 'cobaC'])->name('proses');
-
+    Route::get('/coba', [MahasiswaController::class, 'cobaC'])->name('proses');
+    Route::get('/t', [MahasiswaController::class, 'tet']);
+    Route::post('/kumpulkan-tugas-mhs', [MahasiswaController::class, 'kumpulkanTugas']);
+    Route::get('/cek-ativitas/{id}', [MahasiswaController::class, 'aktivitasMhs']);
 });

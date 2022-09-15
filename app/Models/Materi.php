@@ -24,4 +24,9 @@ class Materi extends Model
 
         return $this->belongsTo(Dosen_jadwal::class);
     }
+    public function tugas()
+    {
+
+        return $this->belongsTo(Tugas::class);
+    }
 }

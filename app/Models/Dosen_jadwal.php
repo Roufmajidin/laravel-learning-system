@@ -48,6 +48,11 @@ class Dosen_jadwal extends Model
 
         return $this->hasMany(Materi::class);
     }
+    public function tugas_mhs()
+    {
+
+        return $this->hasMany(Tugas::class);
+    }
 
 
 }

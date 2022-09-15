@@ -196,6 +196,7 @@
                                     <span>Admin Premis</span></a>
                                 <ul class="">
                                     <li><a class="nav-link" href="/jadwal-dosen">Dosen</a></li>
+                                    <li><a class="nav-link" href="/mahasiswa-data">Mahasiswa</a></li>
 
                                     {{-- <li><a class="nav-link beep beep-sidebar" href="#tiga">-</a></li> --}}
                                 </ul>

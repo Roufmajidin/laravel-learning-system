@@ -14,10 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('absensi', function (Blueprint $table) {
-            $table->id();
-            $table->integer('jadwal_id');
-            $table->integer('mahasiswa_id');
+            $table->uuid();
+            $table->string('jadwal_id');
+            $table->string('mahasiswa_id');
             $table->string('tanggal_absen');
+            $table->string('status_absensi');
+            $table->string('dosen_jadwal_id');
+            $table->string('keterangan');
             $table->timestamps();
         });
     }

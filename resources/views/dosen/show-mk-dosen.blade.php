@@ -28,12 +28,11 @@
 
                             <td>{{ $item->nama_kelas }} </td>
 
-
-
-
                             <td>
-                                <a href="/kelas-detail/{{ $item->id }}" class="btn btn-sm btn-info" <i
-                                    class="bi bi-pencil-square" title="Detail Kelas"></i>detail</a>
+                                <a href="/kelas-detail/{{ encrypt($item->id) }}" class="btn btn-sm btn-info" <i
+                                    class="bi bi-pencil-square" title="Detail Kelas"></i>detail Kelas</a>
+                                <a href="/detail-penugasan/{{ encrypt($item->id) }}" class="btn btn-sm btn-info" <i
+                                    class="bi bi-pencil-square" title="Detail Kelas"></i>detail Penugasan</a>
                             </td>
                         </tr>
 

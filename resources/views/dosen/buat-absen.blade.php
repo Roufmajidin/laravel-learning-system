@@ -9,7 +9,7 @@
 
 
 
-            <form class="form-group" action="/buatAbsenProses/{{ $dosen->id }}" method="POST" enctype="multipart/form-data">
+            <form class="form-group" action="/buatAbsenProses/{{ encrypt($dosen->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-row">
                     <div class="form-group ml-4 col-md-5 row">

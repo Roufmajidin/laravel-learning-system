@@ -36,57 +36,30 @@
     integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
 <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+<script src="sweetalert2.all.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     // ajax
 
 
     $('#result').val('test');
-    // function onScanSuccess(decodedText, decodedResult) {
-    //     // alert(decodedText);
-    //     $('#result').val(decodedText);
-    //     let id = decodedText;
-    //     html5QrcodeScanner.clear().then(_ => {
-    //         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-    //         $.ajax({
 
-    //             url: "{{ route('insert') }}",
-    //             type: 'POST',
-    //             data: {
-    //                 _methode: "POST",
-    //                 _token: CSRF_TOKEN,
-    //                 qr_code: id
-    //             },
-    //             success: function(response) {
-    //                 // console.log(response);
-    //                 if (response.status == 200) {
-    //                     alert('berhasil');
-    //                 } else {
-    //                     alert('gagal');
-    //                 }
-
-    //             }
-    //         });
-    //     }).catch(error => {
-    //         alert('something wrong');
-    //     });
-
-    // }
-    // function play() {
-    //     var audio = new Audio(
-    //         'https://media.geeksforgeeks.org/wp-content/uploads/20190531135120/beep.mp3');
-    //     // audio.play();
-    // }
 
 
     function onScanSuccess(decodedText, decodedResult) {
         // handle the scanned code as you like, for example:
         // var audio = $("#chatAudio").val();
+        let timerInterval;
+
+        // var audio2 = new Audio(
+        //     'https://assets.mixkit.co/sfx/preview/mixkit-sport-start-bleeps-918.mp3');
         var audio = new Audio(
             'https://media.geeksforgeeks.org/wp-content/uploads/20190531135120/beep.mp3');
         $('#result').val(decodedText);
         toastr.options.timeOut = 100;
         let id = decodedText;
         var ur_id = $("#ur").val();
+        var id_jadwal = $("#id_jadwal").val();
         html5QrcodeScanner.clear().then(_ => {
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
@@ -96,22 +69,73 @@
                 data: {
                     _methode: "POST",
                     _token: CSRF_TOKEN,
-                    qr_code: id
+                    qr_code: id,
+                    id_jadwal: id_jadwal,
                 },
                 success: function(response) {
-                    // console.log(response);
+                    console.log(response);
+
                     if (response.status == 200) {
-                        alert('berhasil');
+                        // alert('berhasil');
                         audio.play();
+
+                        Swal.fire({
+                            title: 'Terima Kasih',
+                            html: 'Suskes Absensi',
+                            timer: 4000,
+                            timerProgressBar: true,
+                            didOpen: () => {
+                                Swal.showLoading()
+                                const b = Swal.getHtmlContainer().querySelector('b')
+                                timerInterval = setInterval(() => {
+                                    b.textContent = Swal.getTimerLeft()
+                                }, 2000)
+                            },
+                            willClose: () => {
+                                clearInterval(timerInterval)
+                            }
+                        }).then((result) => {
+                            /* Read more about handling dismissals below */
+                            if (result.dismiss === Swal.DismissReason.timer) {
+                                console.log('I was closed by the timer')
+                            }
+                        });
+                        timeout: 5000; // sets timeout to 5 seconds
+                        window.location = '/detailkelasmahasiswa/' + ur_id;
+
+
 
                     } else {
-                        //  alert('Berhasil');
-                        toastr.success('sukses');
+                        //  alert/('Berhasil');
+                        console.log(response);
 
-                        audio.play();
+                        // toastr.success('sukses');
+                        // audio.play();
+
+                        Swal.fire({
+                            title: 'Hayye',
+                            html: 'Gagal, Perikasi Kembali Qr Mu & Reload',
+                            timer: 4000,
+                            timerProgressBar: true,
+                            didOpen: () => {
+                                Swal.showLoading()
+                                const b = Swal.getHtmlContainer().querySelector('b')
+                                timerInterval = setInterval(() => {
+                                    b.textContent = Swal.getTimerLeft()
+                                }, 2000)
+                            },
+                            willClose: () => {
+                                clearInterval(timerInterval)
+                            }
+                        }).then((result) => {
+                            /* Read more about handling dismissals below */
+                            if (result.dismiss === Swal.DismissReason.timer) {
+                                console.log('I was closed by the timer')
+                            }
+                        })
 
 
-                        window.location = '/detailkelasmahasiswa/' + ur_id;
+
                     }
 
                 }
@@ -119,6 +143,7 @@
         }).catch(error => {
             alert('something wrong');
         });
+
     }
 
     // function onScanFailure(error) {
@@ -237,8 +262,7 @@
     });
 </script>
 
-
-
+    @stack('scripts')
 
 
 </body>

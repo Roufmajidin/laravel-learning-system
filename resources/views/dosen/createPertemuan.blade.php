@@ -9,7 +9,7 @@
 
 
 
-            <form class="form-group" action="/tambahpertemuanproses/{{ $dosen->id }}" method="POST"
+            <form class="form-group" action="/tambahpertemuanproses/{{ encrypt($dosen->id) }}" method="POST"
                 enctype="multipart/form-data">
                 @csrf
                 <div class="form-row">

@@ -10,10 +10,15 @@ use App\Models\Absensi;
 use App\Models\Coba;
 use App\Models\Dosen_jadwal;
 use App\Models\Materi;
+use App\Models\Tugas;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Ramsey\Uuid\Uuid;
+use Str;
+// use Carbon\Carbon;
 
 class MahasiswaController extends Controller
 {
@@ -37,9 +42,8 @@ class MahasiswaController extends Controller
         $mk = $m->kelas['id'];
 
         $kelas = Kelas::with('matakuliah')->find($mk);
-        // $mkk = Matakuliah::find($kelas->id);
 
-        // dd($kelas);
+
 
 
 
@@ -52,7 +56,7 @@ class MahasiswaController extends Controller
 
     {
 
-
+        $id = decrypt($id);
         $kel = Mahasiswa::with('kelas')->where('user_id', Auth::user()->id)->first();
         // $pertemuan =  Dosen_jadwal::with('absensi', 'matakuliah')->where('dosen_mk', $id)->get();
         $pertemuan = Dosen_jadwal::with('kelas', 'absensi')->where('dosen_id', $id)->get();
@@ -64,13 +68,14 @@ class MahasiswaController extends Controller
         $absen = Absensi::with('dosen_jadwal')->where('mahasiswa_id', $mahas->id)->where('dosen_jadwal_id', $id)->get();
         // dd($pertemuan);
 
-        return view('mahasiswa.jadwalDetail', compact('pertemuan', 'kel', 'absen'));
+        return view('mahasiswa.jadwalDetail', compact('pertemuan', 'kel', 'absen', 'id'));
     }
 
 
     public function absensiMahasiswaByJadwalDosen($id)
 
     {
+        $id = decrypt($id);
         $ka = Auth::user()->id;
         //  $m = Mahasiswa::where('user_id', $ka)->get();
         $m = Mahasiswa::with('user')->where('user_id',  Auth::user()->id)->first();
@@ -87,6 +92,7 @@ class MahasiswaController extends Controller
     public function modul($id)
     {
 
+        $id = decrypt($id);
 
         $modul = Dosen_jadwal::with('kelas')->find($id);
         $materi = Materi::with('dosen_jadwal')->where('dosen_jadwal_id', $id)->get();
@@ -96,8 +102,7 @@ class MahasiswaController extends Controller
 
     public function cekabsenMhs($id)
     {
-        // $k = Matakuliah::with('kelas', 'dosen')->where('kelas_id', $id)->get();
-
+        $id = decrypt($id);
         $mahas = Mahasiswa::where('user_id', Auth::user()->id)->first();
         $k = Absensi::where('mahasiswa_id', $mahas->id)->where('dosen_jadwal_id', $id)->orderBy('jadwal_id', 'DESC')->get();
         // dd($k);
@@ -108,12 +113,13 @@ class MahasiswaController extends Controller
     public function absenMhs($id)
 
     {
-
+        $id = decrypt($id);
         $absensi = Dosen_jadwal::with('absensi', 'matakuliah')->where('id', $id)->find($id);
         $m = Mahasiswa::with('kelas')->where('user_id', Auth::user()->id)->first();
         $date = Carbon::now();
         $absensiii = Dosen_jadwal::find($id);
 
+        // dd($id);
 
         // $detailJ = Dosen_jadwal::with('absensi')->where('id', $id)->find($id);
         return view('mahasiswa.absensi', compact('absensi', 'm', 'date', 'absensiii'));
@@ -121,9 +127,10 @@ class MahasiswaController extends Controller
     public function absenproses(Request $request, $id)
 
     {
-
+        $id = decrypt($id);
         $p = Absensi::where('jadwal_id', $id)->where('mahasiswa_id', $request->mahasiswa_id)->first();
         $mahas = Mahasiswa::where('user_id', Auth::user()->id)->first();
+
 
         $p->update([
 
@@ -150,48 +157,140 @@ class MahasiswaController extends Controller
     }
     public function lihatMateri($id)
     {
+        $id = decrypt($id);
         $materi = Materi::with('dosen_jadwal')->where('dosen_jadwal_id', $id)->get();
         $pertemuan = Dosen_jadwal::find($id);
+
+
+        //
+        // $qr = 100;
+        // $urut =  Absensi::find($id);
+        // $urut_id = $urut->jadwal_id;
+        // $auth = Auth::user()->id;
+
+        // $absensi = Absensi::where('mahasiswa_id', Auth::user()->id)->where('jadwal_id', $urut)->first();
+        // $p = $absensi->jadwal_id;
+        // dd($pertemuan);
         return view('mahasiswa.detail-materi', compact('materi', 'pertemuan'));
     }
     public function coba(Request $request)
     {
         $qr = $request->qr_code;
-        $data = '359';
-        $p = Absensi::where('jadwal_id', $qr)->first();
-        if ($qr == $data) {
-            // return response()->jsosn([
-            //     'status' => '200'
-            // ]);
+        $jd = $request->id_jadwal;
+        // $decrpt = decrypt($qr);
+        // $data = '359';
+        $matakuliah = Matakuliah::where('nama_mk', 'Mobile Apps Programming')->first();
+        $nama_mk = $matakuliah->dosen_id;
+        $auth = Auth::user()->id;
+        $urut =  Absensi::where('jadwal_id', $qr)->first();
+        $urut_id = $urut->id;
+        $absensi = Absensi::where('mahasiswa_id', $auth)->where('jadwal_id', $qr)->first();
+        $p = $absensi->jadwal_id;
+        // $p = Absensi::where('jadwal_id', $qr)->first();
+        // $pp =  $p->jadwal_id;
+        $tanggal_absens = Carbon::now();
+        if ($qr == $jd) {
+            $absensi->update([
 
-            $p->update([
+                'status_absensi' => 1,
+                'tanggal_absen' => $tanggal_absens,
 
-            'status_absensi' => 1
 
             ]);
+            return response()->json([
+                'status' => 200,
 
+            ]);
+        } else {
+            return response()->json([
+                'status' => 400,
+
+            ]);
         }
-        return redirect()->back();
+
+
+
+
+
+
+        // dd($qr);
+        // return redirect()->back();
     }
-    // public function cobaC(Request $request)
-    // {
+    public function cobaC()
+    {
 
-    //     $qr = $request->qr_code;
-    //     $data = '123';
-    //     $absensi = Absensi::find($request->qr_code);
-    //     if($qr == $absensi->id);
-    //     $p = new Coba;
+        // $qr = $request->qr_code;
+        $data = Str::random(20);
 
-    //         $p->create([
+        // $absensi = Absensi::find($request->qr_code);
+        // 5eeccf92-d54e-4b24-b8f4-cf8c3b0d7d54
+        // $dosen = Dosen::find(25);
+        // dd($dosen);
+        // $u = User::find(11);
+        // $u = Auth::user()->password;
+        // $p = Dosen::find(26);
+        //     $p->update([
 
-    //         'mahasiswa_id' => $data
+        //     'id' => $data,
 
-    //         ]);
+        //     ]);
+        // dd($u);
+    }
+    public function tet()
+    {
 
-    //     }
+
+
+
+        $dosen = Dosen::find(713470768);
+
+        $r = rand();
+        // $r2 = rand();
+        // $dosen->update([
+        // 'id' => $r,
+        // 'user_id' => Str::uuid()
+
+        // ]);
+    }
+    public function kumpulkanTugas(Request $request)
+    {
 
 
 
 
+        $tugas = new Tugas;
+        $auth_mhs = Auth::user()->id;
+        $mahasiswa = Mahasiswa::where('user_id', $auth_mhs)->first();
+        $file_nm = $request->file->getClientOriginalName();
+        $image = $request->file->storeAs('thumbnail', $file_nm);
 
+        $tugas->create([
+        'mahasiswa_id' => $mahasiswa->user_id,
+        'materi_id' => $request->id,
+        'dosen_jadwal_id' => $request->dosen_jadwal_id,
+        'dosen_id' => $request->dosen_id,
+        'file' => $file_nm,
+        'ket' => $request->ket,
+        'kelas_id' => $request->kelas_id,
+
+
+
+        ]);
+        return redirect()->back();
+
+    }
+    public function aktivitasMhs($id){
+
+    $id = decrypt($id);
+    $auth = Auth::user()->id;
+    $absen = Absensi::where('dosen_jadwal_id', $id)->where('mahasiswa_id', $auth)->get();
+    $mk = Matakuliah::where('dosen_id', $id)->first();
+    $dt = Dosen::find($id);
+    dd($dt);
+    $tugas = Tugas::with('materi')->where('');
+    // dd($absen);
+
+    return view('mahasiswa.detail-aktivitas', compact('absen', 'mk'));
+
+    }
 }

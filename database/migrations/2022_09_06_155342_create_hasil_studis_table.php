@@ -13,12 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('hasil_studis', function (Blueprint $table) {
-            $table->id();
-            $table->bigInteger('matakuliah_id');
-            $table->bigInteger('mahasiswa_id');
+        Schema::create('hasil_studi', function (Blueprint $table) {
+            $table->uuid();
+            $table->string('matakuliah_id');
+            $table->string('mahasiswa_id');
+            $table->string('semester_id');
+            $table->string('dosen_id');
+            // $table->string('nilai_uts');
             $table->string('nilai_uts');
-            $table->string('nilai_uas');
+            $table->string('keterangan');
             $table->timestamps();
         });
     }

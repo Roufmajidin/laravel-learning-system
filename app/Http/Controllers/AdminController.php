@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+// use App\Http\Middleware\Mahasiswa;
 use App\Models\Dosen;
 use App\Models\Kelas;
+use App\Models\Mahasiswa;
 use App\Models\Matakuliah;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -51,6 +53,7 @@ class AdminController extends Controller
         // return 'ok';
 
         $m = Matakuliah::with('dosen')->get();
+        // dd($m);
 
 
         return view('admin.index', compact('m'));
@@ -119,12 +122,70 @@ class AdminController extends Controller
         $mk = Matakuliah::find($request->mk_id);
         $kelas = Kelas::find($request->kelas_id);
         $kelas->matakuliah()->attach($request->mk_id);
+        $m = Matakuliah::all();
         // return 'succes';
         // dd($mk);
         // dd(request()->all());
         // return 'ok';
 
 
-        return redirect('detail-dosen/'. $mk->dosen_id);
+        return redirect('detail-dosen/' . $mk->dosen_id);
+    }
+
+    public function mahasiswa()
+    {
+
+
+        $mahas = Mahasiswa::get();
+        $kelas = Kelas::get();
+        // dd($m);
+        return view('admin.kelas-mahasiswa-all', compact('kelas'));
+    }
+    public function kelasMahasiswa($id)
+    {
+
+        $id = decrypt($id);
+        $mahas = Mahasiswa::where('kelas_id', $id)->get();
+        // $kelas = Kelas::get();
+        // dd($m);
+        // return response()->json([
+        //     'data' => $mahas,
+
+        // ]);
+        return view('admin.mahasiswa', compact('mahas', 'id'));
+    }
+    public function tambahMhs(Request $request)
+    {
+
+        $mahasiswa = new Mahasiswa;
+        $mahasiswa->create([
+            'nama_mahasiswa' => $request->nama_mahasiswa,
+            'kelas_id' => $request->kelas,
+        ]);
+        return response()->json([]);
+        // return view('admin.mahasiswa', compact('mahas', 'id'));
+    }
+     public function kelasMahasiswaAjax($kelas_id)
+    {
+
+        // $id = decrypt($kelas_id);
+        $mahas = Mahasiswa::where('kelas_id', $kelas_id)->get();
+        // $kelas = Kelas::get();
+        // dd($m);
+        return response()->json([
+            'data' => $mahas,
+
+        ]);
+        // return view('admin.mahasiswa', compact('mahas', 'id'));
+    }
+     public function hapusMhs($id)
+    {
+
+        $mhs = Mahasiswa::find($id);
+        $mhs->delete();
+
+
+        // return redirect('/data-produk');
+        return response()->json();
     }
 }

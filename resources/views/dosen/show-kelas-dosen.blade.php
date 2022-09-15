@@ -9,7 +9,7 @@
             <table class="table table-bordered" id="dataTable" cellspacing="0">
                 <thead class="">
 
-                    <a href="/tambahpertemuan/{{ $kelas->id }}" class="btn btn-sm btn-primary mr-2"><i
+                    <a href="/tambahpertemuan/{{ encrypt($kelas->id) }}" class="btn btn-sm btn-primary mr-2"><i
                             class="fa fa-plus"></i>Tambah Data</a>
                     <a class="btn btn-success btn-sm" href=""><i class="fa fa-print"></i> Print Data</a>
                     <tr>
@@ -19,7 +19,6 @@
                         <th>Pertemuan</th>
                         <th>Jam Mk</th>
                         <th>Info</th>
-                        <th>Qr</th>
 
                     </tr>
                 </thead>
@@ -39,15 +38,14 @@
                             <td>{{ $item->jam_mk }}
 
                             <td>
-                                <a href="/pertemuan/{{ $item->id }}" class="btn btn-sm btn-info" <i
+                                <a href="/pertemuan/{{ Crypt::encrypt($item->id) }}" class="btn btn-sm btn-info" <i
                                     class="bi bi-pencil-square" title="Detail Kelas"></i>Absen Kelas</a>
-                                <a href="/materi_detail/{{ $item->id }}" class="btn btn-sm btn-info" <i
+                                <a href="/materi_detail/{{ Crypt::encrypt($item->id) }}" class="btn btn-sm btn-info" <i
                                     class="bi bi-pencil-square" title="Detail Kelas"></i>Materi</a>
-                                <a href="/buat-absen/{{ $item->id }}" class="btn btn-sm btn-info" <i
+                                <a href="/buat-absen/{{ Crypt::encrypt($item->id) }}" class="btn btn-sm btn-info" <i
                                     class="bi bi-pencil-square" title="Detail Kelas"></i>Buat Absen</a>
 
-                            </td>
-                            <td>{!! $item->qr_code !!}
+
 
                         </tr>
 

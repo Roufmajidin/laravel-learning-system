@@ -22,7 +22,7 @@
                     <div class="form-group ml-4 col-md-5 row">
                         <label style="color:#17a2b8"> ID MK: {{ $absensi->id }}
                         </label>
-                        <input type="text" class="form-control" value="{{ $absensi->id }}" name="jadwal_id"
+                        <input type="text" class="form-control" data-id="{{ $absensi->id }}" id="id_jadwal" value="{{ $absensi->id }}" name="jadwal_id"
                             placeholder="">
 
 
@@ -34,15 +34,15 @@
                 <div class="form-row">
                     <div class="form-group ml-4 col-md-2">
                         <label style="color:#17a2b8">Mhs id</label>
-                        <input type="text" class="form-control" name="mahasiswa_id" value="{{ $m->id }}"
+                        <input type="text" class="form-control" id="mhs_id" data-id="{{ $m->id }}" name="mahasiswa_id" value="{{ $m->id }}"
                             placeholder="">
 
                     </div>
 
                     <div class="form-group ml-4 col-md-2">
                         <label style="color:#17a2b8">dos id</label>
-                        <input type="text" class="form-control" id="ur" data-id="{{ $absensi->id }}"
-                            name="dosen_id" value="{{ $absensiii->dosen_id }}" placeholder="">
+                        <input type="text" class="form-control" id="ur" data-id="{{ Crypt::encrypt($absensi->id) }}"
+                            name="dosen_id" value="{{ Crypt::encrypt($absensiii->dosen_id) }}" placeholder="">
 
                     </div>
 

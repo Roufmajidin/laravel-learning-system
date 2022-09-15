@@ -13,7 +13,21 @@
         <br>
         <br>
 
+        <div class="qr col-md" style="position: absolute; size:200px">
+            {!! $pertemuan->qr_code !!}
+            @php
+                $mk = App\Models\Matakuliah::find($pertemuan->dosen_mk)
+            @endphp
+            <br>
+            <br>
+            <h6>Absensi {{$mk->nama_mk}} </h6>
+            <h6>Pertemuan Ke {{$pertemuan->pertemuan_ke}} </h6>
+            @php
+                 $kelas = App\Models\Kelas::find($pertemuan->kelas_id)
+            @endphp
+            <p>Kelas : {{$kelas->nama_kelas}} </p>
 
+            </div>
         @foreach ($materi as $item)
             <div class="form-group row mb-4">
 
@@ -66,6 +80,10 @@
                     <input type="text" class="form-control inputtags" disabled value="{{ $item->penugasan }}">
                 </div>
             </div>
+
+    </div>
+    <div>
+
     </div>
     @endforeach
 
