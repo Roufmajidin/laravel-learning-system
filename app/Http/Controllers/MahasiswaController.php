@@ -161,7 +161,8 @@ class MahasiswaController extends Controller
         $materi = Materi::with('dosen_jadwal')->where('dosen_jadwal_id', $id)->get();
         $pertemuan = Dosen_jadwal::find($id);
 
-
+        $auth = Auth::user()->id;
+        $tugas = Tugas::where('mahasiswa_id', $auth)->where('dosen_id', $pertemuan->dosen_id)->get();
         //
         // $qr = 100;
         // $urut =  Absensi::find($id);
@@ -170,8 +171,8 @@ class MahasiswaController extends Controller
 
         // $absensi = Absensi::where('mahasiswa_id', Auth::user()->id)->where('jadwal_id', $urut)->first();
         // $p = $absensi->jadwal_id;
-        // dd($pertemuan);
-        return view('mahasiswa.detail-materi', compact('materi', 'pertemuan'));
+        // dd($tugas);
+        return view('mahasiswa.detail-materi', compact('materi', 'pertemuan', 'tugas'));
     }
     public function coba(Request $request)
     {
@@ -291,6 +292,15 @@ class MahasiswaController extends Controller
     // dd($absen);
 
     return view('mahasiswa.detail-aktivitas', compact('absen', 'mk'));
+
+    }
+    public function deleteProses($id){
+
+    $id = decrypt($id);
+    $tugas = Tugas::find($id);
+    $tugas->delete();
+
+    return redirect('lihat-materi/'. decrypt($id));
 
     }
 }

@@ -20,4 +20,9 @@ class Tugas extends Model
 
         return $this->belongsTo(Mahasiswa::class);
     }
+    public function dosen_jadwal()
+    {
+
+        return $this->hasMany(Dosen_jadwal::class, 'id', 'dosen_jadwal_id');
+    }
 }

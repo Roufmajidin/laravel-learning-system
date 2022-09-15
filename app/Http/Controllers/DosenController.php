@@ -456,7 +456,7 @@ class DosenController extends Controller
         $dj = Dosen_jadwal::with('tugas_mhs', 'materi')->where('dosen_mk', $auth)->where('kelas_id', $id_kelas)->get();
         // dd($id_kelas);
 
-        $ma = Tugas::with('mahasiswa')->where('dosen_id', $auth)->where('kelas_id', $id_kelas)->get();
+        $ma = Tugas::with('mahasiswa', 'materi', 'dosen_jadwal')->where('dosen_id', $auth)->where('kelas_id', $id_kelas)->get();
 
         return view('dosen.penugasan-mhs', compact('dj', 'dosen', 'id', 'ma'));
     }

@@ -116,7 +116,7 @@
                         ->where('mahasiswa_id', Auth::user()->id)
                         ->get();
                 @endphp
-                @forelse ($mat as $i)
+                @forelse ($tugas as $i)
                     <tr>
                         @php
                             $dos = App\Models\Dosen_jadwal::find($i->dosen_jadwal_id);
@@ -129,16 +129,23 @@
 
 
                         <td>
-                            <a href="#edit"><i class="fas fa-trash"></i></a>
                             <a href="#edit"><i class="fas fa-edit"></i></a>
+                            <a href="/delete-upload/{{encrypt($i->id)}}"><i class="fas fa-trash"></i></a>
                         </td>
+                         @if ($i->materi_id >= 0 )
+                    <p class="beep text-danger">Hy, ada upload yang duble. Harap Periksa</p>
+
+                @endif
 
                     </tr>
+
+
                 @empty
 
                     <a style="margin-left:40%; margin-top:20%; position: absolute; color:red; font-wight:bold">belum ada
                         Data</a>
                 @endforelse
+
 
 
 
@@ -184,7 +191,7 @@
                                 $mahasiswa = App\Models\Mahasiswa::where('user_id', Auth::user()->id)->first();
                                 $kelas = App\Models\Kelas::where('id', $mahasiswa->kelas_id)->first();
                             @endphp
-                            <label for="recipient-name" class="col-form-label">kelas : {{$kelas->nama_kelas}} </label>
+                            <label for="recipient-name" class="col-form-label">kelas : {{ $kelas->nama_kelas }} </label>
                             <input type="text" class="form-control inputtags" name="kelas_id"
                                 value="{{ $kelas->id }}">
 

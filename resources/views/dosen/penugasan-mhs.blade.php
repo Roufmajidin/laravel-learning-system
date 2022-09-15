@@ -36,6 +36,8 @@
                                 $M = App\Models\Mahasiswa::where('id', $i->mahasiswa_id)->get();
                             @endphp
                             <td>{{ $i->mahasiswa['nama_mahasiswa'] }} </td>
+
+
                             <td>{{ $i->ket }} </td>
                             <td>{{ $i->created_at->format('d M Y') }} </td>
                             <td><a href="#/{{ $i->file }}">Lihat Tugas</a> </td>

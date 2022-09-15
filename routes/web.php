@@ -84,4 +84,5 @@ Route::group(['middleware' => 'mahasiswa'], function () {
     Route::get('/t', [MahasiswaController::class, 'tet']);
     Route::post('/kumpulkan-tugas-mhs', [MahasiswaController::class, 'kumpulkanTugas']);
     Route::get('/cek-ativitas/{id}', [MahasiswaController::class, 'aktivitasMhs']);
+    Route::get('/delete-upload/{id}', [MahasiswaController::class, 'deleteProses']);
 });
