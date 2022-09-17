@@ -253,6 +253,7 @@
 
                                     <li><a class="nav-link" href="/profil-mahasiswa">Profil Mahasiswa</a></li>
                                     <li><a class="nav-link" href="/jadwal">Jadwal </a></li>
+                                    <li><a class="nav-link" href="/krs-online">E-KRS </a></li>
 
                                     <li><a class="nav-link-sidebar" href="/ujian">Ujian On</a></li>
                                     <li><a class="nav-link-sidebar" href="/e-ujian">Hasil Ujian</a></li>

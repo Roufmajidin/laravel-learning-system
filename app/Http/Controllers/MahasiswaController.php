@@ -9,7 +9,9 @@ use App\Models\Dosen;
 use App\Models\Absensi;
 use App\Models\Coba;
 use App\Models\Dosen_jadwal;
+use App\Models\Krs;
 use App\Models\Materi;
+use App\Models\Semester;
 use App\Models\Tugas;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -45,10 +47,14 @@ class MahasiswaController extends Controller
         $kelas = Kelas::with('matakuliah')->find($mk);
 
 
+        $auth = Auth::user()->id;
 
 
-
-        $km = Kelas::with('matakuliah', 'dosen')->where('id', $m->kelas_id)->first();
+        $km = Krs::with('mahasiswa', 'matakuliah')
+        ->where('mahasiswa_id', $auth)
+        ->where('status', 1)
+        ->get();
+        // dd($km);
 
         // dd($km);
         return view('mahasiswa.jadwal', compact('km'));
@@ -59,6 +65,7 @@ class MahasiswaController extends Controller
         // Paginator;
 
         $id = decrypt($id);
+        // dd($id);
         $kel = Mahasiswa::with('kelas')->where('user_id', Auth::user()->id)->first();
         // $pertemuan =  Dosen_jadwal::with('absensi', 'matakuliah')->where('dosen_mk', $id)->get();
         $pertemuan = Dosen_jadwal::with('kelas', 'absensi')->where('dosen_id', $id)->get();
@@ -241,6 +248,7 @@ class MahasiswaController extends Controller
     public function cobaC()
     {
 
+
         // $qr = $request->qr_code;
         $data = Str::random(20);
 
@@ -322,5 +330,42 @@ class MahasiswaController extends Controller
         $tugas->delete();
 
         return redirect('lihat-materi/' . decrypt($id));
+    }
+    public function krsMhs(){
+
+    $auth = Auth::user()->id;
+    $mk = Matakuliah::get();
+    $mhs = Mahasiswa::where('user_id', $auth)->first();
+    $smt = Semester::find($mhs->semester_id);
+    return view('mahasiswa.reg-krs', compact('mk', 'mhs', 'smt'));
+    }
+    // store
+
+    public function krsMhsProses(Request $request){
+
+    $auth = Auth::user()->id;
+    // $mk = Matakuliah::get();
+    $mhs = Mahasiswa::where('user_id', $auth)->first();
+    // $smt = Semester::find($mhs->semester_id);
+    $p = new Krs;
+    foreach ($request->krsMK as $key => $name) {
+            $p->create([
+
+                'mahasiswa_id' => $request->mahasiswa_id,
+                'matakuliah_id' => $request->krsMK[$key],
+                'status' => 0
+
+            ]);
+
+            $smtplus = $request->smt + 1;
+            $mhs->update([
+
+
+            'semester_id' => $smtplus
+
+
+            ]);
+    }
+    return redirect('/jadwal');
     }
 }

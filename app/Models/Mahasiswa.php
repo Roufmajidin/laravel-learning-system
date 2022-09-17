@@ -31,5 +31,14 @@ class Mahasiswa extends Model
 
         return $this->hasMany(UjianMhs::class);
     }
+     public function semester()
+    {
 
+        return $this->belongsTo(semester::class);
+    }
+    //  public function krs()
+    // {
+
+    //     return $this->hasMany(Krs::class);
+    // }
 }

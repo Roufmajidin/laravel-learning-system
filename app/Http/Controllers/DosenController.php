@@ -15,7 +15,7 @@ use App\Models\Mahasiswa;
 use App\Models\Dosen_jadwal;
 use App\Models\HasilStudi;
 use App\Models\Materi;
-use App\Models\SemesterModel;
+use App\Models\Semester;
 use App\Models\Tugas;
 use App\Models\UjianMhs;
 use Faker\Core\Number;
@@ -408,7 +408,7 @@ class DosenController extends Controller
         $mahasiswa = Mahasiswa::find($id);
 
         $matakuliah = Matakuliah::with('dosen')->where('id', $mk_id)->first();
-        $semester = SemesterModel::find($semester_id);
+        $semester = Semester::find($semester_id);
         // dd($semester);
 
 

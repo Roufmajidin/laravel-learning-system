@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\HasilStudi;
 use App\Models\Mahasiswa;
 use App\Models\Matakuliah;
-use App\Models\SemesterModel;
+use App\Models\Semester;
 use App\Models\UjianMhs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,8 +23,8 @@ class HasilStudiController extends Controller
         // dd($a);
 
         // $mh = Mahasiswa::with('hasilStudi')->where('user_id', Auth::user()->id)->first();
-        $semester2 = SemesterModel::find(1);
-        $semester4 = SemesterModel::find(2);
+        $semester2 = Semester::find(1);
+        $semester4 = Semester::find(2);
         $mhasilSemester1 = HasilStudi::with('mahasiswa', 'matakuliah', 'semester')->where('mahasiswa_id', Auth::user()->id)->where('semester_id', $semester2->id)->get();
         $mhasilSemester2 = HasilStudi::with('mahasiswa', 'matakuliah', 'semester')->where('mahasiswa_id', Auth::user()->id)->where('semester_id', $semester4->id)->get();
 

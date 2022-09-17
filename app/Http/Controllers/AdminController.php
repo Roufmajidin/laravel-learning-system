@@ -7,6 +7,7 @@ use App\Models\Dosen;
 use App\Models\Kelas;
 use App\Models\Mahasiswa;
 use App\Models\Matakuliah;
+use App\Models\Semester;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -165,7 +166,7 @@ class AdminController extends Controller
         return response()->json([]);
         // return view('admin.mahasiswa', compact('mahas', 'id'));
     }
-     public function kelasMahasiswaAjax($kelas_id)
+    public function kelasMahasiswaAjax($kelas_id)
     {
 
         // $id = decrypt($kelas_id);
@@ -178,7 +179,7 @@ class AdminController extends Controller
         ]);
         // return view('admin.mahasiswa', compact('mahas', 'id'));
     }
-     public function hapusMhs($id)
+    public function hapusMhs($id)
     {
 
         $mhs = Mahasiswa::find($id);
@@ -188,5 +189,61 @@ class AdminController extends Controller
         // return redirect('/data-produk');
         return response()->json();
     }
+    public function updateSemester()
+    {
 
+        // $semester1 = 1;
+        $semester2 = 1;
+        $semester4 = 2;
+        $semester5 = 3;
+        $kelas1 = 10;
+        $kelas2 = 11;
+        // $semester = Semester::get();
+        $mahasiswas2 = Mahasiswa::with('semester')->where('semester_id', $semester2)
+            ->where('kelas_id', $kelas1)
+            ->paginate(3);
+        $mahasiswas4 = Mahasiswa::with('semester')->where('semester_id', $semester4)
+            ->where('kelas_id', $kelas2)
+            ->paginate(3);
+        $mahasiswas5 = Mahasiswa::with('semester')->where('semester_id', $semester5)
+            ->where('kelas_id', $kelas2)
+            ->paginate(3);
+
+        return view('admin.semester-index', compact('mahasiswas2', 'mahasiswas4', 'mahasiswas5','semester2', 'semester4', 'semester5'));
+    }
+    public function mahasiswaBySemesterCreateUpdate()
+    {
+
+        // $id = $id;
+        $mahasiswa = Mahasiswa::with('semester', 'kelas')
+            // ->where('semester_id', $id)
+            ->get();
+        // dd($mahasiswa);
+        return view('admin.semester-mahasiswa-create-update', compact('mahasiswa'));
+    }
+    public function mahasiswaBySemesterProsesUpdate(Request $request)
+    {
+
+
+        // dd($mahasiswa);
+        $mahasiswa = Mahasiswa::with('semester', 'kelas');
+
+        // dd($mahasiswa);
+        // $name = 1;
+        // $add = $request->semester + 1;
+
+        foreach ($request->semester as $key => $name) {
+            // $add = $key + 1;
+            // $a = $add++;
+            $mahasiswa->update([
+
+                'semester_id' => $request->semester[$key]
+
+            ]);
+
+            // return view('admin.semester-mahasiswa-create-update', compact('mahasiswa' , 'id'));
+
+
+        }
+    }
 }

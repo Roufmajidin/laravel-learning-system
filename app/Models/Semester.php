@@ -5,9 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SemesterModel extends Model
+class Semester extends Model
 {
     use HasFactory;
     protected $table ='semester';
     protected $fillable = ['semester'];
+     public function mahasiswa()
+    {
+
+        return $this->hasMany(Mahasiswa::class);
+    }
 }

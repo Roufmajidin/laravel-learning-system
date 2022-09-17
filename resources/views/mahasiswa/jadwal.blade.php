@@ -25,24 +25,31 @@
                         $no = 1;
                     @endphp
 
-                    @foreach ($km->matakuliah as $item)
+                    @forelse ($km as $item)
                         <tr>
 
                             <td>{{ $no++ }} </td>
-                            <td>{{ $item->nama_mk }}
-                            <td>{{ $item->dosen['nama_dosen'] }}
+                            @php
+                                $d = App\Models\Dosen::find($item->matakuliah['dosen_id']);
+                            @endphp
+                            <td>{{ $item->matakuliah['nama_mk'] }}
+                            <td>{{ $d->nama_dosen }}
 
 
                             <td>
-                                <a href="detailkelasmahasiswa/{{ Crypt::encrypt($item->dosen['id'])}}" class="btn btn-sm btn-info" <i
+                                <a href="detailkelasmahasiswa/{{ encrypt($item->matakuliah['dosen_id']) }}" class="btn btn-sm btn-info" <i
                                     class="bi bi-pencil-square" title="Detail Kelas"></i>Join Kelas</a>
                             </td>
                         </tr>
 
 
 
-                        </tr>
-                    @endforeach
+
+                         @empty
+
+                        <a style="margin-left:40%; margin-top:20%; position: absolute; color:red; font-wight:bold">belum ada
+                            Data</a>
+                    @endforelse
 
 
 
