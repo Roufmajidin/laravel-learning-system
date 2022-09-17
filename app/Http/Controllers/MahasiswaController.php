@@ -62,7 +62,7 @@ class MahasiswaController extends Controller
         $kel = Mahasiswa::with('kelas')->where('user_id', Auth::user()->id)->first();
         // $pertemuan =  Dosen_jadwal::with('absensi', 'matakuliah')->where('dosen_mk', $id)->get();
         $pertemuan = Dosen_jadwal::with('kelas', 'absensi')->where('dosen_id', $id)->get();
-        // dd($kel);
+        // dd($id);
         // absensi
         $mahas = Mahasiswa::where('user_id', Auth::user()->id)->first();
         $dos = Dosen_jadwal::where('dosen_id', $id)->first();
@@ -72,6 +72,24 @@ class MahasiswaController extends Controller
         // dd($pertemuan);
 
         return view('mahasiswa.jadwalDetail', compact('pertemuan', 'kel', 'absen', 'id', 'absen_urut'));
+    }
+
+    public function ajaxPage(Request $request)
+    {
+        if ($request->ajax()) {
+            $id = 25;
+            $kel = Mahasiswa::with('kelas')->where('user_id', Auth::user()->id)->first();
+            // $pertemuan =  Dosen_jadwal::with('absensi', 'matakuliah')->where('dosen_mk', $id)->get();
+            $pertemuan = Dosen_jadwal::with('kelas', 'absensi')->where('dosen_id', $id)->get();
+            // dd($kel);
+            // absensi
+            $mahas = Mahasiswa::where('user_id', Auth::user()->id)->first();
+            $dos = Dosen_jadwal::where('dosen_id', $id)->first();
+
+            $absen = Absensi::with('dosen_jadwal')->where('mahasiswa_id', $mahas->id)->where('dosen_jadwal_id', $id)->orderBy('id', 'DESC')->paginate(3);
+            $absen_urut = Absensi::with('dosen_jadwal')->where('mahasiswa_id', $mahas->id)->where('dosen_jadwal_id', $id)->orderBy('id', 'ASC')->get();
+            return view('mahasiswa.jadwalDetail', compact('pertemuan', 'kel', 'absen', 'id', 'absen_urut'))->render();
+        }
     }
 
 
@@ -269,41 +287,40 @@ class MahasiswaController extends Controller
         $image = $request->file->storeAs('thumbnail', $file_nm);
 
         $tugas->create([
-        'mahasiswa_id' => $mahasiswa->user_id,
-        'materi_id' => $request->id,
-        'dosen_jadwal_id' => $request->dosen_jadwal_id,
-        'dosen_id' => $request->dosen_id,
-        'file' => $file_nm,
-        'ket' => $request->ket,
-        'kelas_id' => $request->kelas_id,
+            'mahasiswa_id' => $mahasiswa->user_id,
+            'materi_id' => $request->id,
+            'dosen_jadwal_id' => $request->dosen_jadwal_id,
+            'dosen_id' => $request->dosen_id,
+            'file' => $file_nm,
+            'ket' => $request->ket,
+            'kelas_id' => $request->kelas_id,
 
 
 
         ]);
         return redirect()->back();
-
     }
-    public function aktivitasMhs($id){
+    public function aktivitasMhs($id)
+    {
 
-    $id = decrypt($id);
-    $auth = Auth::user()->id;
-    $absen = Absensi::where('dosen_jadwal_id', $id)->where('mahasiswa_id', $auth)->get();
-    $mk = Matakuliah::where('dosen_id', $id)->first();
-    $dt = Dosen::find($id);
-    dd($dt);
-    $tugas = Tugas::with('materi')->where('');
-    // dd($absen);
+        $id = decrypt($id);
+        $auth = Auth::user()->id;
+        $absen = Absensi::where('dosen_jadwal_id', $id)->where('mahasiswa_id', $auth)->get();
+        $mk = Matakuliah::where('dosen_id', $id)->first();
+        $dt = Dosen::find($id);
+        dd($dt);
+        $tugas = Tugas::with('materi')->where('');
+        // dd($absen);
 
-    return view('mahasiswa.detail-aktivitas', compact('absen', 'mk'));
-
+        return view('mahasiswa.detail-aktivitas', compact('absen', 'mk'));
     }
-    public function deleteProses($id){
+    public function deleteProses($id)
+    {
 
-    $id = decrypt($id);
-    $tugas = Tugas::find($id);
-    $tugas->delete();
+        $id = decrypt($id);
+        $tugas = Tugas::find($id);
+        $tugas->delete();
 
-    return redirect('lihat-materi/'. decrypt($id));
-
+        return redirect('lihat-materi/' . decrypt($id));
     }
 }

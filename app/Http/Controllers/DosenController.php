@@ -367,7 +367,8 @@ class DosenController extends Controller
                 'kelas_id' => $request->kelas_id,
                 'dosen_id' => $request->dosen_id,
                 'type_ujian' => $request->type_ujian,
-                'semester_id' => $request->semester_id[$key]
+                'semester_id' => $request->semester_id[$key],
+                'status_ujian' => 2,
 
             ]);
         }
@@ -379,13 +380,23 @@ class DosenController extends Controller
         // $id = decrypt($id);
 
         $auth = Auth::user()->id;
-        $m = UjianMhs::with('mahasiswa', 'semester')
+        $m1 = UjianMhs::with('mahasiswa', 'semester')
             ->where('kelas_id', $nama_kelas)
             ->where('dosen_id', $auth)
+            ->where('type_ujian', 'UTS')
+            ->where('status_ujian', 3)
 
-            ->get();
+            ->paginate(4);
+        $m2 = UjianMhs::with('mahasiswa', 'semester')
+            ->where('kelas_id', $nama_kelas)
+            ->where('dosen_id', $auth)
+            ->where('status_ujian', 3)
+
+            ->where('type_ujian', 'UAS')
+
+            ->paginate(4);
         // dd($m);
-        return view('dosen.list-ujian-mhs', compact('m'));
+        return view('dosen.list-ujian-mhs', compact('m1', 'm2'));
     }
 
     //
@@ -420,13 +431,16 @@ class DosenController extends Controller
         } elseif ($request->type_ujian == "UAS") {
             #jika select inputnya uas
             $mhs_id = $request->mahasiswa_id;
-            $pp = HasilStudi::where('mahasiswa_id', $mhs_id)->first();
+            $pp = HasilStudi::where('mahasiswa_id', $mhs_id,)
+            ->where('matakuliah_id', $request->matakuliah_id)
+            ->where('dosen_id', $request->dosen_id)
+            ->first();
             $pp->update([
 
-                'mahasiswa_id' => $request->mahasiswa_id,
-                'matakuliah_id' => $request->matakuliah_id,
-                'semester_id' => $request->semester_id,
-                'dosen_id' => $request->dosen_id,
+                // 'mahasiswa_id' => $request->mahasiswa_id,
+                // 'matakuliah_id' => $request->matakuliah_id,
+                // 'semester_id' => $request->semester_id,
+                // 'dosen_id' => $request->dosen_id,
                 'nilai_uas' => $request->nilai
             ]);
         }

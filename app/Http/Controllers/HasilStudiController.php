@@ -48,6 +48,7 @@ class HasilStudiController extends Controller
         $ujiane = UjianMhs::with('matakuliah')
         ->where('mahasiswa_id', $ujian->id)
         ->where('type_ujian', $type)
+        ->where('status_ujian', 0)
         ->get();
         // dd($ujiane);
 

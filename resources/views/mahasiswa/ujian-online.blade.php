@@ -16,16 +16,15 @@
             <table class="table table-bordered" id="dataTable" width="90%" cellspacing="0">
                 <thead class="">
 
-                        <a class="btn btn-success btn-sm" href="#"><i class="fa fa-print"></i>
-                            Print</a>
+
 
 
                     <tr>
                         <th>-</th>
                         <th>Matakuliah</th>
                         <th>Soal</th>
+                        <th>Source</th>
                         <th>Status</th>
-                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <br>
@@ -49,7 +48,7 @@
 
                             @endif
                              @if ($item->file_jawaban !== NULL)
-                             <td>Sudah </td>
+                             <td>Hadir </td>
 
                             @else
                             <td><a href="/mhsJawaban/{{$item->id}}">Kumpulkan Jawaban</a></td>

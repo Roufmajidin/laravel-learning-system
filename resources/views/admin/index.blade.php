@@ -31,7 +31,8 @@
                         <tr>
                             <td>{{ $i->dosen['nama_dosen'] }}</td>
                             <td>{{ $i->nama_mk }}</td>
-                            <td><a href="/detail-dosen/{{$i->dosen['id']}}"><button class="btn btn-success">Detail</button></a></td>
+                            <td><a href="/detail-dosen/{{ $i->dosen['id'] }}"><button
+                                        class="btn btn-success">Detail</button></a></td>
                         </tr>
                     @endforeach
 
@@ -44,13 +45,14 @@
                 </tbody>
 
             </table>
+            {{ $m->links() }}
+
 
 
         </div>
 
     </div>
 
-    </div>
 
 
 @endsection

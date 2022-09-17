@@ -61,6 +61,8 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('/tambah-mhs-proses', [AdminController::class, 'tambahMhs'])->name('tambah-mhs-proses');
     Route::get('/data-mhs-ajax/{kelas_id}', [AdminController::class, 'kelasMahasiswaAjax']);
     Route::delete('/hapus-mhs/{id}', [AdminController::class, 'hapusMhs']);
+    Route::get('/update-semester', [AdminController::class, 'updateSemester']);
+
 });
 
 
@@ -87,6 +89,7 @@ Route::group(['middleware' => 'mahasiswa'], function () {
     // Route::get('/type/{id}/', [MahasiswaController::class, 'deleteProses']);
     Route::get('/ujian', [HasilStudiController::class, 'typeUjian']);
     Route::get('/type/{id}', [HasilStudiController::class, 'ujianOn']);
+    Route::get('/test', [MahasiswaController::class, 'ajaxPage'])->name('test');
 
 });
 

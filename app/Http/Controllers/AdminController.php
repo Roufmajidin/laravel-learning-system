@@ -52,7 +52,7 @@ class AdminController extends Controller
         // // dd($user_dosen);
         // return 'ok';
 
-        $m = Matakuliah::with('dosen')->get();
+        $m = Matakuliah::with('dosen')->paginate(2);
         // dd($m);
 
 
@@ -188,4 +188,5 @@ class AdminController extends Controller
         // return redirect('/data-produk');
         return response()->json();
     }
+
 }
