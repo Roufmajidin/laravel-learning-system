@@ -195,8 +195,8 @@
                                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-th-large"></i>
                                     <span>Admin Premis</span></a>
                                 <ul class="">
-                                    <li><a class="nav-link" href="/jadwal-dosen">Dosen</a></li>
-                                    <li><a class="nav-link" href="/mahasiswa-data">Mahasiswa</a></li>
+                                    <li><a class="nav-link" href="/jadwal-dosen/">Dosen</a></li>
+                                    <li><a class="nav-link" href="/mahasiswa-data/">Mahasiswa</a></li>
 
                                     {{-- <li><a class="nav-link beep beep-sidebar" href="#tiga">-</a></li> --}}
                                 </ul>
@@ -254,8 +254,8 @@
                                     <li><a class="nav-link" href="/profil-mahasiswa">Profil Mahasiswa</a></li>
                                     <li><a class="nav-link" href="/jadwal">Jadwal </a></li>
 
-                                    <li><a class="nav-link-sidebar" href="ujian">Ujian On</a></li>
-                                    <li><a class="nav-link-sidebar" href="e-ujian">Hasil Ujian</a></li>
+                                    <li><a class="nav-link-sidebar" href="/ujian">Ujian On</a></li>
+                                    <li><a class="nav-link-sidebar" href="/e-ujian">Hasil Ujian</a></li>
                                     {{-- <li><a class="nav-link beep beep-sidebar" href="#tiga">-</a></li> --}}
                                 </ul>
                             </li>

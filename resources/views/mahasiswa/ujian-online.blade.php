@@ -1,5 +1,5 @@
 @extends('home')
-@section('title', 'Hasil Studis')
+@section('title', 'Ujian Studis')
 @section('content')
 
     <div class="card-body">
@@ -10,7 +10,7 @@
             <h6></h6>
         </a> --}}
 
-        <h6 class="float-right"> Kelas :<a href=""></a></h6>
+        <h6 class="float-right"> Ujian : {{$type}}<a href=""></a></h6>
        {{-- semester 1 --}}
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="90%" cellspacing="0">

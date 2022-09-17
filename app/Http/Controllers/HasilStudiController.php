@@ -32,17 +32,26 @@ class HasilStudiController extends Controller
 
         return view('mahasiswa.hasilStudi', compact('mhasilSemester1', 'mhasilSemester2'));
     }
-    public function ujianOn()
+    public function typeUjian()
+    {
+
+        return view('mahasiswa.type-ujian');
+    }
+    public function ujianOn($id)
     {
         $auth = Auth::user()->id;
+        $type = decrypt($id);
         //1 $mhs = UjianMhs::with('mahasiswa')->where('mahasiswa_id', $auth)->get();
         $ujian = Mahasiswa::with('ujianMhs')->where('user_id', $auth)->first();
 
         // dd($ujian);
-        $ujiane = UjianMhs::with('matakuliah')->where('mahasiswa_id', $ujian->id)->get();
+        $ujiane = UjianMhs::with('matakuliah')
+        ->where('mahasiswa_id', $ujian->id)
+        ->where('type_ujian', $type)
+        ->get();
         // dd($ujiane);
 
-        return view('mahasiswa.ujian-online', compact('ujiane'));
+        return view('mahasiswa.ujian-online', compact('ujiane', 'type'));
     }
     public function kumpulkanJawaban($id)
     {

@@ -68,6 +68,20 @@
                         </select>
 
                     </div>
+                    <div class="form-group ml-4 ">
+                        <label>Type Ujian() </label>
+
+
+                        <select name="type_ujian" class="form-control">
+
+                             {{-- @foreach ($ma as $i) --}}
+                                <option value="UTS">UTS</option>
+                                <option value="UAS">UAS</option>
+                            {{-- @endforeach --}}
+                        </select>
+
+                    </div>
+
 
 
 

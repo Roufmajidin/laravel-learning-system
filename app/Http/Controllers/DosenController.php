@@ -338,7 +338,7 @@ class DosenController extends Controller
     {
         // dd($u);
         // $kelas_id = $nama_kelas;
-        $id = decrypt($id);
+        // $id = decrypt($id);
 
         $kelas = Kelas::with('Mahasiswa')->where('id', $id)->first();
         // dd($kelas);
@@ -366,6 +366,7 @@ class DosenController extends Controller
                 'soal_ujian' => $f,
                 'kelas_id' => $request->kelas_id,
                 'dosen_id' => $request->dosen_id,
+                'type_ujian' => $request->type_ujian,
                 'semester_id' => $request->semester_id[$key]
 
             ]);
@@ -375,10 +376,14 @@ class DosenController extends Controller
     }
     public function listMhsUjian($id, $nama_kelas)
     {
-        $id = decrypt($id);
+        // $id = decrypt($id);
 
         $auth = Auth::user()->id;
-        $m = UjianMhs::with('mahasiswa', 'semester')->where('kelas_id', $nama_kelas)->where('dosen_id', $auth)->get();
+        $m = UjianMhs::with('mahasiswa', 'semester')
+            ->where('kelas_id', $nama_kelas)
+            ->where('dosen_id', $auth)
+
+            ->get();
         // dd($m);
         return view('dosen.list-ujian-mhs', compact('m'));
     }
@@ -388,7 +393,7 @@ class DosenController extends Controller
     {
         // $id = 'tembak dulu';
         // $mk_id = 'tembak dulu';
-        $id = decrypt($id);
+        // $id = decrypt($id);
         $mahasiswa = Mahasiswa::find($id);
 
         $matakuliah = Matakuliah::with('dosen')->where('id', $mk_id)->first();
@@ -414,7 +419,9 @@ class DosenController extends Controller
             ]);
         } elseif ($request->type_ujian == "UAS") {
             #jika select inputnya uas
-            $p->create([
+            $mhs_id = $request->mahasiswa_id;
+            $pp = HasilStudi::where('mahasiswa_id', $mhs_id)->first();
+            $pp->update([
 
                 'mahasiswa_id' => $request->mahasiswa_id,
                 'matakuliah_id' => $request->matakuliah_id,

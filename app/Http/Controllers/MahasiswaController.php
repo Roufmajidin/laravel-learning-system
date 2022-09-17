@@ -13,6 +13,7 @@ use App\Models\Materi;
 use App\Models\Tugas;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -55,6 +56,7 @@ class MahasiswaController extends Controller
     public function detailKelas($id)
 
     {
+        // Paginator;
 
         $id = decrypt($id);
         $kel = Mahasiswa::with('kelas')->where('user_id', Auth::user()->id)->first();
@@ -65,10 +67,11 @@ class MahasiswaController extends Controller
         $mahas = Mahasiswa::where('user_id', Auth::user()->id)->first();
         $dos = Dosen_jadwal::where('dosen_id', $id)->first();
 
-        $absen = Absensi::with('dosen_jadwal')->where('mahasiswa_id', $mahas->id)->where('dosen_jadwal_id', $id)->get();
+        $absen = Absensi::with('dosen_jadwal')->where('mahasiswa_id', $mahas->id)->where('dosen_jadwal_id', $id)->orderBy('id', 'DESC')->paginate(3);
+        $absen_urut = Absensi::with('dosen_jadwal')->where('mahasiswa_id', $mahas->id)->where('dosen_jadwal_id', $id)->orderBy('id', 'ASC')->get();
         // dd($pertemuan);
 
-        return view('mahasiswa.jadwalDetail', compact('pertemuan', 'kel', 'absen', 'id'));
+        return view('mahasiswa.jadwalDetail', compact('pertemuan', 'kel', 'absen', 'id', 'absen_urut'));
     }
 
 

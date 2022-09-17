@@ -4,7 +4,7 @@
 
     <div class="card-body">
         <h6 class="float-left"> Matakuliah : </h6>
-        <a href="/cek-ativitas/{{encrypt($id)}}">
+        <a href="/cek-ativitas/{{ encrypt($id) }}">
             <h6 class="float-right btn btn-primary">Detail Aktivitas</h6>
         </a>
         <br>
@@ -12,7 +12,7 @@
 
             @php
             @endphp
-            @foreach ($absen as $ab)
+            @foreach ($absen_urut as $ab)
                 {{-- $ab = "a" --}}
                 @if ($ab->status_absensi == 0)
                     <button class="btn btn-danger">P{{ $ab->dosen_jadwal['pertemuan_ke'] }}<br>
@@ -22,12 +22,13 @@
                     <button class="btn btn-primary">P{{ $ab->dosen_jadwal['pertemuan_ke'] }}</button>
                 @endif
             @endforeach
-        <div class="mb-2">
-        </div>
+            <div class="mb-2">
+            </div>
 
             <div aria-label="breadcrumb mt-2">
                 <ol class="breadcrumb bg-primary text-white-all">
-                <i class="fas fa-question mr-3"><a style="font-size: 16px" href="">Jika Akan Mengumpulkan tugas Klik pada tabel dibawah, pilih pertemuan pada Column Modul</a></i>
+                    <i class="fas fa-question mr-3"><a style="font-size: 16px" href="">Jika Akan Mengumpulkan tugas
+                            Klik pada tabel dibawah, pilih pertemuan pada Column Modul</a></i>
                 </ol>
             </div>
 
@@ -59,7 +60,9 @@
                             {{-- <td>{{ $no++ }} </td> --}}
                             <td>{{ $item->dosen_jadwal['pertemuan_ke'] }}
                             <td>{{ $item->dosen_jadwal['jam_mk'] }} WIB</td>
-                            <td>{{ $item->dosen_jadwal['tanggal'] }}</td>
+                            {{-- <td>{{ $item->dosen_jadwal['tanggal']->diffForHumans() }}</td> --}}
+
+                            <td></td>
                             <td><a href="/lihat-materi/{{ Crypt::encrypt($item->dosen_jadwal['id']) }}">Detail</a>
                             </td>
 
@@ -79,6 +82,7 @@
 
                             </td>
                     @endforeach
+                    {{-- {{$absen->links()}} --}}
 
 
 
@@ -86,6 +90,7 @@
                 </tbody>
 
             </table>
+            {!! $absen->links() !!}
 
 
         </div>
@@ -94,12 +99,7 @@
 
     </div>
     </div>
-    <!-- /.card-body -->
-    <div class="card-footer">
-        Footer
-    </div>
-    <!-- /.card-footer-->
-    </div>
+
 
 
 @endsection

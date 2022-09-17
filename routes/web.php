@@ -68,21 +68,28 @@ Route::group(['middleware' => 'mahasiswa'], function () {
 
     Route::get('/profil-mahasiswa', [MahasiswaController::class, 'index']);
     Route::get('/jadwal', [MahasiswaController::class, 'jadwal'])->name('jadwal');
-    Route::get('/detailkelasmahasiswa/{id}', [MahasiswaController::class, 'detailKelas'])->name("detailkelasmahasiswa");
+    Route::get('/detailkelasmahasiswa/{id}/', [MahasiswaController::class, 'detailKelas'])->name("detailkelasmahasiswa");
     Route::get('/absen/{id}', [MahasiswaController::class, 'absenMhs']);
-    Route::post('/absenproses/{id}', [MahasiswaController::class, 'absenproses']);
+    Route::post('/absenproses/{id}/', [MahasiswaController::class, 'absenproses']);
     Route::get('/absensi/{id}', [MahasiswaController::class, 'absensiMahasiswaByJadwalDosen']);
-    Route::get('/modul/{id}', [MahasiswaController::class, 'modul']);
-    Route::get('/cekAbsenMhs/{id}', [MahasiswaController::class, 'cekabsenMhs']);
+    Route::get('/modul/{id}/', [MahasiswaController::class, 'modul']);
+    Route::get('/cekAbsenMhs/{id}/', [MahasiswaController::class, 'cekabsenMhs']);
     Route::get('/e-ujian', [HasilStudiController::class, 'index']);
-    Route::get('/ujian', [HasilStudiController::class, 'ujianOn']);
     Route::get('/mhsJawaban/{id}', [HasilStudiController::class, 'kumpulkanJawaban']);
-    Route::post('/submit-proses/{id}', [HasilStudiController::class, 'storeUjian']);
-    Route::get('/lihat-materi/{id}', [MahasiswaController::class, 'lihatMateri']);
+    Route::post('/submit-proses/{id}/', [HasilStudiController::class, 'storeUjian']);
+    Route::get('/lihat-materi/{id}/', [MahasiswaController::class, 'lihatMateri']);
     Route::post('/insert', [MahasiswaController::class, 'coba'])->name('insert');
     Route::get('/coba', [MahasiswaController::class, 'cobaC'])->name('proses');
     Route::get('/t', [MahasiswaController::class, 'tet']);
     Route::post('/kumpulkan-tugas-mhs', [MahasiswaController::class, 'kumpulkanTugas']);
-    Route::get('/cek-ativitas/{id}', [MahasiswaController::class, 'aktivitasMhs']);
-    Route::get('/delete-upload/{id}', [MahasiswaController::class, 'deleteProses']);
+    Route::get('/cek-ativitas/{id}/', [MahasiswaController::class, 'aktivitasMhs']);
+    Route::get('/delete-upload/{id}/', [MahasiswaController::class, 'deleteProses']);
+    // Route::get('/type/{id}/', [MahasiswaController::class, 'deleteProses']);
+    Route::get('/ujian', [HasilStudiController::class, 'typeUjian']);
+    Route::get('/type/{id}', [HasilStudiController::class, 'ujianOn']);
+
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
