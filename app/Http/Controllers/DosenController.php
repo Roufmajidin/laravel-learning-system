@@ -384,13 +384,13 @@ class DosenController extends Controller
             ->where('kelas_id', $nama_kelas)
             ->where('dosen_id', $auth)
             ->where('type_ujian', 'UTS')
-            ->where('status_ujian', 3)
+            ->where('status_ujian', 2)
 
             ->paginate(4);
         $m2 = UjianMhs::with('mahasiswa', 'semester')
             ->where('kelas_id', $nama_kelas)
             ->where('dosen_id', $auth)
-            ->where('status_ujian', 3)
+            ->where('status_ujian', 2)
 
             ->where('type_ujian', 'UAS')
 

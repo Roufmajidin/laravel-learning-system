@@ -264,7 +264,7 @@ class AdminController extends Controller
         $kelasMhs = $mahasiswa->kelas_id;
         $kelas = Kelas::find($kelasMhs);
 
-        // dd($krs);
+        // dd($mahasiswa);
         return view('admin.detail-krs-mhs', compact('krs', 'mahasiswa', 'kelas'));
     }
     public function validasikrs(Request $request)

@@ -85,7 +85,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                         @php
-                            $m = App\Models\Mahasiswa::where('kelas_id', $kelas->id)->first();
+                            $m = App\Models\Mahasiswa::where('kelas_id', $kelas->id)->find($mahasiswa->id);
                             $no = 1;
                         @endphp
                             <label for="recipient-name" class="col-form-label">Mahasiswa: {{$m->nama_mahasiswa}} </label>

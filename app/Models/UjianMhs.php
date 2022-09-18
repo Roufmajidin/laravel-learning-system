@@ -23,7 +23,7 @@ class UjianMhs extends Model
     public function semester()
     {
 
-        return $this->belongsTo(SemesterModel::class);
+        return $this->belongsTo(Semester::class);
     }
 
 
