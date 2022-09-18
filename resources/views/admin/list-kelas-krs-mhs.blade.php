@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="card-body">
-        <h6 class="float-left"> Ssemua Kelas : </h6> <a href="">
+        <h6 class="float-left"> Kelas : {{$kelas->nama_kelas}}</h6> <a href="">
             <h6></h6>
         </a>
         <h6 class="float-right"> <a href=""></a></h6>
@@ -11,30 +11,29 @@
             <table class="table table-bordered" id="dataTable" width="90%" cellspacing="0">
                 <thead class="">
 
-                    {{--  --}}
 
                     <button type="button" class="btn btn-primary float-md-right" data-toggle="modal"
                         data-target="#exampleModal">
                         Tambah Kelas
                     </button>
-
-
-
-                    {{--  --}}
                     <tr>
-                        <th>Kelas</th>
-                        <th>More</th>
+                        <th>Mahasiswa</th>
+                        <th>semester</th>
+                        <th>Status_krs</th>
 
                     </tr>
                 </thead>
                 <br><br>
                 <tbody>
-                    @forelse ($kelas as $i)
+                    @forelse ($mahasiswa as $i)
                         <tr>
-                            <td>{{ $i->nama_kelas }}</td>
-                            <td><a href="/kelas/{{encrypt($i->id)}}"><button class="btn btn-success">Detail Kelas</button></a>
-                            <a href="/krs-mahasiswa/{{$i->id}}"><button class="btn btn-success">Detail Krs</button></a>
-                            </td>
+                            <td>{{ $i->nama_mahasiswa }}</td>
+                            @php
+                                $sem = App\Models\Semester::find($i->semester_id);
+                            @endphp
+                            <td>{{ $sem->semester }}</td>
+                            <td><a href="/krs-mhs/{{$i->id}}"><button class="btn btn-success">Detail</button></a>
+
 
                         </tr>
                     @empty

@@ -14,6 +14,7 @@ class Matakuliah extends Model
         'nama_mk',
         'kelas_id',
         'dosen_id',
+        'krs',
 
 
     ];

@@ -198,7 +198,7 @@
                                     <li><a class="nav-link" href="/jadwal-dosen/">Dosen</a></li>
                                     <li><a class="nav-link" href="/mahasiswa-data/">Mahasiswa</a></li>
 
-                                    <li><a class="nav-link beep beep-sidebar" href="/update-semester">Update Semester Mhs</a></li>
+                                    <li><a class="nav-link beep beep-sidebar" href="/krs-mahasiswa">Krs Mahasiswa</a></li>
                                 </ul>
                             </li>
 

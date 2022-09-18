@@ -36,9 +36,9 @@ class Mahasiswa extends Model
 
         return $this->belongsTo(semester::class);
     }
-    //  public function krs()
-    // {
+     public function krs()
+    {
 
-    //     return $this->hasMany(Krs::class);
-    // }
+        return $this->hasMany(Krs::class);
+    }
 }

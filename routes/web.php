@@ -64,7 +64,9 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/update-semester', [AdminController::class, 'updateSemester']);
     Route::get('/update-semeste', [AdminController::class, 'updateTampilMhs']);
     Route::get('/update-mhs', [AdminController::class, 'mahasiswaBysemesterCreateUpdate']);
-    Route::Post('/update-mhs-proses', [AdminController::class, 'mahasiswaBysemesterProsesUpdate']);
+    Route::get('/krs-mahasiswa/{id}', [AdminController::class, 'krsMahasiswa']);
+    Route::get('/krs-mhs/{id}', [AdminController::class, 'krsMhsDetail']);
+    Route::post('/validate-krs', [AdminController::class, 'validasikrs']);
 
 
 });

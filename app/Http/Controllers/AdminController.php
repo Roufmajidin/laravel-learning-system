@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 // use App\Http\Middleware\Mahasiswa;
 use App\Models\Dosen;
 use App\Models\Kelas;
+use App\Models\Krs;
 use App\Models\Mahasiswa;
 use App\Models\Matakuliah;
 use App\Models\Semester;
@@ -209,7 +210,7 @@ class AdminController extends Controller
             ->where('kelas_id', $kelas2)
             ->paginate(3);
 
-        return view('admin.semester-index', compact('mahasiswas2', 'mahasiswas4', 'mahasiswas5','semester2', 'semester4', 'semester5'));
+        return view('admin.semester-index', compact('mahasiswas2', 'mahasiswas4', 'mahasiswas5', 'semester2', 'semester4', 'semester5'));
     }
     public function mahasiswaBySemesterCreateUpdate()
     {
@@ -245,5 +246,41 @@ class AdminController extends Controller
 
 
         }
+    }
+    public function krsMahasiswa($id)
+    {
+
+        // $kelas =  Krs::with('mahasiswa')->wher()
+        $mahasiswa = Mahasiswa::with('krs')->where('kelas_id', $id)->get();
+        // dd($mahasiswa);
+        $kelas = Kelas::find($id);
+        return view('admin.list-kelas-krs-mhs', compact('mahasiswa', 'kelas'));
+    }
+    public function krsMhsDetail($id)
+    {
+
+        $mahasiswa =  Mahasiswa::where('user_id', $id)->first();
+        $krs = Krs::with('mahasiswa', 'matakuliah')->where('mahasiswa_id', $id)->get();
+        $kelasMhs = $mahasiswa->kelas_id;
+        $kelas = Kelas::find($kelasMhs);
+
+        // dd($krs);
+        return view('admin.detail-krs-mhs', compact('krs', 'mahasiswa', 'kelas'));
+    }
+    public function validasikrs(Request $request)
+    {
+
+        $krs = Krs::where('mahasiswa_id', $request->mahasiswa_id);
+        foreach ($request->krs as $key => $name) {
+
+            $krs->update([
+
+                // 'matakuliah_id' => $request->krs[$key],
+                'mahasiswa_id' => $request->mahasiswa_id,
+                'status' => 1,
+
+            ]);
+        }
+        return redirect()->back();
     }
 }

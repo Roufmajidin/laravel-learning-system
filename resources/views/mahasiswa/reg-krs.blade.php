@@ -33,7 +33,7 @@
                          <select style="width: 600px;height:200px" name="krsMK[]" class="form-control" multiple>
                             @foreach ($mk as $i)
 
-                            <option value="{{$i->id}}">{{$i->nama_mk}}</option>
+                            <option value="{{$i->id}}"><ul><li>{{$i->sks}} SKS ================{{$i->nama_mk}}</li></ul></option>
                             @endforeach
 
                         </select>
