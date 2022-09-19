@@ -64,9 +64,9 @@
                             {{-- <td>{{ $no++ }} </td> --}}
                             <td>{{ $item->dosen_jadwal['pertemuan_ke'] }}
                             <td>{{ $item->dosen_jadwal['jam_mk'] }} WIB</td>
-                            {{-- <td>{{ $item->dosen_jadwal['tanggal']->diffForHumans() }}</td> --}}
+                            <td>{{ date('d-M-Y', strtotime($item->dosen_jadwal['tanggal'])) }}</td>
 
-                            <td></td>
+                            <td>{{$item->dosen_jadwal['file_pertemuan']}}</td>
                             <td><a href="/lihat-materi/{{ Crypt::encrypt($item->dosen_jadwal['id']) }}">Detail</a>
                             </td>
 

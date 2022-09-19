@@ -273,6 +273,8 @@ class AdminController extends Controller
         $mahasiswa = Mahasiswa::find($request->mahasiswa_id);
 
         $krs = Krs::where('mahasiswa_id', $request->mahasiswa_id);
+        //jika data status krs --> 1 maka update ke value-->2
+        // lanjut kebaris new semester
         foreach ($request->krs as $key => $name) {
 
             $krs->update([

@@ -101,11 +101,21 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Matakuliah : </label>
+                            <label for="recipient-name" class="col-form-label">
+                            Matakuliah :
+                            <a style=" color:rgb(0, 255, 42); font-wight:bold">
+                        Notice !  <i style="color:blue" id="myButton" class="fas fa-question"></i>
+                        </a>
+                            </label>
                             <select name="krs[]" class="form-control" multiple style="height: 100px">
                                 @foreach ($krs as $i)
-                                    <option value="{{ $i->matakuliah['id'] }}"> {{ $no++ }}.
-                                        {{ $i->matakuliah['nama_mk'] }}</option>
+                                    @if ($i->status == 1)
+                                        <option style="color: green" value="{{ $i->matakuliah['id'] }}" disabled >
+                                            {{ $no++ }}.{{ $i->matakuliah['nama_mk'] }} </option>
+                                    @else
+                                        <option value="{{ $i->matakuliah['id'] }}">
+                                            {{ $no++ }}.{{ $i->matakuliah['nama_mk'] }}</option>
+                                    @endif
                                 @endforeach
 
 
@@ -132,3 +142,13 @@
 
 
 @endsection
+@push('scripts')
+<script>
+      // With the above scripts loaded, you can call `tippy()` with a CSS
+      // selector and a `content` prop:
+      tippy('#myButton', {
+        content: 'Mk Berwarna Hijau Artinya Krs yang diambil sebelumnya, silahkan CTRL + A',
+      });
+    </script>
+
+@endpush
