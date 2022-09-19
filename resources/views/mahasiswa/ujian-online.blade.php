@@ -60,7 +60,7 @@
                     @empty
 
                         <a style="margin-left:40%; margin-top:20%; position: absolute; color:red; font-wight:bold">
-                        Sesi Ujian Berakhir/ No Updated
+                        Sesi Ujian Berakhir/ No Updated  <i style="color:blue" id="myButton" class="fas fa-question"></i>
                         </a>
                     @endforelse
 
@@ -84,3 +84,13 @@
 
 
 @endsection
+@push('scripts')
+<script>
+      // With the above scripts loaded, you can call `tippy()` with a CSS
+      // selector and a `content` prop:
+      tippy('#myButton', {
+        content: 'Data Ujian Sudah Di validasi Oleh Dosen, Silahkan Cek Hasil Studi !',
+      });
+    </script>
+
+@endpush
