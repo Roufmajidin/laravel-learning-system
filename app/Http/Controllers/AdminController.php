@@ -9,6 +9,7 @@ use App\Models\Krs;
 use App\Models\Mahasiswa;
 use App\Models\Matakuliah;
 use App\Models\Semester;
+use App\Models\UjianMhs;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -269,6 +270,7 @@ class AdminController extends Controller
     }
     public function validasikrs(Request $request)
     {
+        $mahasiswa = Mahasiswa::find($request->mahasiswa_id);
 
         $krs = Krs::where('mahasiswa_id', $request->mahasiswa_id);
         foreach ($request->krs as $key => $name) {
@@ -280,7 +282,12 @@ class AdminController extends Controller
                 'status' => 1,
 
             ]);
+            $mahasiswa->update([
+
+                'semester_id' => $request->smt + 1
+            ]);
         }
         return redirect()->back();
     }
+
 }

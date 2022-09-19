@@ -46,6 +46,8 @@ Route::group(['middleware' => 'dosen'], function () {
     Route::get('/generate-qr', [DosenController::class, 'qrCode']);
     Route::post('/tambah_materi_proses/{id}', [DosenController::class, 'prosesMateri']);
     Route::get('/detail-penugasan/{id}', [DosenController::class, 'detailPenugasan']);
+    Route::post('/validate-uts/{id}', [DosenController::class, 'validasiUts']);
+
 });
 // admin
 Route::group(['middleware' => 'admin'], function () {

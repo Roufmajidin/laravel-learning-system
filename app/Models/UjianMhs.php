@@ -9,7 +9,17 @@ class UjianMhs extends Model
 {
     use HasFactory;
     protected $table = 'ujianMhs';
-    protected $fillable = ['mahasiswa_id', 'type_ujian', 'status_ujian', 'matakuliah_id', 'file_jawaban', 'soal_ujian', 'kelas_id', 'dosen_id', 'semester_id'];
+    protected $fillable = [
+    'mahasiswa_id',
+     'type_ujian',
+     'status_ujian',
+     'matakuliah_id',
+     'file_jawaban',
+     'soal_ujian',
+     'kelas_id',
+     'dosen_id',
+     'semester_id'
+     ];
     public function mahasiswa()
     {
 

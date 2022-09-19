@@ -91,7 +91,23 @@
                             <td> {{ $item->matakuliah['nama_mk'] }}</td>
                             <td>{{ $item->nilai_uts }} </td>
                             <td>{{ $item->nilai_uas }} </td>
-                            <td>{{ $item->keterangan }} </td>
+                            @php
+                                $a = $item->nilai_uts + $item->nilai_uas;
+                                // $b = sum($a);
+                                $b = $a /2
+                            @endphp
+                            @if($b >= 94 )
+                            <td> A </td>
+                            @elseif ($b >= 80 )
+                            <td> B </td>
+
+                            @elseif ($b == 75)
+                            <td>C</td>
+
+                            @elseif ($b <= 75)
+                            <td>D</td>
+
+                            @endif
 
                         </tr>
                     @endforeach

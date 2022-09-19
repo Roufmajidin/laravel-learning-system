@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="card-body">
-        <h6 class="float-left"> Kelas : {{$kelas->nama_kelas}}</h6> <a href="">
+        <h6 class="float-left"> Kelas : {{ $kelas->nama_kelas }}</h6> <a href="">
             <h6></h6>
         </a>
         <h6 class="float-right"> <a href=""></a></h6>
@@ -38,12 +38,9 @@
 
 
                             @if ($i->status == 0)
-                            <td><a href="">Belum di Acc</a></td>
-
-
+                                <td><a href="">Belum di Acc</a></td>
                             @elseif($i->status == 1)
-                            <td><a href="">Sudah</a></td>
-
+                                <td><a href="">Sudah</a></td>
                             @endif
 
 
@@ -84,27 +81,39 @@
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                        @php
-                            $m = App\Models\Mahasiswa::where('kelas_id', $kelas->id)->find($mahasiswa->id);
-                            $no = 1;
-                        @endphp
-                            <label for="recipient-name" class="col-form-label">Mahasiswa: {{$m->nama_mahasiswa}} </label>
-                            <input type="text" class="form-control" name="mahasiswa_id" value="{{$m->id}}"
+                            @php
+                                $m = App\Models\Mahasiswa::where('kelas_id', $kelas->id)->find($mahasiswa->id);
+                                $no = 1;
+                            @endphp
+                            <label for="recipient-name" class="col-form-label">Mahasiswa: {{ $m->nama_mahasiswa }} </label>
+                            <input type="text" class="form-control" name="mahasiswa_id" value="{{ $m->id }}"
                                 id="">
                         </div>
+
+                        <div class="form-group">
+                            @php
+                                $semester = App\Models\Semester::find($m->semester_id);
+                            @endphp
+                            <label for="recipient-name" class="col-form-label">semester id : </label>
+                            <select name="smt" class="form-control" style="height: 100px">
+                                <option value="{{ $m->semester_id }}">{{ $semester->semester }}</option>
+                            </select>
+                        </div>
+
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Matakuliah : </label>
                             <select name="krs[]" class="form-control" multiple style="height: 100px">
-                            @foreach ($krs as $i)
-
-                            <option value="{{$i->matakuliah['id']}}"> {{$no++}}. {{$i->matakuliah['nama_mk']}}</option>
-                            @endforeach
+                                @foreach ($krs as $i)
+                                    <option value="{{ $i->matakuliah['id'] }}"> {{ $no++ }}.
+                                        {{ $i->matakuliah['nama_mk'] }}</option>
+                                @endforeach
 
 
                             </select>
                         </div>
+
                         <div class="ml-2">
-                        Jumlah Krs : {{ $krs->count() }} Matakuliah
+                            Jumlah Krs : {{ $krs->count() }} Matakuliah
 
                         </div>
                     </div>

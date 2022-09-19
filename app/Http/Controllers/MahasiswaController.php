@@ -357,14 +357,14 @@ class MahasiswaController extends Controller
 
             ]);
 
-            $smtplus = $request->smt + 1;
-            $mhs->update([
+            // $smtplus = $request->smt + 1;
+            // $mhs->update([
 
 
-            'semester_id' => $smtplus
+            // 'semester_id' => $smtplus
 
 
-            ]);
+            // ]);
     }
     return redirect('/jadwal');
     }

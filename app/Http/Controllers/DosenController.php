@@ -481,4 +481,20 @@ class DosenController extends Controller
 
         return view('dosen.penugasan-mhs', compact('dj', 'dosen', 'id', 'ma'));
     }
+     public function validasiUts(Request $request, $id)
+    {
+        $ujian = UjianMhs::where('type_ujian', $id)->where('dosen_id', Auth::user()->id);
+
+        foreach ($request->ujian as $key => $name) {
+
+            $ujian->update([
+
+                // 'matakuliah_id' => $request->krs[$key],
+                // 'mahasiswa_id' => $request->mahasiswa_id,
+                'status_ujian' => 1,
+
+            ]);
+        }
+        return redirect()->back();
+    }
 }

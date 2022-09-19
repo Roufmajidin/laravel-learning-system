@@ -20,13 +20,17 @@ class HasilStudiController extends Controller
     }
     public function index()
     {
-        // $a = "halo";
-        // dd($a);
+        // NB
+        // semester id = 1 -> semester dua
+        // semester id = 2  -> semester empat
+        // semester id = 3  -> semester Lima
+        // semester id = 4  -> semester Enam
 
         // $mh = Mahasiswa::with('hasilStudi')->where('user_id', Auth::user()->id)->first();
+        $semester1 = Semester::find(1);
         $semester2 = Semester::find(2);
         $semester4 = Semester::find(4);
-        $mhasilSemester1 = HasilStudi::with('mahasiswa', 'matakuliah', 'semester')->where('mahasiswa_id', Auth::user()->id)->where('semester_id', $semester2->id)->get();
+        $mhasilSemester1 = HasilStudi::with('mahasiswa', 'matakuliah', 'semester')->where('mahasiswa_id', Auth::user()->id)->where('semester_id', $semester1->id)->get();
         $mhasilSemester2 = HasilStudi::with('mahasiswa', 'matakuliah', 'semester')->where('mahasiswa_id', Auth::user()->id)->where('semester_id', $semester4->id)->get();
 
         // dd($mhasilSemester2);
@@ -54,7 +58,7 @@ class HasilStudiController extends Controller
         // $ujiane = Krs::with('matakuliah')->where('mahasiswa_id', $auth)->get();
         // dd($krs);
 
-        return view('mahasiswa.ujian-online', compact('ujiane', 'type'));
+        return view('mahasiswa.ujian-online', compact('ujiane', 'type', 'ujian'));
     }
     public function kumpulkanJawaban($id)
     {
