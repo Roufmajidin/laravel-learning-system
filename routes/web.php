@@ -47,6 +47,8 @@ Route::group(['middleware' => 'dosen'], function () {
     Route::post('/tambah_materi_proses/{id}', [DosenController::class, 'prosesMateri']);
     Route::get('/detail-penugasan/{id}', [DosenController::class, 'detailPenugasan']);
     Route::post('/validate-uts/{id}', [DosenController::class, 'validasiUts']);
+    Route::get('/kotak-masuk', [DosenController::class, 'kotakMasuk']);
+    Route::get('/update-status', [DosenController::class, 'updateStatus'])->name('update-status');
 
 });
 // admin
@@ -70,6 +72,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/krs-mhs/{id}', [AdminController::class, 'krsMhsDetail']);
     Route::post('/validate-krs', [AdminController::class, 'validasikrs']);
     Route::post('/validateDisKrs', [AdminController::class, 'validateDisKrs']);
+    Route::post('/send-pengumuman', [AdminController::class, 'storePengumuman']);
 
 
 });

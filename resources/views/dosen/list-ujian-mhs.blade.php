@@ -20,7 +20,6 @@
                         <th>File Jawaban</th>
                         <th>Waktu Pengumpulan</th>
                         <th>Semester </th>
-                        <th>MK Id</th>
                         <th>Input Nilai</th>
                     </tr>
                 </thead>
@@ -55,7 +54,6 @@
                             @php
                                 $ma = App\Models\Matakuliah::find($item->matakuliah_id);
                             @endphp
-                            <td>{{ $ma->nama_mk }}</td>
                             @if ($item->file_jawaban === null)
                                 <td><a href="/submit-nilai-mhs/{{ $item->mahasiswa['id'] }}"><button disabled
                                             class="btn btn-secondary">Disbaled</button><a /></td>
@@ -113,7 +111,6 @@
                         <th>File Jawaban</th>
                         <th>Waktu Pengumpulan</th>
                         <th>Semester </th>
-                        <th>MK Id</th>
                         <th>Input Nilai</th>
                     </tr>
                 </thead>
@@ -149,7 +146,6 @@
                             @php
                                 $ma = App\Models\Matakuliah::find($item->matakuliah_id);
                             @endphp
-                            <td>{{ $ma->nama_mk }}</td>
                             @if ($item->file_jawaban === null)
                                 <td><a href="/submit-nilai-mhs/{{ $item->mahasiswa['id'] }}"><button disabled
                                             class="btn btn-secondary">Disbaled</button><a /></td>

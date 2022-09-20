@@ -1,19 +1,21 @@
 @extends('home')
-@section('title', 'Absensi')
+@section('title', 'Absensi ' )
 @section('content')
 
     <div class="card-body">
-        <h6 class="float-left"> Matakuliah : </h6> <a href="">
-            <h6></h6>
-        </a>
-        <h6 class="float-right"> Kelas : <a href=""></a></h6>
+        <div class="col">
+        <h6 class=""> Matakuliah : {{$mk->nama_mk}} <br>
+         Pertemuan Ke - {{$pertemuan->pertemuan_ke}} </h6>
+        </div>
+
+
+
+
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="90%" cellspacing="0">
                 <thead class="">
 
-                    <a href="/tambahpertemuan/" class="btn btn-sm btn-primary mr-2"><i class="fa fa-plus"></i>Tambah
-                        Pertemuan</a>
-                    <a class="btn btn-success btn-sm" href=""><i class="fa fa-print"></i> Print Data</a>
+
                     <tr>
                         <th>No</th>
                         <th>Mahasiswa</th>

@@ -15,6 +15,7 @@ use App\Models\Mahasiswa;
 use App\Models\Dosen_jadwal;
 use App\Models\HasilStudi;
 use App\Models\Materi;
+use App\Models\Pesan_dosen;
 use App\Models\Semester;
 use App\Models\Tugas;
 use App\Models\UjianMhs;
@@ -155,10 +156,12 @@ class DosenController extends Controller
 
         $kelas = Kelas::with('pertemuan')->find($id);
         $absensi = Absensi::with('dosen_jadwal', 'mahasiswa')->where('jadwal_id', $id)->get();
+        $mk = Matakuliah::with('dosen')->where('dosen_id', Auth::user()->id)->first();
+        // dd($kelas);
+        $pertemuan = Dosen_jadwal::find($id);
+        // dd($pertemuan);
 
-        // dd($absensi);
-
-        return view('dosen.absensiPertemuanKelas', compact('absensi'));
+        return view('dosen.absensiPertemuanKelas', compact('absensi', 'mk', 'pertemuan'));
     }
     public function ingatkanAbsen($id)
     {
@@ -432,9 +435,9 @@ class DosenController extends Controller
             #jika select inputnya uas
             $mhs_id = $request->mahasiswa_id;
             $pp = HasilStudi::where('mahasiswa_id', $mhs_id,)
-            ->where('matakuliah_id', $request->matakuliah_id)
-            ->where('dosen_id', $request->dosen_id)
-            ->first();
+                ->where('matakuliah_id', $request->matakuliah_id)
+                ->where('dosen_id', $request->dosen_id)
+                ->first();
             $pp->update([
 
                 // 'mahasiswa_id' => $request->mahasiswa_id,
@@ -481,7 +484,7 @@ class DosenController extends Controller
 
         return view('dosen.penugasan-mhs', compact('dj', 'dosen', 'id', 'ma'));
     }
-     public function validasiUts(Request $request, $id)
+    public function validasiUts(Request $request, $id)
     {
         $ujian = UjianMhs::where('type_ujian', $id)->where('dosen_id', Auth::user()->id);
 
@@ -496,5 +499,21 @@ class DosenController extends Controller
             ]);
         }
         return redirect()->back();
+    }
+    public function kotakMasuk()
+    {
+
+        $p = Pesan_dosen::where('dosen_id', Auth::user()->id)->get();
+        // dd($p);
+        return view('dosen.kotak-masuk', compact('p'));
+    }
+    public function updateStatus(Request $request)
+    {
+        $p = Pesan_dosen::find($request->id);
+        $p->keterangan = $request->keterangan;
+        $p->save();
+
+        // return redirect('/data-pesanan');
+        return response()->json([]);
     }
 }

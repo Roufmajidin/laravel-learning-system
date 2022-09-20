@@ -14,7 +14,7 @@
 <!-- Page Specific JS File -->
 
 <!-- Template JS File -->
-{{-- <script src="{{ asset('style/js/scripts.js') }}"></script> --}}
+<script src="{{ asset('style/js/scripts.js') }}"></script>
 <script src="{{ asset('style/js/custom.js') }}"></script>
 
 
@@ -35,8 +35,8 @@
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
     integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
-    {{-- popover --}}
-    <!-- Development -->
+{{-- popover --}}
+<!-- Development -->
 <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
 <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
 
@@ -46,6 +46,9 @@
 <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 <script src="sweetalert2.all.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{{-- //toogle --}}
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+s
 <script>
     // ajax
 
@@ -271,7 +274,7 @@
     });
 </script>
 
-    @stack('scripts')
+@stack('scripts')
 
 
 </body>

@@ -8,6 +8,7 @@ use App\Models\Kelas;
 use App\Models\Krs;
 use App\Models\Mahasiswa;
 use App\Models\Matakuliah;
+use App\Models\Pesan_dosen;
 use App\Models\Semester;
 use App\Models\UjianMhs;
 use App\Models\User;
@@ -56,10 +57,11 @@ class AdminController extends Controller
         // return 'ok';
 
         $m = Matakuliah::with('dosen')->paginate(2);
+        $dosen = Dosen::with('matakuliah')->get();
         // dd($m);
 
 
-        return view('admin.index', compact('m'));
+        return view('admin.index', compact('m', 'dosen'));
     }
     public function detailDosen($id)
     {
@@ -213,6 +215,7 @@ class AdminController extends Controller
             ->where('kelas_id', $kelas2)
             ->paginate(3);
 
+
         return view('admin.semester-index', compact('mahasiswas2', 'mahasiswas4', 'mahasiswas5', 'semester2', 'semester4', 'semester5'));
     }
     public function mahasiswaBySemesterCreateUpdate()
@@ -318,6 +321,23 @@ class AdminController extends Controller
             //status 2 itu stand By
             'status' => 2
         ]);
+        return redirect()->back();
+    }
+    public function storePengumuman(Request $request)
+    {
+
+        $pesanDosen = new Pesan_dosen();
+        foreach ($request->dosen as $key => $name) {
+
+                $pesanDosen->create([
+
+                    'dosen_id' => $request->dosen[$key],
+                    'isi_pesan' => $request->isi_pesan,
+                    'keterangan' => '0',
+
+                ]);
+        }
+
         return redirect()->back();
     }
 }

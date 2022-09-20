@@ -104,45 +104,45 @@
                         $p = App\Models\Mahasiswa::where('user_id', Auth::user()->id)->first();
                     @endphp
                     {{-- @if ($p->keterangan != 0) --}}
-                        {{-- {{$p}} --}}
-                        {{-- <li class="dropdown dropdown-list-toggle beep"><a href="#" data-toggle="dropdown" --}}
-                                {{-- class="nav-link nav-link-lg"><i class="far fa-envelope"></i></a> --}}
-                            {{-- message-toggle beep --}}
-                        {{-- @elseif ($p->keterangan == 0) --}}
-                        {{-- <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
+                    {{-- {{$p}} --}}
+                    {{-- <li class="dropdown dropdown-list-toggle beep"><a href="#" data-toggle="dropdown" --}}
+                    {{-- class="nav-link nav-link-lg"><i class="far fa-envelope"></i></a> --}}
+                    {{-- message-toggle beep --}}
+                    {{-- @elseif ($p->keterangan == 0) --}}
+                    {{-- <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
                                 class="nav-link nav-link-lg"><i class="far fa-envelope"></i></a> --}}
-                        {{-- @else --}}
-                        <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
-                                class="nav-link nav-link-lg"><i class="far fa-envelope"></i></a>
-                    {{-- @endif --}}
+                    {{-- @else --}}
+                    <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
+                            class="nav-link nav-link-lg"><i class="far fa-envelope"></i></a>
+                        {{-- @endif --}}
 
-                    <div class="dropdown-menu dropdown-list dropdown-menu-right">
-                        <div class="dropdown-header">Messages
-                            <div class="float-right">
-                                <a href="#">Mark All As Read</a>
-                            </div>
-                        </div>
-                        <div class="dropdown-list-content dropdown-list-message">
-                            <a href="#" class="dropdown-item dropdown-item-unread">
-                                <div class="dropdown-item-avatar">
-                                    <img alt="image" src="{{ asset('style/img/avatar/avatar-3.png') }}"
-                                        class="rounded-circle">
-                                    <div class="is-online"></div>
+                        <div class="dropdown-menu dropdown-list dropdown-menu-right">
+                            <div class="dropdown-header">Messages
+                                <div class="float-right">
+                                    <a href="#">Mark All As Read</a>
                                 </div>
-                                <div class="dropdown-item-desc">
+                            </div>
+                            <div class="dropdown-list-content dropdown-list-message">
+                                <a href="#" class="dropdown-item dropdown-item-unread">
+                                    <div class="dropdown-item-avatar">
+                                        <img alt="image" src="{{ asset('style/img/avatar/avatar-3.png') }}"
+                                            class="rounded-circle">
+                                        <div class="is-online"></div>
+                                    </div>
+                                    <div class="dropdown-item-desc">
 
-                                    <b></b>
-                                    {{-- <p>{{ $p->keterangan }}</p> --}}
-                                    {{-- <div class="time">{{ Carbon\Carbon::parse($p->updated_at)->diffForHumans()}}</div> --}}
+                                        <b></b>
+                                        {{-- <p>{{ $p->keterangan }}</p> --}}
+                                        {{-- <div class="time">{{ Carbon\Carbon::parse($p->updated_at)->diffForHumans()}}</div> --}}
+                                    </div>
+                                </a>
+                                <div class="dropdown-footer text-center">
+                                    <a href="#">View All <i class="fas fa-chevron-right"></i></a>
                                 </div>
-                            </a>
-                            <div class="dropdown-footer text-center">
-                                <a href="#">View All <i class="fas fa-chevron-right"></i></a>
+
                             </div>
 
                         </div>
-
-                    </div>
                     </li>
 
                     <li class="dropdown"><a href="#" data-toggle="dropdown"
@@ -191,18 +191,17 @@
                     </div>
                     <ul class="sidebar-menu">
                         @if (Auth::user()->level == 'admin')
-                         <li class="dropdown">
+                            <li class="dropdown">
                                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-th-large"></i>
                                     <span>Admin Premis</span></a>
                                 <ul class="">
                                     <li><a class="nav-link" href="/jadwal-dosen/">Dosen</a></li>
                                     <li><a class="nav-link" href="/mahasiswa-data/">Mahasiswa</a></li>
 
-                                    <li><a class="nav-link beep beep-sidebar" href="/krs-mahasiswa">Krs Mahasiswa</a></li>
+                                    <li><a class="nav-link beep beep-sidebar" href="/krs-mahasiswa">Krs Mahasiswa</a>
+                                    </li>
                                 </ul>
                             </li>
-
-
                         @elseif (Auth::user()->level == 'dosen')
                             {{-- <li class="menu-header">Jadwal Dosen</li> --}}
                             <li class="dropdown">
@@ -212,18 +211,8 @@
                                     <li><a class="nav-link" href="/jadwaldosen">KBM</a></li>
                                     <li><a class="nav-link" href="/kelas-all">Kelas</a>
                                     <li><a class="nav-link" href="/ujian-mhs">Ujian</a>
-                                        <ul class="dropdown-menu">
-                                            {{-- @php
-                                                $k = App\Models\Pertemuan::with('jadwal', 'dosen')
-                                                    ->where('user_id', Auth::user()->id)
-                                                    ->first();
+                                    <li><a class="nav-link" href="/kotak-masuk">Kotak Masuk</a>
 
-                                            @endphp
-                                            @foreach ($k->jadwal as $item)
-                                                <li><a class="nav-link" href="#">{{ $item->kelas }}</a></li>
-                                            @endforeach --}}
-
-                                        </ul>
 
                                     </li>
 
@@ -232,14 +221,22 @@
                                 </ul>
                             </li>
                             {{-- <li class="menu-header">KRS</li> --}}
-
-                            <li class="menu-header">Penugasan</li>
                             <li class="dropdown">
-                                <a href="#" class="nav-link has-dropdown"><i
-                                        class="fas fa-fire"></i><span>Dashboard</span></a>
+                                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
+                                        class="fas fa-columns"></i> <span>Absensi</span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="nav-link" href="#">Mahasiswa Tugas</a></li>
-                                    <li><a class="nav-link" href="#">-</a></li>
+                                    @php
+                                        $k = App\Models\Dosen::with('kelas')
+                                            ->where('id', Auth::user()->id)
+                                            ->first();
+
+                                    @endphp
+                                    @foreach ($k->kelas as $item)
+                                        <li><a class="nav-link" href="/kelas-detail/{{ encrypt($item->id) }}">{{ $item->nama_kelas }}</a>
+                                        </li>
+                                    @endforeach
+
+
                                 </ul>
                             </li>
                         @else
