@@ -23,7 +23,15 @@
 
                         <select name="smt" class="form-control">
 
+                            @if ($mhs->semester_id == 10)
+                            <option value="mahasiswa_baru">Mahasiswa Baru</option>
+
+
+                            @else
                             <option value="{{$smt->id}}">{{$smt->semester}}</option>
+
+
+                            @endif
 
                         </select>
 

@@ -69,6 +69,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/krs-mahasiswa/{id}', [AdminController::class, 'krsMahasiswa']);
     Route::get('/krs-mhs/{id}', [AdminController::class, 'krsMhsDetail']);
     Route::post('/validate-krs', [AdminController::class, 'validasikrs']);
+    Route::post('/validateDisKrs', [AdminController::class, 'validateDisKrs']);
 
 
 });

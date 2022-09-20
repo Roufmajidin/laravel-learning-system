@@ -48,8 +48,8 @@
                         </tr>
                     @empty
 
-                        <a style="margin-left:40%; margin-top:20%; position: absolute; color:red; font-wight:bold">belum ada
-                            Data</a>
+                        <a style="margin-left:40%; margin-top:20%; position: absolute; color:red; font-wight:bold">
+                        Krs Sudah di Validasi</a>
                     @endforelse
 
 

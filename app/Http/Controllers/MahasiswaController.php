@@ -349,10 +349,12 @@ class MahasiswaController extends Controller
     // $smt = Semester::find($mhs->semester_id);
     $p = new Krs;
     foreach ($request->krsMK as $key => $name) {
+
             $p->create([
 
                 'mahasiswa_id' => $request->mahasiswa_id,
                 'matakuliah_id' => $request->krsMK[$key],
+                //mahasiswa baru
                 'status' => 0
 
             ]);

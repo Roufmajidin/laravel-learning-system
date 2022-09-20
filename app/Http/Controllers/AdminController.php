@@ -141,8 +141,10 @@ class AdminController extends Controller
 
         $mahas = Mahasiswa::get();
         $kelas = Kelas::get();
-        // dd($m);
-        return view('admin.kelas-mahasiswa-all', compact('kelas'));
+        $krs = Krs::with('mahasiswa')->get();
+        $mahasiswa = Mahasiswa::with('krs')->get();
+        // dd($krs);
+        return view('admin.kelas-mahasiswa-all', compact('kelas', 'mahasiswa'));
     }
     public function kelasMahasiswa($id)
     {
@@ -261,7 +263,7 @@ class AdminController extends Controller
     {
 
         $mahasiswa =  Mahasiswa::where('user_id', $id)->first();
-        $krs = Krs::with('mahasiswa', 'matakuliah')->where('mahasiswa_id', $id)->get();
+        $krs = Krs::with('mahasiswa', 'matakuliah')->where('mahasiswa_id', $id)->where('status', 0)->get();
         $kelasMhs = $mahasiswa->kelas_id;
         $kelas = Kelas::find($kelasMhs);
 
@@ -276,20 +278,46 @@ class AdminController extends Controller
         //jika data status krs --> 1 maka update ke value-->2
         // lanjut kebaris new semester
         foreach ($request->krs as $key => $name) {
+            // status Maba
+            if ($request->smt == 'Mahasiswa Baru') {
+                $krs->update([
 
-            $krs->update([
+                    // 'matakuliah_id' => $request->krs[$key],
+                    'mahasiswa_id' => $request->mahasiswa_id,
+                    // if status dia adalah maba
+                    'status' => 1,
 
-                // 'matakuliah_id' => $request->krs[$key],
-                'mahasiswa_id' => $request->mahasiswa_id,
-                'status' => 1,
+                ]);
+                $mahasiswa->update([
 
-            ]);
-            $mahasiswa->update([
+                    'semester_id' => 1
+                ]);
+            } else {
+                $krs->update([
 
-                'semester_id' => $request->smt + 1
-            ]);
+                    // 'matakuliah_id' => $request->krs[$key],
+                    'mahasiswa_id' => $request->mahasiswa_id,
+                    // if status dia adalah maba
+                    'status' => 1,
+
+                ]);
+                $mahasiswa->update([
+
+                    'semester_id' => $request->smt + 1
+                ]);
+            }
         }
         return redirect()->back();
     }
+    public function validateDisKrs(Request $request)
+    {
 
+        $krs = Krs::where('status', 1);
+        $krs->update([
+
+            //status 2 itu stand By
+            'status' => 2
+        ]);
+        return redirect()->back();
+    }
 }
