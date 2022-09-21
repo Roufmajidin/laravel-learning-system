@@ -13,7 +13,7 @@
                     <div class="form-group ml-4 col-md-5 row">
                         <label style="color:#17a2b8">Mahasiswa : {{$mhs->nama_mahasiswa}}
                         </label>
-                        <input type="text" class="form-control" value="{{$mhs->id}}" placeholder="as"
+                        <input type="text" class="form-control" value="{{$mhs->user_id}}" placeholder="as"
                             name="mahasiswa_id">
                     </div>
 

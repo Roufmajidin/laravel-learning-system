@@ -33,7 +33,7 @@ class MahasiswaController extends Controller
     {
         // $idd = 2;
         // $dosen = Dosen::with('user')->where('user_id', Auth::user()->id)->get();
-        $m = Mahasiswa::with('kelas')->where('user_id', Auth::user()->id)->first();
+        $m = Mahasiswa::with('kelas', 'semester')->where('user_id', Auth::user()->id)->first();
         // dd($m);
         return view('mahasiswa.index', compact('m'));
     }
@@ -53,6 +53,7 @@ class MahasiswaController extends Controller
         $km = Krs::with('mahasiswa', 'matakuliah')
         ->where('mahasiswa_id', $auth)
         ->where('status', 1)
+        ->where('semester_id', $m->semester_id)
         ->get();
         // dd($km);
 
@@ -345,7 +346,7 @@ class MahasiswaController extends Controller
 
     $auth = Auth::user()->id;
     // $mk = Matakuliah::get();
-    $mhs = Mahasiswa::where('user_id', $auth)->first();
+    $mhs = Mahasiswa::where('user_id', $request->mahasiswa_id)->first();
     // $smt = Semester::find($mhs->semester_id);
     $p = new Krs;
     foreach ($request->krsMK as $key => $name) {
@@ -355,7 +356,9 @@ class MahasiswaController extends Controller
                 'mahasiswa_id' => $request->mahasiswa_id,
                 'matakuliah_id' => $request->krsMK[$key],
                 //mahasiswa baru
-                'status' => 0
+                'status' => 0,
+                'semester_id' => $mhs->semester_id + 1
+
 
             ]);
 

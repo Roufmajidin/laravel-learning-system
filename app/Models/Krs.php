@@ -10,7 +10,14 @@ class Krs extends Model
     // use HasFactory;
     // use HasFactory;
     protected $table = 'krs';
-    protected $fillable = ['id', 'nama_mk', 'mahasiswa_id', 'matakuliah_id', 'status'];
+    protected $fillable = [
+        'id',
+        'nama_mk',
+        'mahasiswa_id',
+        'matakuliah_id',
+        'status',
+        'semester_id'
+    ];
     public function mahasiswa()
     {
 

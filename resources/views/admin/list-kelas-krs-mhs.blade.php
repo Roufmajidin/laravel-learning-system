@@ -32,10 +32,11 @@
                                 $sem = App\Models\Semester::find($i->semester_id);
                             @endphp
                             <td>{{ $sem->semester }}</td>
-                            <td><a href="/krs-mhs/{{$i->id}}"><button class="btn btn-success">Detail</button></a>
+                            <td><a href="/krs-mhs/{{$i->user_id}}"><button class="btn btn-success">Detail</button></a>
 
 
                         </tr>
+
                     @empty
 
                         <a style="margin-left:40%; margin-top:20%; position: absolute; color:red; font-wight:bold">belum ada

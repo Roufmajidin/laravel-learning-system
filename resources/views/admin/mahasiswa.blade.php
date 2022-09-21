@@ -78,6 +78,11 @@
                             id="">
                     </div>
                     <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Email: </label>
+                        <input type="email" id="email" class="form-control" name="email" value=""
+                            id="">
+                    </div>
+                    <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Kelas</label>
                         <select id="kelas" name="kelas" class="form-control">
                             @php
@@ -166,6 +171,7 @@
         $(".insert").on('click', function() {
             var nama_mahasiswa = $("#nama_mahasiswa").val();
             var kelas = $("#kelas").val();
+            var email = $("#email").val();
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -177,6 +183,7 @@
                 data: {
                     'nama_mahasiswa': nama_mahasiswa,
                     'kelas': kelas,
+                    'email': email,
                 },
                 success: function(e) {
                     // resetModal();

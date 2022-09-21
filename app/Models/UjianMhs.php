@@ -10,20 +10,20 @@ class UjianMhs extends Model
     use HasFactory;
     protected $table = 'ujianMhs';
     protected $fillable = [
-    'mahasiswa_id',
-     'type_ujian',
-     'status_ujian',
-     'matakuliah_id',
-     'file_jawaban',
-     'soal_ujian',
-     'kelas_id',
-     'dosen_id',
-     'semester_id'
-     ];
+        'mahasiswa_id',
+        'type_ujian',
+        'status_ujian',
+        'matakuliah_id',
+        'file_jawaban',
+        'soal_ujian',
+        'kelas_id',
+        'dosen_id',
+        'semester_id'
+    ];
     public function mahasiswa()
     {
 
-        return $this->belongsTo(Mahasiswa::class);
+        return $this->belongsTo(Mahasiswa::class, 'mahasiswa_id', 'user_id');
     }
     public function matakuliah()
     {
@@ -35,6 +35,4 @@ class UjianMhs extends Model
 
         return $this->belongsTo(Semester::class);
     }
-
-
 }

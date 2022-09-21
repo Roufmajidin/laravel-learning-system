@@ -42,7 +42,7 @@
                                 $m = App\Models\Mahasiswa::where('kelas_id', $kelas->id)->get();
                             @endphp
                              @foreach ($m as $i)
-                                <option value="{{ $i->id }}">{{$i->nama_mahasiswa}}</option>
+                                <option value="{{ $i->user_id }}">{{$i->nama_mahasiswa}}</option>
 
                             @endforeach
                         </select>

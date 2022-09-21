@@ -12,8 +12,10 @@ use App\Models\Pesan_dosen;
 use App\Models\Semester;
 use App\Models\UjianMhs;
 use App\Models\User;
+use Egulias\EmailValidator\EmailParser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -163,11 +165,18 @@ class AdminController extends Controller
     }
     public function tambahMhs(Request $request)
     {
-
+        $user = new User;
+        $email =  "@mail.com";
         $mahasiswa = new Mahasiswa;
         $mahasiswa->create([
             'nama_mahasiswa' => $request->nama_mahasiswa,
             'kelas_id' => $request->kelas,
+        ]);
+        $user->create([
+            'name' => $request->nama_mahasiswa,
+            'email' => $request->email,
+            'password' => Hash::make($request->email),
+            'level' => 'mahasiswa'
         ]);
         return response()->json([]);
         // return view('admin.mahasiswa', compact('mahas', 'id'));
@@ -269,26 +278,51 @@ class AdminController extends Controller
         $krs = Krs::with('mahasiswa', 'matakuliah')->where('mahasiswa_id', $id)->where('status', 0)->get();
         $kelasMhs = $mahasiswa->kelas_id;
         $kelas = Kelas::find($kelasMhs);
+        $krsSemester1 = Krs::with('mahasiswa', 'matakuliah')
+            ->where('mahasiswa_id', $id)
+            ->where('status', 1)
+            ->where('semester_id', 1)
+           ->get();
+        $krsSemester2 = Krs::with('mahasiswa', 'matakuliah')
+            ->where('mahasiswa_id', $id)
+            ->where('status', 1)
+            ->where('semester_id', 2)
+           ->get();
+         $krsSemester3 = Krs::with('mahasiswa', 'matakuliah')
+            ->where('mahasiswa_id', $id)
+            ->where('status', 1)
+            ->where('semester_id', 3)
+           ->get();
 
-        // dd($mahasiswa);
-        return view('admin.detail-krs-mhs', compact('krs', 'mahasiswa', 'kelas'));
+
+        // dd($krsSemester1);
+        return view('admin.detail-krs-mhs', compact(
+            'krs',
+            'mahasiswa',
+            'kelas',
+            'krsSemester1',
+            'krsSemester2',
+            'krsSemester3',
+
+        ));
     }
     public function validasikrs(Request $request)
     {
-        $mahasiswa = Mahasiswa::find($request->mahasiswa_id);
+        $mahasiswa = Mahasiswa::where('user_id', $request->mahasiswa_id);
 
         $krs = Krs::where('mahasiswa_id', $request->mahasiswa_id);
         //jika data status krs --> 1 maka update ke value-->2
         // lanjut kebaris new semester
         foreach ($request->krs as $key => $name) {
             // status Maba
-            if ($request->smt == 'Mahasiswa Baru') {
+            if ($request->smt == 0) {
                 $krs->update([
 
                     // 'matakuliah_id' => $request->krs[$key],
                     'mahasiswa_id' => $request->mahasiswa_id,
                     // if status dia adalah maba
                     'status' => 1,
+                    'semester_id' => 1,
 
                 ]);
                 $mahasiswa->update([
@@ -300,7 +334,7 @@ class AdminController extends Controller
 
                     // 'matakuliah_id' => $request->krs[$key],
                     'mahasiswa_id' => $request->mahasiswa_id,
-                    // if status dia adalah maba
+                    // if status dia bukan maba
                     'status' => 1,
 
                 ]);
@@ -329,13 +363,13 @@ class AdminController extends Controller
         $pesanDosen = new Pesan_dosen();
         foreach ($request->dosen as $key => $name) {
 
-                $pesanDosen->create([
+            $pesanDosen->create([
 
-                    'dosen_id' => $request->dosen[$key],
-                    'isi_pesan' => $request->isi_pesan,
-                    'keterangan' => '0',
+                'dosen_id' => $request->dosen[$key],
+                'isi_pesan' => $request->isi_pesan,
+                'keterangan' => '0',
 
-                ]);
+            ]);
         }
 
         return redirect()->back();

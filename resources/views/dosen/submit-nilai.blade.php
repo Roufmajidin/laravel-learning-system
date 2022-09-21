@@ -20,7 +20,7 @@
                     <div class="form-group ml-4 col-md-5">
                         <label style="color:#17a2b8">Mahasiswa : {{ $mahasiswa->nama_mahasiswa }}</label>
                         <input type="text" class="form-control" name="mahasiswa_id"
-                            value="{{ $mahasiswa->id }}" placeholder="">
+                            value="{{ $mahasiswa->user_id }}" placeholder="">
 
                     </div>
                     <div class="form-group ml-4 col-md-5">

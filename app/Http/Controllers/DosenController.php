@@ -390,6 +390,7 @@ class DosenController extends Controller
             ->where('status_ujian', 2)
 
             ->paginate(4);
+
         $m2 = UjianMhs::with('mahasiswa', 'semester')
             ->where('kelas_id', $nama_kelas)
             ->where('dosen_id', $auth)
@@ -398,7 +399,7 @@ class DosenController extends Controller
             ->where('type_ujian', 'UAS')
 
             ->paginate(4);
-        // dd($m);
+        // dd($m1);
         return view('dosen.list-ujian-mhs', compact('m1', 'm2'));
     }
 

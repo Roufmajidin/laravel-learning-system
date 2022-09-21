@@ -12,7 +12,7 @@ class HasilStudi extends Model
     protected $fillable = ['mahasiswa_id', 'dosen_id', 'semester_id',  'matakuliah_id', 'nilai_uts', 'nilai_uas', 'keterangan', 'semester_id'];
     public function mahasiswa()
     {
-        return $this->belongsTo(Mahasiswa::class);
+        return $this->belongsTo(Mahasiswa::class, 'mahasiswa_id', 'user_id');
     }
     public function matakuliah()
     {
