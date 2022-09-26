@@ -21,6 +21,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Ramsey\Uuid\Uuid;
 use Str;
+use Alert;
 // use Carbon\Carbon;
 
 class MahasiswaController extends Controller
@@ -51,10 +52,10 @@ class MahasiswaController extends Controller
 
 
         $km = Krs::with('mahasiswa', 'matakuliah')
-        ->where('mahasiswa_id', $auth)
-        ->where('status', 1)
-        ->where('semester_id', $m->semester_id)
-        ->get();
+            ->where('mahasiswa_id', $auth)
+            ->where('status', 1)
+            ->where('semester_id', $m->semester_id)
+            ->get();
         // dd($km);
 
         // dd($km);
@@ -332,24 +333,34 @@ class MahasiswaController extends Controller
 
         return redirect('lihat-materi/' . decrypt($id));
     }
-    public function krsMhs(){
+    // public function krsMhs(){
 
-    $auth = Auth::user()->id;
-    $mk = Matakuliah::get();
-    $mhs = Mahasiswa::where('user_id', $auth)->first();
-    $smt = Semester::find($mhs->semester_id);
-    return view('mahasiswa.reg-krs', compact('mk', 'mhs', 'smt'));
+    // $auth = Auth::user()->id;
+    // $mk = Matakuliah::get();
+    // $mhs = Mahasiswa::where('user_id', $auth)->first();
+    // $smt = Semester::find($mhs->semester_id);
+    // return view('mahasiswa.reg-krs', compact('mk', 'mhs', 'smt'));
+    // }
+    public function krsMhsToken()
+    {
+
+        $auth = Auth::user()->id;
+        $mk = Matakuliah::get();
+        $mhs = Mahasiswa::where('user_id', $auth)->first();
+        $smt = Semester::find($mhs->semester_id);
+        return view('mahasiswa.login-krs-token', compact('mk', 'mhs', 'smt'));
     }
     // store
 
-    public function krsMhsProses(Request $request){
+    public function krsMhsProses(Request $request)
+    {
 
-    $auth = Auth::user()->id;
-    // $mk = Matakuliah::get();
-    $mhs = Mahasiswa::where('user_id', $request->mahasiswa_id)->first();
-    // $smt = Semester::find($mhs->semester_id);
-    $p = new Krs;
-    foreach ($request->krsMK as $key => $name) {
+        $auth = Auth::user()->id;
+        // $mk = Matakuliah::get();
+        $mhs = Mahasiswa::where('user_id', $request->mahasiswa_id)->first();
+        // $smt = Semester::find($mhs->semester_id);
+        $p = new Krs;
+        foreach ($request->krsMK as $key => $name) {
 
             $p->create([
 
@@ -370,7 +381,31 @@ class MahasiswaController extends Controller
 
 
             // ]);
+        }
+        return redirect('/jadwal');
     }
-    return redirect('/jadwal');
+    public function krsTokenProses(Request $request)
+    {
+
+        $auth = Auth::user()->id;
+        // $mk = Matakuliah::get();
+        $mhs = Mahasiswa::where('user_id', $request->mahasiswa_id)->first();
+        // $smt = Semester::find($mhs->semester_id);
+        $token = $mhs->token_krs;
+
+        $auth = Auth::user()->id;
+        $mk = Matakuliah::get();
+        $mhs = Mahasiswa::where('user_id', $auth)->first();
+        $smt = Semester::find($mhs->semester_id);
+
+        if ($request->token_krs == $token) {
+
+            Alert::success(' Succes ! ', 'Token Valid :'. $token);
+            return view('mahasiswa.reg-krs', compact('mk', 'mhs', 'smt'));
+
+        }else{
+            Alert::warning(' Danger ! ', 'Token Tidak Valid');
+            return redirect('/krs-online');
+        }
     }
 }

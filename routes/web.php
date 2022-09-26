@@ -73,6 +73,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('/validate-krs', [AdminController::class, 'validasikrs']);
     Route::post('/validateDisKrs', [AdminController::class, 'validateDisKrs']);
     Route::post('/send-pengumuman', [AdminController::class, 'storePengumuman']);
+    Route::post('/generate-token', [AdminController::class, 'generateToken']);
 
 
 });
@@ -102,8 +103,9 @@ Route::group(['middleware' => 'mahasiswa'], function () {
     Route::get('/ujian', [HasilStudiController::class, 'typeUjian']);
     Route::get('/type/{id}', [HasilStudiController::class, 'ujianOn']);
     Route::get('/test', [MahasiswaController::class, 'ajaxPage'])->name('test');
-    Route::get('/krs-online', [MahasiswaController::class, 'krsMhs'])->name('krs');
+    Route::get('/krs-online', [MahasiswaController::class, 'krsMhsToken'])->name('krs');
     Route::post('/krs-online-proses', [MahasiswaController::class, 'krsMhsProses']);
+    Route::post('/krs-token-login', [MahasiswaController::class, 'krsTokenProses']);
 
 });
 

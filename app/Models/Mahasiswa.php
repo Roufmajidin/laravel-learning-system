@@ -9,7 +9,17 @@ class Mahasiswa extends Model
 {
     // use HasFactory;
     protected $table = 'mahasiswa';
-    protected $fillable = ['user_id', 'nama_mahasiswa', 'semester_id', 'nim', 'alamat', 'kelas_id', 'foto_mahasiswa', 'keterangan'];
+    protected $fillable = [
+        'user_id',
+        'nama_mahasiswa',
+        'semester_id',
+        'nim',
+        'alamat',
+        'kelas_id',
+        'foto_mahasiswa',
+        'keterangan',
+        'token_krs',
+    ];
     public function kelas()
     {
 
@@ -26,17 +36,17 @@ class Mahasiswa extends Model
 
         return $this->hasMany(HasilStudi::class);
     }
-     public function ujianMhs()
+    public function ujianMhs()
     {
 
         return $this->hasMany(UjianMhs::class);
     }
-     public function semester()
+    public function semester()
     {
 
         return $this->belongsTo(semester::class);
     }
-     public function krs()
+    public function krs()
     {
 
         return $this->hasMany(Krs::class);

@@ -12,6 +12,7 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.0",
         "nesbot/carbon": "^2.62",
+        "realrashid/sweet-alert": "^5.1",
         "simplesoftwareio/simple-qrcode": "^4.2"
     },
     "require-dev": {

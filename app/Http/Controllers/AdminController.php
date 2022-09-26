@@ -16,7 +16,7 @@ use Egulias\EmailValidator\EmailParser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Str;
 class AdminController extends Controller
 {
     //
@@ -282,17 +282,17 @@ class AdminController extends Controller
             ->where('mahasiswa_id', $id)
             ->where('status', 1)
             ->where('semester_id', 1)
-           ->get();
+            ->get();
         $krsSemester2 = Krs::with('mahasiswa', 'matakuliah')
             ->where('mahasiswa_id', $id)
             ->where('status', 1)
             ->where('semester_id', 2)
-           ->get();
-         $krsSemester3 = Krs::with('mahasiswa', 'matakuliah')
+            ->get();
+        $krsSemester3 = Krs::with('mahasiswa', 'matakuliah')
             ->where('mahasiswa_id', $id)
             ->where('status', 1)
             ->where('semester_id', 3)
-           ->get();
+            ->get();
 
 
         // dd($krsSemester1);
@@ -357,6 +357,7 @@ class AdminController extends Controller
         ]);
         return redirect()->back();
     }
+
     public function storePengumuman(Request $request)
     {
 
@@ -372,6 +373,20 @@ class AdminController extends Controller
             ]);
         }
 
+        return redirect()->back();
+    }
+
+    public function generateToken(Request $request)
+    {
+
+        $mhs = Mahasiswa::find($request->mahasiswa_id);
+        $token = Str::random(30);
+        $mhs->update([
+
+            //status 2 itu stand By
+            'token_krs' => $token
+        ]);
+        // dd($mhs);
         return redirect()->back();
     }
 }

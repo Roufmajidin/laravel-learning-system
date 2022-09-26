@@ -1,20 +1,24 @@
 @extends('home')
 @section('title', 'Detail Krs Mhs')
 @section('content')
-  <div class="card-body">
+    <div class="card-body">
         <h6 class="float-left"> Kelas : {{ $kelas->nama_kelas }}</h6> <a href="">
             <h6></h6>
         </a>
-        <h6 class="float-right"> <a href=""></a></h6>
+        <h6 class="float-right mr-3"> <a href=""></a></h6>
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="90%" cellspacing="0">
                 <thead class="">
 
-
+                    <button type="button" class="btn btn-primary float-md-right mb-2" data-toggle="modal"
+                        data-target="#generateToken"><i class="fas fa-question"></i>
+                        Generate Token
+                    </button>
                     <button type="button" class="btn btn-primary float-md-right mb-2" data-toggle="modal"
                         data-target="#exampleModal"><i class="fas fa-question"></i>
                         Validasi
                     </button>
+
                     <tr>
 
                         <th>Matakuliah</th>
@@ -26,7 +30,7 @@
                 </thead>
                 <br><br>
                 <tbody>
-                <p>Semester Baru</p>
+                    <p>Semester Baru</p>
                     @forelse ($krs as $i)
                         <tr>
                             <td>{{ $i->matakuliah['nama_mk'] }}</td>
@@ -49,7 +53,7 @@
                     @empty
 
                         <a style="margin-left:40%; margin-top:20%; position: absolute; color:red; font-wight:bold">
-                            </a>
+                        </a>
                     @endforelse
 
 
@@ -86,7 +90,7 @@
                 </thead>
                 <br><br>
                 <tbody>
-                <p>Semester 1</p>
+                    <p>Semester 1</p>
                     @forelse ($krsSemester1 as $i)
                         <tr>
                             <td>{{ $i->matakuliah['nama_mk'] }}</td>
@@ -109,7 +113,7 @@
                     @empty
 
                         <a style="margin-left:40%; margin-top:20%; position: absolute; color:red; font-wight:bold">
-                            </a>
+                        </a>
                     @endforelse
 
 
@@ -126,7 +130,7 @@
     </div>
 
     {{-- semester 2 --}}
-      <div class="card-body">
+    <div class="card-body">
         <h6 class="float-left"></h6> <a href="">
             <h6></h6>
         </a>
@@ -148,7 +152,7 @@
                 </thead>
                 <br><br>
                 <tbody>
-                <p>Semester 2</p>
+                    <p>Semester 2</p>
                     @forelse ($krsSemester2 as $i)
                         <tr>
                             <td>{{ $i->matakuliah['nama_mk'] }}</td>
@@ -171,7 +175,7 @@
                     @empty
 
                         <a style="margin-left:40%; margin-top:20%; position: absolute; color:red; font-wight:bold">
-                            </a>
+                        </a>
                     @endforelse
 
 
@@ -189,8 +193,8 @@
 
     {{-- end --}}
 
-     {{-- semester 3 --}}
-      <div class="card-body">
+    {{-- semester 3 --}}
+    <div class="card-body">
         <h6 class="float-left"></h6> <a href="">
             <h6></h6>
         </a>
@@ -212,7 +216,7 @@
                 </thead>
                 <br><br>
                 <tbody>
-                <p>Semester 3</p>
+                    <p>Semester 3</p>
                     @forelse ($krsSemester3 as $i)
                         <tr>
                             <td>{{ $i->matakuliah['nama_mk'] }}</td>
@@ -235,7 +239,7 @@
                     @empty
 
                         <a style="margin-left:40%; margin-top:20%; position: absolute; color:red; font-wight:bold">
-                            </a>
+                        </a>
                     @endforelse
 
 
@@ -315,6 +319,53 @@
                             Jumlah Krs : {{ $krs->count() }} Matakuliah
 
                         </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Validate</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+      <!-- Modal Token -->
+    <div class="modal fade" id="generateToken" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Krs Mahasiswa</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="/generate-token" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            @php
+                                $m = App\Models\Mahasiswa::where('kelas_id', $kelas->id)->find($mahasiswa->id);
+                                $no = 1;
+                            @endphp
+                            <label for="recipient-name" class="col-form-label">Mahasiswa: {{ $m->nama_mahasiswa }} </label>
+                            <input type="text" class="form-control" name="mahasiswa_id" value="{{ $m->id }}"
+                                id="">
+                        </div>
+
+                        <div class="form-group">
+                            @php
+                                $semester = App\Models\Semester::find($m->semester_id);
+                            @endphp
+                            <label for="recipient-name" class="col-form-label">semester id : </label>
+                            <select name="smt" class="form-control" style="height: 100px">
+                                <option value="{{ $semester->id }}">{{ $semester->semester }}</option>
+                            </select>
+                        </div>
+
+
+
+
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Validate</button>

@@ -232,7 +232,8 @@
 
                                     @endphp
                                     @foreach ($k->kelas as $item)
-                                        <li><a class="nav-link" href="/kelas-detail/{{ encrypt($item->id) }}">{{ $item->nama_kelas }}</a>
+                                        <li><a class="nav-link"
+                                                href="/kelas-detail/{{ encrypt($item->id) }}">{{ $item->nama_kelas }}</a>
                                         </li>
                                     @endforeach
 
@@ -251,7 +252,10 @@
                                     <li><a class="nav-link" href="/profil-mahasiswa">Profil Mahasiswa</a></li>
                                     <li><a class="nav-link" href="/jadwal">Jadwal </a></li>
                                     <li><a class="nav-link" href="/krs-online">E-KRS </a></li>
-
+                                    {{-- <li>
+                                        <a class="nav-link" style="cursor: pointer" data-toggle="modal"
+                                            data-target="#loginModal">{{ __('KRS') }}</a>
+                                    </li> --}}
                                     <li><a class="nav-link-sidebar" href="/ujian">Ujian On</a></li>
                                     <li><a class="nav-link-sidebar" href="/e-ujian">Hasil Ujian</a></li>
                                     {{-- <li><a class="nav-link beep beep-sidebar" href="#tiga">-</a></li> --}}
@@ -270,6 +274,9 @@
             </div>
 
             <!-- Main Content -->
+            <div class="wrapper">
+            @include('sweetalert::alert')
+            </div>
             <div class="main-content">
                 <section class="section">
                     <div class="section-header">
