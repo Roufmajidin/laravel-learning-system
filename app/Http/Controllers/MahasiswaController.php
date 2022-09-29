@@ -33,10 +33,21 @@ class MahasiswaController extends Controller
     public function index()
     {
         // $idd = 2;
+        $auth =  Auth::user()->id;
+        $satu = 1;
+        $dua = 2;
+        $tiga = 3;
+        $empat = 4;
         // $dosen = Dosen::with('user')->where('user_id', Auth::user()->id)->get();
-        $m = Mahasiswa::with('kelas', 'semester')->where('user_id', Auth::user()->id)->first();
+        $m = Mahasiswa::with('kelas', 'semester')->where('user_id', $auth)->first();
         // dd($m);
-        return view('mahasiswa.index', compact('m'));
+        $krs1 = Krs::where('mahasiswa_id', $auth)->where('semester_id', $satu)->where('status', 1 )->get();
+        $krs2 = Krs::where('mahasiswa_id', $auth)->where('semester_id', $dua)->where('status', 1  )->get();
+        $krs3 = Krs::where('mahasiswa_id', $auth)->where('semester_id', $tiga)->where('status', 1 )->get();
+        $krs4 = Krs::where('mahasiswa_id', $auth)->where('semester_id', $empat)->where('status', 1)->get();
+
+        // dd($krs2);
+        return view('mahasiswa.index', compact('m', 'krs1', 'krs2', 'krs3', 'krs4'));
     }
     public function jadwal()
     {

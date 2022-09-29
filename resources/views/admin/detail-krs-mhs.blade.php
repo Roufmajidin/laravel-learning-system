@@ -257,6 +257,69 @@
 
     {{-- end --}}
 
+    {{-- semester 4 --}}
+      <div class="card-body">
+        <h6 class="float-left"></h6> <a href="">
+            <h6></h6>
+        </a>
+        <h6 class="float-right"> <a href=""></a></h6>
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="90%" cellspacing="0">
+                <thead class="">
+
+
+
+                    <tr>
+
+                        <th>Matakuliah</th>
+                        <th>Sks</th>
+                        <th>Dosen Pengampu</th>
+                        <th>Status_krs</th>
+
+                    </tr>
+                </thead>
+                <br><br>
+                <tbody>
+                    <p>Semester 4</p>
+                    @forelse ($krsSemester4 as $i)
+                        <tr>
+                            <td>{{ $i->matakuliah['nama_mk'] }}</td>
+                            <td>{{ $i->matakuliah['sks'] }}</td>
+                            @php
+                                $dosen = App\Models\Dosen::find($i->matakuliah['dosen_id']);
+                            @endphp
+                            <td>{{ $dosen->nama_dosen }}</td>
+
+
+                            @if ($i->status == 0)
+                                <td><a href="">Belum di Acc</a></td>
+                            @elseif($i->status == 1)
+                                <td><a href="">Sudah</a></td>
+                            @endif
+
+
+
+                        </tr>
+                    @empty
+
+                        <a style="margin-left:40%; margin-top:20%; position: absolute; color:red; font-wight:bold">
+                        </a>
+                    @endforelse
+
+
+
+                </tbody>
+
+            </table>
+
+
+
+        </div>
+
+
+    </div>
+
+
 
     </div>
     <!-- Modal -->

@@ -293,6 +293,11 @@ class AdminController extends Controller
             ->where('status', 1)
             ->where('semester_id', 3)
             ->get();
+        $krsSemester4 = Krs::with('mahasiswa', 'matakuliah')
+            ->where('mahasiswa_id', $id)
+            ->where('status', 1)
+            ->where('semester_id', 4)
+            ->get();
 
 
         // dd($krsSemester1);
@@ -303,6 +308,7 @@ class AdminController extends Controller
             'krsSemester1',
             'krsSemester2',
             'krsSemester3',
+            'krsSemester4',
 
         ));
     }
