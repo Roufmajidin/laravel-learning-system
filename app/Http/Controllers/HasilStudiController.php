@@ -6,10 +6,12 @@ use App\Models\HasilStudi;
 use App\Models\Krs;
 use App\Models\Mahasiswa;
 use App\Models\Matakuliah;
+use App\Models\Role_ujian;
 use App\Models\Semester;
 use App\Models\UjianMhs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Alert;
 
 class HasilStudiController extends Controller
 {
@@ -39,8 +41,37 @@ class HasilStudiController extends Controller
     }
     public function typeUjian()
     {
+        $type = Role_ujian::where('keterangan', 'Sedang Dimulai')->first();
+        $nu = Role_ujian::where('keterangan', 'NULL')->first();
 
-        return view('mahasiswa.type-ujian');
+
+
+
+        $auth = Auth::user()->id;
+
+        //1 $mhs = UjianMhs::with('mahasiswa')->where('mahasiswa_id', $auth)->get();
+        $ujian = Mahasiswa::with('ujianMhs')->where('user_id', $auth)->first();
+
+        // dd($ujian);
+        if ($type == NULL) {
+            # code...
+            Alert::warning(' Hayy ! ', 'Ujian Sudah Selesai !');
+            return redirect()->back();
+        } else {
+            # code...
+            $ujiane = UjianMhs::with('matakuliah')
+                ->where('mahasiswa_id', $ujian->user_id)
+                ->where('type_ujian', $type->type_ujian)
+                ->where('status_ujian', 2)
+                ->get();
+            return view('mahasiswa.ujian-online', compact('ujiane', 'type', 'ujian'));
+        }
+
+
+
+        // $ujiane = Krs::with('matakuliah')->where('mahasiswa_id', $auth)->get();
+        // dd($type);
+
     }
     public function ujianOn($id)
     {
@@ -51,12 +82,12 @@ class HasilStudiController extends Controller
 
         // dd($ujian);
         $ujiane = UjianMhs::with('matakuliah')
-        ->where('mahasiswa_id', $ujian->user_id)
-        ->where('type_ujian', $type)
-        ->where('status_ujian', 2)
-        ->get();
+            ->where('mahasiswa_id', $ujian->user_id)
+            ->where('type_ujian', $type)
+            ->where('status_ujian', 2)
+            ->get();
         // $ujiane = Krs::with('matakuliah')->where('mahasiswa_id', $auth)->get();
-        // dd($krs);
+        dd($ujian);
 
         return view('mahasiswa.ujian-online', compact('ujiane', 'type', 'ujian'));
     }
@@ -93,6 +124,4 @@ class HasilStudiController extends Controller
 
         return redirect('/ujian');
     }
-
-
 }

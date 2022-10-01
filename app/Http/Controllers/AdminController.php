@@ -9,14 +9,18 @@ use App\Models\Krs;
 use App\Models\Mahasiswa;
 use App\Models\Matakuliah;
 use App\Models\Pesan_dosen;
+use App\Models\Role_ujian;
 use App\Models\Semester;
 use App\Models\UjianMhs;
 use App\Models\User;
 use Egulias\EmailValidator\EmailParser;
+// use Illuminate\Console\View\Components\Alert;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Alert;
+
 class AdminController extends Controller
 {
     //
@@ -394,5 +398,46 @@ class AdminController extends Controller
         ]);
         // dd($mhs);
         return redirect()->back();
+    }
+    public function generateUjian()
+    {
+
+        $role = Role_ujian::get();
+        $rules = Role_ujian::where('keterangan', 'Sedang Dimulai')->first();
+        // dd($rules);
+
+        return view('admin.generate-ujian', compact('role', 'rules'));
+    }
+    public function activegenerate(Request $request)
+    {
+        $role = Role_ujian::where('keterangan', 'sedang Dimulai');
+
+        $rol = Role_ujian::find($request->type_ujian);
+        $rol->update([
+            'keterangan' => 'Sedang Dimulai',
+            'tanggal_ujian' => $request->tanggal_ujian,
+        ]);
+
+
+
+        Alert::success(' Succes ! ', 'Mengaktifkan Ujian :' . $rol->type_ujian);
+
+        return redirect('ujian-activate');
+    }
+    public function disactive(Request $request)
+    {
+        $role = Role_ujian::where('keterangan', 'sedang Dimulai')->first();
+
+        $rol = Role_ujian::find($request->type_ujian);
+        $role->update([
+            'keterangan' => NULL,
+            'tanggal_ujian' => NULL,
+        ]);
+
+
+
+        Alert::success(' Succes ! ', 'Menonaktifkan Ujian pada Tanggal :' . $role->tanggal_ujian);
+
+        return redirect('ujian-activate');
     }
 }

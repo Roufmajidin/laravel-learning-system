@@ -9,7 +9,8 @@
 
 
 
-            <form class="form-group" action="/buatAbsenProses/{{ encrypt($dosen->id) }}" method="POST" enctype="multipart/form-data">
+            <form class="form-group" action="/buatAbsenProses/{{ encrypt($dosen->id) }}" method="POST"
+                enctype="multipart/form-data">
                 @csrf
                 <div class="form-row">
                     <div class="form-group ml-4 col-md-5 row">
@@ -44,7 +45,7 @@
 
                         <select style="width: 300px; height:200px" name="mahasiswa[]" class="form-control" multiple>
                             @foreach ($m as $i)
-                                <option value="{{ $i->id }}">{{ $i->nama_mahasiswa }}</option>
+                                <option value="{{ $i->user_id }}">{{ $i->nama_mahasiswa }}</option>
                             @endforeach
 
 

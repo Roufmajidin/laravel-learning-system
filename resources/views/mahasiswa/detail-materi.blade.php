@@ -130,12 +130,11 @@
 
                         <td>
                             <a href="#edit"><i class="fas fa-edit"></i></a>
-                            <a href="/delete-upload/{{encrypt($i->id)}}"><i class="fas fa-trash"></i></a>
+                            <a href="/delete-upload/{{ encrypt($i->id) }}"><i class="fas fa-trash"></i></a>
                         </td>
-                         @if ($i->materi_id >= 0 )
-                    <p class="beep text-danger">Hy, ada upload yang duble. Harap Periksa</p>
-
-                @endif
+                        {{-- @if ($i->file >= $i->file)
+                            <p class="beep text-danger">Hy, ada upload yang duble. Harap Periksa</p>
+                        @endif --}}
 
                     </tr>
 

@@ -1,11 +1,11 @@
 @extends('home')
-@section('title', 'Absensi ' )
+@section('title', 'Absensi ')
 @section('content')
 
     <div class="card-body">
         <div class="col">
-        <h6 class=""> Matakuliah : {{$mk->nama_mk}} <br>
-         Pertemuan Ke - {{$pertemuan->pertemuan_ke}} </h6>
+            <h6 class=""> Matakuliah : {{ $mk->nama_mk }} <br>
+                Pertemuan Ke - {{ $pertemuan->pertemuan_ke }} </h6>
         </div>
 
 

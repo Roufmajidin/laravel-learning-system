@@ -41,9 +41,9 @@ class MahasiswaController extends Controller
         // $dosen = Dosen::with('user')->where('user_id', Auth::user()->id)->get();
         $m = Mahasiswa::with('kelas', 'semester')->where('user_id', $auth)->first();
         // dd($m);
-        $krs1 = Krs::where('mahasiswa_id', $auth)->where('semester_id', $satu)->where('status', 1 )->get();
-        $krs2 = Krs::where('mahasiswa_id', $auth)->where('semester_id', $dua)->where('status', 1  )->get();
-        $krs3 = Krs::where('mahasiswa_id', $auth)->where('semester_id', $tiga)->where('status', 1 )->get();
+        $krs1 = Krs::where('mahasiswa_id', $auth)->where('semester_id', $satu)->where('status', 1)->get();
+        $krs2 = Krs::where('mahasiswa_id', $auth)->where('semester_id', $dua)->where('status', 1)->get();
+        $krs3 = Krs::where('mahasiswa_id', $auth)->where('semester_id', $tiga)->where('status', 1)->get();
         $krs4 = Krs::where('mahasiswa_id', $auth)->where('semester_id', $empat)->where('status', 1)->get();
 
         // dd($krs2);
@@ -87,9 +87,9 @@ class MahasiswaController extends Controller
         $mahas = Mahasiswa::where('user_id', Auth::user()->id)->first();
         $dos = Dosen_jadwal::where('dosen_id', $id)->first();
 
-        $absen = Absensi::with('dosen_jadwal')->where('mahasiswa_id', $mahas->id)->where('dosen_jadwal_id', $id)->orderBy('id', 'DESC')->paginate(3);
-        $absen_urut = Absensi::with('dosen_jadwal')->where('mahasiswa_id', $mahas->id)->where('dosen_jadwal_id', $id)->orderBy('id', 'ASC')->get();
-        // dd($pertemuan);
+        $absen = Absensi::with('dosen_jadwal')->where('mahasiswa_id', $mahas->user_id)->where('dosen_jadwal_id', $id)->orderBy('id', 'DESC')->paginate(3);
+        $absen_urut = Absensi::with('dosen_jadwal')->where('mahasiswa_id', $mahas->user_id)->where('dosen_jadwal_id', $id)->orderBy('id', 'ASC')->get();
+        // dd($absen);
 
         return view('mahasiswa.jadwalDetail', compact('pertemuan', 'kel', 'absen', 'id', 'absen_urut'));
     }
@@ -411,10 +411,9 @@ class MahasiswaController extends Controller
 
         if ($request->token_krs == $token) {
 
-            Alert::success(' Succes ! ', 'Token Valid :'. $token);
+            Alert::success(' Succes ! ', 'Token Valid :' . $token);
             return view('mahasiswa.reg-krs', compact('mk', 'mhs', 'smt'));
-
-        }else{
+        } else {
             Alert::warning(' Danger ! ', 'Token Tidak Valid');
             return redirect('/krs-online');
         }

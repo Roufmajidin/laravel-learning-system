@@ -7,9 +7,9 @@
         </div>
         <div class="card-body">
 
-<audio id="chatAudio">
-        <source src="{{ asset('style/beep.mp3')}}" type="audio/mpeg">
-    </audio>
+            <audio id="chatAudio">
+                <source src="{{ asset('style/beep.mp3') }}" type="audio/mpeg">
+            </audio>
 
             <form class="form-group" action="/absenproses/{{ $absensi->id }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -22,8 +22,8 @@
                     <div class="form-group ml-4 col-md-5 row">
                         <label style="color:#17a2b8"> ID MK: {{ $absensi->id }}
                         </label>
-                        <input type="text" class="form-control" data-id="{{ $absensi->id }}" id="id_jadwal" value="{{ $absensi->id }}" name="jadwal_id"
-                            placeholder="">
+                        <input type="text" class="form-control" data-id="{{ $absensi->id }}" id="id_jadwal"
+                            value="{{ $absensi->id }}" name="jadwal_id" placeholder="">
 
 
 
@@ -34,15 +34,16 @@
                 <div class="form-row">
                     <div class="form-group ml-4 col-md-2">
                         <label style="color:#17a2b8">Mhs id</label>
-                        <input type="text" class="form-control" id="mhs_id" data-id="{{ $m->id }}" name="mahasiswa_id" value="{{ $m->id }}"
-                            placeholder="">
+                        <input type="text" class="form-control" id="mhs_id" data-id="{{ $m->id }}"
+                            name="mahasiswa_id" value="{{ $m->user_id }}" placeholder="">
 
                     </div>
 
                     <div class="form-group ml-4 col-md-2">
                         <label style="color:#17a2b8">dos id</label>
-                        <input type="text" class="form-control" id="ur" data-id="{{ Crypt::encrypt($absensi->id) }}"
-                            name="dosen_id" value="{{ Crypt::encrypt($absensiii->dosen_id) }}" placeholder="">
+                        <input type="text" class="form-control" id="ur"
+                            data-id="{{ Crypt::encrypt($absensi->id) }}" name="dosen_id"
+                            value="{{ Crypt::encrypt($absensiii->dosen_id) }}" placeholder="">
 
                     </div>
 

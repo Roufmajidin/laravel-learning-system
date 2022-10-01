@@ -109,7 +109,7 @@ class DosenController extends Controller
         // $d =  1;
         // $m = Mahasiswa::with('kelas')->where('kelas_id', $d)->get();
         // $d = $detailJ->kelas;
-        // dd($ef);
+        // dd($absensi);
         // $mahas = Mahasiswa::where('kelas_id',)
 
         return view('dosen.absensiPertemuanKelas', compact('absensi'));
@@ -127,7 +127,7 @@ class DosenController extends Controller
 
         $detail = Dosen_jadwal::with('absensi')->where('id', $id)->find($id);
 
-        // dd($absensi)
+        // dd($absensi);
         return view('dosen.absensiPertemuanKelas', compact('absensi', 'detail', 'kelas'));
     }
     public function kelasAll()
@@ -159,7 +159,7 @@ class DosenController extends Controller
         $mk = Matakuliah::with('dosen')->where('dosen_id', Auth::user()->id)->first();
         // dd($kelas);
         $pertemuan = Dosen_jadwal::find($id);
-        // dd($pertemuan);
+        // dd($absensi);
 
         return view('dosen.absensiPertemuanKelas', compact('absensi', 'mk', 'pertemuan'));
     }
@@ -289,6 +289,7 @@ class DosenController extends Controller
 
         foreach ($request->mahasiswa as $key => $name) {
             $p->create([
+
 
                 'jadwal_id' => $request->id_jadwal,
                 'mahasiswa_id' => $request->mahasiswa[$key],

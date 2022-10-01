@@ -10,7 +10,11 @@
             <h6></h6>
         </a> --}}
 
-        <h6 class="float-right"> Ujian : {{ $type }}<a href=""></a></h6>
+        @if ($type->type_ujian == 'UTS')
+            <h6 class="float-right"> Ujian Tengah Semester<a href=""></a></h6>
+        @else
+            <h6 class="float-right"> Ujian Akhir Semester<a href=""></a></h6>
+        @endif
         {{-- semester 1 --}}
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="90%" cellspacing="0">
@@ -60,7 +64,8 @@
                     @empty
 
                         <a style="margin-left:40%; margin-top:20%; position: absolute; color:red; font-wight:bold">
-                        Sesi Ujian Berakhir/ No Updated  <i style="color:blue" id="myButton" class="fas fa-question"></i>
+                            Sesi Ujian Berakhir/ No Updated <i style="color:blue" id="myButton"
+                                class="fas fa-question"></i>
                         </a>
                     @endforelse
 
@@ -85,12 +90,11 @@
 
 @endsection
 @push('scripts')
-<script>
-      // With the above scripts loaded, you can call `tippy()` with a CSS
-      // selector and a `content` prop:
-      tippy('#myButton', {
-        content: 'Data Ujian Sudah Di validasi Oleh Dosen, Silahkan Cek Hasil Studi !',
-      });
+    <script>
+        // With the above scripts loaded, you can call `tippy()` with a CSS
+        // selector and a `content` prop:
+        tippy('#myButton', {
+            content: 'Data Ujian Sudah Di validasi Oleh Dosen, Silahkan Cek Hasil Studi !',
+        });
     </script>
-
 @endpush

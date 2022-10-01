@@ -49,7 +49,6 @@ Route::group(['middleware' => 'dosen'], function () {
     Route::post('/validate-uts/{id}', [DosenController::class, 'validasiUts']);
     Route::get('/kotak-masuk', [DosenController::class, 'kotakMasuk']);
     Route::get('/update-status', [DosenController::class, 'updateStatus'])->name('update-status');
-
 });
 // admin
 Route::group(['middleware' => 'admin'], function () {
@@ -74,8 +73,9 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('/validateDisKrs', [AdminController::class, 'validateDisKrs']);
     Route::post('/send-pengumuman', [AdminController::class, 'storePengumuman']);
     Route::post('/generate-token', [AdminController::class, 'generateToken']);
-
-
+    Route::get('/ujian-activate', [AdminController::class, 'generateUjian']);
+    Route::post('/active-generate', [AdminController::class, 'activegenerate']);
+    Route::post('/disactive', [AdminController::class, 'disactive']);
 });
 
 
@@ -106,7 +106,6 @@ Route::group(['middleware' => 'mahasiswa'], function () {
     Route::get('/krs-online', [MahasiswaController::class, 'krsMhsToken'])->name('krs');
     Route::post('/krs-online-proses', [MahasiswaController::class, 'krsMhsProses']);
     Route::post('/krs-token-login', [MahasiswaController::class, 'krsTokenProses']);
-
 });
 
 Auth::routes();

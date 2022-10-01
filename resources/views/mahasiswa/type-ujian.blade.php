@@ -5,7 +5,7 @@
     <div class="card-body">
 
 
-       {{-- semester 1 --}}
+        {{-- semester 1 --}}
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="90%" cellspacing="0">
                 <thead class="">
@@ -22,20 +22,19 @@
                 </thead>
                 <br>
                 <tbody>
-                @php
-                    $p = 1;
-                @endphp
+                    @php
+                        $p = 1;
+                    @endphp
 
-
-                            <td> {{ $p++ }}</td>
-                            @php
-                                $ui ='UTS';
-                                $uii = 'UAS';
-                            @endphp
-                            <td>
-                            <a href="/type/{{ encrypt($ui)}}"><button class="btn btn-primary">UTS</button></a>
-                            <a href="/type/{{encrypt($uii)}}"><button class="btn btn-primary">UAS</button></a>
-                            </td>
+                    <td> {{ $p++ }}</td>
+                    @php
+                        $ui = 'UTS';
+                        $uii = 'UAS';
+                    @endphp
+                    <td>
+                        <a href="/type/{{ encrypt($ui) }}"><button class="btn btn-primary">UTS</button></a>
+                        <a href="/type/{{ encrypt($uii) }}"><button class="btn btn-primary">UAS</button></a>
+                    </td>
 
 
 

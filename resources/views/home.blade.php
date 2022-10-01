@@ -197,6 +197,7 @@
                                 <ul class="">
                                     <li><a class="nav-link" href="/jadwal-dosen/">Dosen</a></li>
                                     <li><a class="nav-link" href="/mahasiswa-data/">Mahasiswa</a></li>
+                                    <li><a class="nav-link" href="/ujian-activate">Ujian</a></li>
 
                                     <li><a class="nav-link beep beep-sidebar" href="/krs-mahasiswa">Krs Mahasiswa</a>
                                     </li>
@@ -275,7 +276,7 @@
 
             <!-- Main Content -->
             <div class="wrapper">
-            @include('sweetalert::alert')
+                @include('sweetalert::alert')
             </div>
             <div class="main-content">
                 <section class="section">
