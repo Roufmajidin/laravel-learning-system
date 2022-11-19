@@ -417,6 +417,9 @@ class MahasiswaController extends Controller
                 'krs_backup' => $request->token_krs
             ]);
             return view('mahasiswa.reg-krs', compact('mk', 'mhs', 'smt'));
+        } elseif ($request->token_krs == $mhs->krs_backup) {
+            Alert::info(' Danger ! ', 'Anda Sudah melakukan KRS, silahkan Cek Jadwal');
+            return redirect('/krs-online');
         } else {
             Alert::warning(' Danger ! ', 'Token Tidak Valid');
             return redirect('/krs-online');
