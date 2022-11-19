@@ -9,6 +9,7 @@ use App\Http\Controllers\HasilStudiController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\QRCodeController;
 use App\Http\Middleware\Admin;
+use App\Models\User;
 
 Route::get('/', function () {
     return view('welcome');
@@ -111,3 +112,15 @@ Route::group(['middleware' => 'mahasiswa'], function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::get('/user-tambah', function () {
+
+    $user = User::create([
+        'name' => 'Rouf',
+        'email' => 'roufmajidin777@gmail.com',
+        'level' => 'mahasiswa',
+        'password' => bcrypt('roufmajidin'),
+    ]);
+    $user->save();
+});

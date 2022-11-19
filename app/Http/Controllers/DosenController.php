@@ -373,6 +373,7 @@ class DosenController extends Controller
                 'type_ujian' => $request->type_ujian,
                 'semester_id' => $request->semester_id[$key],
                 'status_ujian' => 2,
+                'tanggal_ujian' => $request->tanggal_ujian
 
             ]);
         }

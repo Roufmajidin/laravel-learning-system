@@ -19,8 +19,8 @@
                     </div>
                     <div class="form-group ml-4 col-md-5">
                         <label style="color:#17a2b8">Mahasiswa : {{ $mahasiswa->nama_mahasiswa }}</label>
-                        <input type="text" class="form-control" name="mahasiswa_id"
-                            value="{{ $mahasiswa->user_id }}" placeholder="">
+                        <input type="text" class="form-control" name="mahasiswa_id" value="{{ $mahasiswa->user_id }}"
+                            placeholder="">
 
                     </div>
                     <div class="form-group ml-4 col-md-5">
@@ -29,17 +29,20 @@
                             placeholder="">
 
                     </div>
-                     <div class="form-group ml-2 col-md-5">
-                         <label style="color: red">type ujian</label>
+                    <div class="form-group ml-2 col-md-5">
+                        <label style="color: red">type ujian</label>
 
                         <select name="type_ujian" class="form-control">
-                            <option value="UTS">UTS</option>
-                            <option value="UAS">UAS</option>
+                            @php
+                                $role = App\Models\Role_ujian::where('keterangan', 'Sedang Dimulai')->first();
+                            @endphp
+
+                            <option value="{{ $role->type_ujian }}">{{ $role->type_ujian }}</option>
 
                         </select>
 
                     </div>
-                      <div class="form-group ml-4 col-md-5">
+                    <div class="form-group ml-4 col-md-5">
                         <label style="color:#17a2b8">Semester : {{ $semester->semester }}</label>
                         <input type="text" class="form-control" name="semester_id" value="{{ $semester->id }}"
                             placeholder="">

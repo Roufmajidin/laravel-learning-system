@@ -102,33 +102,29 @@
                     @endphp
 
                     <tr>
-                    @if ($krs == 0 AND $cond == 0 )
+                        @if ($krs == 0)
+                        @else
+                            <td>semester 1</td>
 
-                    @else
-                        <td>semester 1</td>
-
-                        <td>{{ $krs }} Matakuliah</td>
-
-                    @endif
+                            <td>{{ $krs }} Matakuliah</td>
+                        @endif
 
                     </tr>
                 </tbody>
                 {{-- semester 2 --}}
                 <tbody>
-                     @php
+                    @php
                         $no = 1;
-                        $krs = $krs2->count()
+                        $krs = $krs2->count();
                     @endphp
 
                     <tr>
-                    @if ($krs == 0)
+                        @if ($krs == 0)
+                        @else
+                            <td>semester 2</td>
 
-                    @else
-                        <td>semester 2</td>
-
-                        <td>{{ $krs }} Matakuliah</td>
-
-                    @endif
+                            <td>{{ $krs }} Matakuliah</td>
+                        @endif
 
                     </tr>
 
@@ -143,20 +139,18 @@
                 </tbody>
                 {{-- semester 3 --}}
                 <tbody>
-                     @php
+                    @php
                         $no = 1;
-                        $krs = $krs3->count()
+                        $krs = $krs3->count();
                     @endphp
 
                     <tr>
-                    @if ($krs == 0)
+                        @if ($krs == 0)
+                        @else
+                            <td>semester 3</td>
 
-                    @else
-                        <td>semester 3</td>
-
-                        <td>{{ $krs }} Matakuliah</td>
-
-                    @endif
+                            <td>{{ $krs }} Matakuliah</td>
+                        @endif
 
                     </tr>
 
@@ -167,18 +161,16 @@
                 <tbody>
                     @php
                         $no = 1;
-                        $krs = $krs4->count()
+                        $krs = $krs4->count();
                     @endphp
 
                     <tr>
-                    @if ($krs == 0)
+                        @if ($krs == 0)
+                        @else
+                            <td>semester 4</td>
 
-                    @else
-                        <td>semester 4</td>
-
-                        <td>{{ $krs4->count() }} Matakuliah</td>
-
-                    @endif
+                            <td>{{ $krs4->count() }} Matakuliah</td>
+                        @endif
 
                     </tr>
                 </tbody>

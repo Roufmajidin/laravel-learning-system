@@ -258,7 +258,7 @@
     {{-- end --}}
 
     {{-- semester 4 --}}
-      <div class="card-body">
+    <div class="card-body">
         <h6 class="float-left"></h6> <a href="">
             <h6></h6>
         </a>
@@ -341,7 +341,8 @@
                                 $m = App\Models\Mahasiswa::where('kelas_id', $kelas->id)->find($mahasiswa->id);
                                 $no = 1;
                             @endphp
-                            <label for="recipient-name" class="col-form-label">Mahasiswa: {{ $m->nama_mahasiswa }} </label>
+                            <label for="recipient-name" class="col-form-label">Mahasiswa: {{ $m->nama_mahasiswa }}
+                            </label>
                             <input type="text" class="form-control" name="mahasiswa_id" value="{{ $m->user_id }}"
                                 id="">
                         </div>
@@ -392,7 +393,7 @@
         </div>
     </div>
 
-      <!-- Modal Token -->
+    <!-- Modal Token -->
     <div class="modal fade" id="generateToken" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -411,7 +412,8 @@
                                 $m = App\Models\Mahasiswa::where('kelas_id', $kelas->id)->find($mahasiswa->id);
                                 $no = 1;
                             @endphp
-                            <label for="recipient-name" class="col-form-label">Mahasiswa: {{ $m->nama_mahasiswa }} </label>
+                            <label for="recipient-name" class="col-form-label">Mahasiswa: {{ $m->nama_mahasiswa }}
+                            </label>
                             <input type="text" class="form-control" name="mahasiswa_id" value="{{ $m->id }}"
                                 id="">
                         </div>

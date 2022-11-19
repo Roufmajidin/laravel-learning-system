@@ -412,6 +412,10 @@ class MahasiswaController extends Controller
         if ($request->token_krs == $token) {
 
             Alert::success(' Succes ! ', 'Token Valid :' . $token);
+            $mhs->update([
+                'token_krs' => 'null',
+                'krs_backup' => $request->token_krs
+            ]);
             return view('mahasiswa.reg-krs', compact('mk', 'mhs', 'smt'));
         } else {
             Alert::warning(' Danger ! ', 'Token Tidak Valid');

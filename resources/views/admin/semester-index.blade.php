@@ -5,10 +5,10 @@
     {{-- semestr 2 --}}
     <div class="card-body">
         <h6>Semster 2</h6>
-          @php
-            $m = App\Models\Mahasiswa::where('semester_id', $semester2)->count()
+        @php
+            $m = App\Models\Mahasiswa::where('semester_id', $semester2)->count();
         @endphp
-        <h6>Jumlah {{$m}}</h6>
+        <h6>Jumlah {{ $m }}</h6>
 
         </a>
         <a href="/update-mhs"><button class="btn btn-primary">update mhs Semester</button></a>
@@ -63,10 +63,10 @@
     <div class="card-body">
         <h6>Semster 4</h6>
         </a>
-          @php
-            $m = App\Models\Mahasiswa::where('semester_id', $semester4)->count()
+        @php
+            $m = App\Models\Mahasiswa::where('semester_id', $semester4)->count();
         @endphp
-        <h6>Jumlah {{$m}}</h6>
+        <h6>Jumlah {{ $m }}</h6>
 
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="90%" cellspacing="0">
@@ -115,14 +115,14 @@
 
     </div>
 
-{{-- semester5 --}}
+    {{-- semester5 --}}
 
-  <div class="card-body">
+    <div class="card-body">
         <h6>Semster 5</h6>
         @php
-            $m = App\Models\Mahasiswa::where('semester_id', $semester5)->count()
+            $m = App\Models\Mahasiswa::where('semester_id', $semester5)->count();
         @endphp
-        <h6>Jumlah : {{$m}} </h6>
+        <h6>Jumlah : {{ $m }} </h6>
         </a>
 
         <div class="table-responsive">

@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Alert;
+use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
@@ -390,12 +391,17 @@ class AdminController extends Controller
     {
 
         $mhs = Mahasiswa::find($request->mahasiswa_id);
+        $tujuan  = User::where('id', $mhs->user_id)->first();
+
         $token = Str::random(30);
+
         $mhs->update([
 
             //status 2 itu stand By
             'token_krs' => $token
         ]);
+
+
         // dd($mhs);
         return redirect()->back();
     }

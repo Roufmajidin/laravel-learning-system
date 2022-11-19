@@ -12,6 +12,7 @@ class UjianMhs extends Model
     protected $fillable = [
         'mahasiswa_id',
         'type_ujian',
+        'tanggal_ujian',
         'status_ujian',
         'matakuliah_id',
         'file_jawaban',

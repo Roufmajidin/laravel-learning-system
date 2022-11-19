@@ -19,6 +19,8 @@ class Mahasiswa extends Model
         'foto_mahasiswa',
         'keterangan',
         'token_krs',
+        'token_krs',
+        'krs_backup',
     ];
     public function kelas()
     {

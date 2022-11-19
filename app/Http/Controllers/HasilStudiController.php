@@ -34,7 +34,7 @@ class HasilStudiController extends Controller
         $semester4 = Semester::find(4);
         $mhasilSemester1 = HasilStudi::with('mahasiswa', 'matakuliah', 'semester')->where('mahasiswa_id', Auth::user()->id)->where('semester_id', $semester1->id)->get();
         $mhasilSemester2 = HasilStudi::with('mahasiswa', 'matakuliah', 'semester')->where('mahasiswa_id', Auth::user()->id)->where('semester_id', $semester2->id)->get();
-
+        
         // dd($mhasilSemester2);
 
         return view('mahasiswa.hasilStudi', compact('mhasilSemester1', 'mhasilSemester2'));
