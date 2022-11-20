@@ -107,6 +107,7 @@ Route::group(['middleware' => 'mahasiswa'], function () {
     Route::get('/krs-online', [MahasiswaController::class, 'krsMhsToken'])->name('krs');
     Route::post('/krs-online-proses', [MahasiswaController::class, 'krsMhsProses']);
     Route::post('/krs-token-login', [MahasiswaController::class, 'krsTokenProses']);
+    Route::get('/riwayat-krs', [MahasiswaController::class, 'riwayatKrs']);
 });
 
 Auth::routes();
